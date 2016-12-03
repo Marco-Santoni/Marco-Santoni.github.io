@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Bayesian A/B Testing in Python</title>
+        <link rel="stylesheet" href="http://Marco-Santoni.github.io/theme/css/main.css" />
+        <link href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni - Data Scientist Atom Feed" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://Marco-Santoni.github.io/">Marco Santoni - Data Scientist </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="http://Marco-Santoni.github.io/category/code.html">Code</a></li>
+                    <li><a href="http://Marco-Santoni.github.io/category/events.html">Events</a></li>
+                    <li><a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://Marco-Santoni.github.io/bayesian-ab-testing-in-python.html" rel="bookmark"
+           title="Permalink to Bayesian A/B Testing in Python">Bayesian A/B Testing in Python</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-05-15T15:33:00+02:00">
+                Published: Sun 15 May 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+        </address>
+<p>In <a href="http://Marco-Santoni.github.io/category/code.html">Code</a>.</p>
+<p>tags: <a href="http://Marco-Santoni.github.io/tag/bayesian.html">Bayesian</a> </p>
+</footer><!-- /.post-info -->      <p>Imagine you re-designing your e-commerce website. You have to decide
+whether the "Buy Item" button should be blue or green. You decide to
+setup an A/B test, so you build two versions of the item page:</p>
+<ul>
+<li><strong>Page A</strong> which has a blue button;</li>
+<li><strong>Page B</strong> which has a green button.</li>
+</ul>
+<p>Pages A and B are identical except for the color of the button. You want
+to quantify the likelihood of a user clicking the "Buy Item" button when
+she is on page A or on page B. So, you start the experiment by sending
+each user either to page A or to page B. Each time, you monitor whether
+she clicked "Buy Item" or not.</p>
+<p><strong>Frequentist vs Bayesian</strong></p>
+<p>One could simply approximate the effectiveness of each page by computing
+the <strong>success rate</strong> on the two pages. E.g. if N=1000 users visited page
+A, and 50 of them clicked the button, one could say that the likelihood
+of clicking the button on page A is 50/1000 \~= 5%. This is the
+so-called <strong>Frequentist </strong>approach which envisions the probability in
+terms of event frequency. However, the following issues might arise on a
+daily basis:</p>
+<ul>
+<li>what if N is small (e.g. N=50)? Can we still be confident by just
+    computing the success rate?</li>
+<li>What if N is different between page A and page B? Let's say that 500
+    users visited page A and 2000 users visited page B. How can we
+    combine such imbalanced experiments?</li>
+<li>How large should N be to achieve a 90% confidence in my estimates?</li>
+</ul>
+<p>We'll now introduce a simple <strong>Bayesian</strong> solution that allows to run
+the A/B test and to handle the issues listed above. The code makes use
+of <a href="https://pymc-devs.github.io/pymc/">PyMC</a> package, and it was
+inspired by reading "Bayesian Methods for Hackers"  by <a href="https://twitter.com/Cmrn_DP?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Cameron
+Davidson-Pilon</a>.</p>
+<p><strong>Evaluate Page A</strong></p>
+<p>We'll first show how to evaluate the success rate on page A with a
+Bayesian approach. The goal is to infer the probability of clicking the
+"Buy Item" button on page A. We model this probability as a
+<a href="https://www.wikiwand.com/en/Bernoulli_distribution">Bernoulli</a>
+distribution with parameter [latex]p_A[/latex]:</p>
+<p>[latex]P(click|\text{page}=A)=\begin{cases}p_A &amp; click=1\\1-p_A
+&amp; click=0\end{cases}[/latex]</p>
+<p>So, [latex]p_A[\latex] is the parameter indicating the probability
+of clicking the button on page A. This parameter is unknown and the goal
+of the experiment is to infer it.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc</span> <span class="kn">import</span> <span class="n">Uniform</span><span class="p">,</span> <span class="n">rbernoulli</span><span class="p">,</span> <span class="n">Bernoulli</span><span class="p">,</span> <span class="n">MCMC</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+\<span class="c1"># true value of p_A (unknown)</span>
+<span class="n">p_A_true</span> <span class="o">=</span> <span class="mf">0.05</span>
+\<span class="c1"># number of users visiting page A</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="n">occurrences</span> <span class="o">=</span> <span class="n">rbernoulli</span><span class="p">(</span><span class="n">p_A_true</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s1">&#39;Click-BUY:&#39;</span>
+<span class="k">print</span> <span class="n">occurrences</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="k">print</span> <span class="s1">&#39;Observed frequency:&#39;</span>
+<span class="k">print</span> <span class="n">occurrences</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In this code, we are simulating a realisation of the experiment where
+1000 users visited page A. Here, <em>occurrences </em>indicate how many
+visitors have actually clicked on the button in this realisation.</p>
+<p>The next step consist of defining our prior on the
+[latex]p_A[\latex] parameter. The <strong>prior definition </strong>is the
+first step of Bayesian inference and is a way to indicate our prior
+belief in the variable.</p>
+<div class="highlight"><pre><span></span><span class="n">p_A</span> <span class="o">=</span> <span class="n">Uniform</span><span class="p">(</span><span class="s1">&#39;p_A&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">obs</span> <span class="o">=</span> <span class="n">Bernoulli</span><span class="p">(</span><span class="s1">&#39;obs&#39;</span><span class="p">,</span> <span class="n">p_A</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">occurrences</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In this section, we define the prior of [latex]p_a[\latex] to be a
+uniform distribution. The <em>obs </em>variable indicates the Bernoulli
+distribution representing the observations of the click events (indeed
+governed by the [latex]p_a[\latex] parameter). The two variables
+are assigned to <em>Uniform</em> and <em>Bernoulli</em> which are stochastic variable
+objects part of PyMC. Each variable is associated with a string name
+(<em>p_A </em> and <em>obs</em> in this case). The <em>obs</em> variable has the <em>value </em>
+and the <em>observed </em>parameter set because we have observed the
+realisations of the experiments.</p>
+<div class="highlight"><pre><span></span>\<span class="c1"># defining a Monte Carlo Markov Chain model</span>
+<span class="n">mcmc</span> <span class="o">=</span> <span class="n">MCMC</span><span class="p">(</span>\<span class="p">[</span><span class="n">p_A</span><span class="p">,</span> <span class="n">obs</span>\<span class="p">])</span>
+\<span class="c1"># setting the size of the simulations to 20k particles</span>
+<span class="n">mcmc</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">20000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+\<span class="c1"># the resulting posterior distribution is stored in the trace variable</span>
+<span class="k">print</span> <span class="n">mcmc</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s1">&#39;p_A&#39;</span><span class="p">)</span>\<span class="p">[:</span>\<span class="p">]</span>
+</pre></div>
+
+
+<p>In this section, the MCMC model is initialised, and the variables <em>p_A</em>
+and <em>obs</em> are given to it as input. The <em>sample </em>model will run the
+Monte Carlo simulations and fit the observed data to the prior belief.
+The posterior distribution is accessible via the <em>.trace</em> attribute as
+an array of realisations. We can now visualise the result of the
+inference.</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">mcmc</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s1">&#39;p_A&#39;</span><span class="p">)</span>\<span class="p">[:</span>\<span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span>
+<span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Probability of clicking BUY&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">p_A_true</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True p_A&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="p_A_hist_N_1500" class="alignnone
+.wp-image-38 size-full" height="700" src="http://Marco-Santoni.github.io/images/p_A_hist_N_1500.png" width="800" /></p>
+<p>Then, we might want to answer the question: where am I 90% confident
+that the true [latex]p_A[\latex] lies? That's easy to answer.</p>
+<div class="highlight"><pre><span></span><span class="n">p_A_samples</span> <span class="o">=</span> <span class="n">mcmc</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s1">&#39;p_A&#39;</span><span class="p">)</span>\<span class="p">[:</span>\<span class="p">]</span>
+<span class="n">lower_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">p_A_samples</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">upper_bound</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">p_A_samples</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;There is 90</span><span class="si">%%</span><span class="s1"> probability that p_A is between </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span>
+<span class="p">(</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">)</span>
+\<span class="c1"># There is 90% probability that p_A is between 0.0373019596856 and</span>
+<span class="mf">0.0548052806892</span>
+</pre></div>
+
+
+<p><strong>Comparing Page A and Page B</strong></p>
+<p>We'll now repeat what we have done for page A, and we add a new
+variable <em>delta </em>indicating the difference
+between [latex]p_A[\latex] and [latex]p_B[\latex].</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc</span> <span class="kn">import</span> <span class="n">Uniform</span><span class="p">,</span> <span class="n">rbernoulli</span><span class="p">,</span> <span class="n">Bernoulli</span><span class="p">,</span> <span class="n">MCMC</span><span class="p">,</span> <span class="n">deterministic</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">p_A_true</span> <span class="o">=</span> <span class="mf">0.05</span>
+<span class="n">p_B_true</span> <span class="o">=</span> <span class="mf">0.04</span>
+<span class="n">N_A</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="n">N_B</span> <span class="o">=</span> <span class="mi">750</span>
+
+<span class="n">occurrences_A</span> <span class="o">=</span> <span class="n">rbernoulli</span><span class="p">(</span><span class="n">p_A_true</span><span class="p">,</span> <span class="n">N_A</span><span class="p">)</span>
+<span class="n">occurrences_B</span> <span class="o">=</span> <span class="n">rbernoulli</span><span class="p">(</span><span class="n">p_B_true</span><span class="p">,</span> <span class="n">N_B</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s1">&#39;Observed frequency:&#39;</span>
+<span class="k">print</span> <span class="s1">&#39;A&#39;</span>
+<span class="k">print</span> <span class="n">occurrences_A</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">N_A</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;B&#39;</span>
+<span class="k">print</span> <span class="n">occurrences_B</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">N_B</span><span class="p">)</span>
+
+<span class="n">p_A</span> <span class="o">=</span> <span class="n">Uniform</span><span class="p">(</span><span class="s1">&#39;p_A&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">p_B</span> <span class="o">=</span> <span class="n">Uniform</span><span class="p">(</span><span class="s1">&#39;p_B&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nd">@deterministic</span>
+<span class="k">def</span> <span class="nf">delta</span><span class="p">(</span><span class="n">p_A</span><span class="o">=</span><span class="n">p_A</span><span class="p">,</span> <span class="n">p_B</span><span class="o">=</span><span class="n">p_B</span><span class="p">):</span>
+<span class="k">return</span> <span class="n">p_A</span> <span class="o">-</span> <span class="n">p_B</span>
+
+<span class="n">obs_A</span> <span class="o">=</span> <span class="n">Bernoulli</span><span class="p">(</span><span class="s1">&#39;obs_A&#39;</span><span class="p">,</span> <span class="n">p_A</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">occurrences_A</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">obs_B</span> <span class="o">=</span> <span class="n">Bernoulli</span><span class="p">(</span><span class="s1">&#39;obs_B&#39;</span><span class="p">,</span> <span class="n">p_B</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">occurrences_B</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">mcmc</span> <span class="o">=</span> <span class="n">MCMC</span><span class="p">(</span>\<span class="p">[</span><span class="n">p_A</span><span class="p">,</span> <span class="n">p_B</span><span class="p">,</span> <span class="n">obs_A</span><span class="p">,</span> <span class="n">obs_B</span><span class="p">,</span> <span class="n">delta</span>\<span class="p">])</span>
+<span class="n">mcmc</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">25000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+
+<span class="n">p_A_samples</span> <span class="o">=</span> <span class="n">mcmc</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s1">&#39;p_A&#39;</span><span class="p">)</span>\<span class="p">[:</span>\<span class="p">]</span>
+<span class="n">p_B_samples</span> <span class="o">=</span> <span class="n">mcmc</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s1">&#39;p_B&#39;</span><span class="p">)</span>\<span class="p">[:</span>\<span class="p">]</span>
+<span class="n">delta_samples</span> <span class="o">=</span> <span class="n">mcmc</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s1">&#39;delta&#39;</span><span class="p">)</span>\<span class="p">[:</span>\<span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">p_A_samples</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior of p_A&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">p_A_true</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True p_A</span>
+<span class="p">(</span><span class="n">unknown</span><span class="p">)</span><span class="s1">&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Probability of clicking BUY via A&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">p_B_samples</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior of p_B&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">p_B_true</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True p_B</span>
+<span class="p">(</span><span class="n">unknown</span><span class="p">)</span><span class="s1">&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Probability of clicking BUY via B&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">delta_samples</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior of delta&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">p_A_true</span> <span class="o">-</span> <span class="n">p_B_true</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True</span>
+<span class="n">delta</span> <span class="p">(</span><span class="n">unknown</span><span class="p">)</span><span class="s1">&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;p_A - p_B&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="A_and_B" class="alignnone
+.wp-image-40 size-full" height="600" src="http://Marco-Santoni.github.io/images/A_and_B.png" width="800" /></p>
+<p>Then, we can answer a question like: what is the probability that
+[latex] p_A &gt; p_B[\latex]?</p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="s1">&#39;Probability that p_A &amp;gt; p_B:&#39;</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">delta_samples</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+\<span class="c1"># Probability that p_A &amp;gt; p_B:&amp;lt;/pre&amp;gt;</span>
+\<span class="c1"># 0.8919</span>
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

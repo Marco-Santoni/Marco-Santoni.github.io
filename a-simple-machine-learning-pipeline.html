@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>A Simple Machine Learning Pipeline</title>
+        <link rel="stylesheet" href="http://Marco-Santoni.github.io/theme/css/main.css" />
+        <link href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni - Data Scientist Atom Feed" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://Marco-Santoni.github.io/">Marco Santoni - Data Scientist </a></h1>
+                <nav><ul>
+                    <li><a href="http://Marco-Santoni.github.io/category/code.html">Code</a></li>
+                    <li><a href="http://Marco-Santoni.github.io/category/events.html">Events</a></li>
+                    <li class="active"><a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://Marco-Santoni.github.io/a-simple-machine-learning-pipeline.html" rel="bookmark"
+           title="Permalink to A Simple Machine Learning Pipeline">A Simple Machine Learning Pipeline</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-06-19T10:37:00+02:00">
+                Published: Sun 19 June 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+        </address>
+<p>In <a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a>.</p>
+
+</footer><!-- /.post-info -->      <p>This post contains the code that I used in my talk at Python Milano
+Meetup on <a href="http://www.meetup.com/Python-Milano/events/231710577/">June 22nd
+2016</a>. The talk
+was a quick overview of <strong>Pipeline</strong>, a nice API by <em>scikitlearn</em> to
+abstract your machine learning algorithm. It is based on the Boston
+<a href="https://archive.ics.uci.edu/ml/datasets/Housing">Housing Data Set</a>.</p>
+<p>We'll just load the data set from <em>sklearn</em>.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_boston</span>
+<span class="n">housing_data</span> <span class="o">=</span> <span class="n">load_boston</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">housing_data</span><span class="o">.</span><span class="n">DESCR</span>
+</pre></div>
+
+
+<p>We might want to make it a Pandas dataframe to make things easier to
+handle.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">housing_data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">housing_data</span><span class="o">.</span><span class="n">feature_names</span>
+<span class="n">df</span>\<span class="p">[</span><span class="s1">&#39;PRICE&#39;</span>\<span class="p">]</span> <span class="o">=</span> <span class="n">housing_data</span><span class="o">.</span><span class="n">target</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="table" class="alignnone
+.size-full wp-image-72" height="318" src="http://Marco-Santoni.github.io/images/table.png" width="1206" /></p>
+<p>The goal is to predict the <em>PRICE</em> variable given the other features.
+How does this variable distribute?</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">df</span><span class="o">.</span><span class="n">PRICE</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;PRICE&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="download
+(8)" class="alignnone
+.size-full wp-image-74" height="271" src="http://Marco-Santoni.github.io/images/download-8.png" width="378" /></p>
+<p>Let's turn the dataframe into a ML-friendly notation.</p>
+<div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;PRICE&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span>\<span class="p">[</span><span class="s1">&#39;PRICE&#39;</span>\<span class="p">]</span>
+</pre></div>
+
+
+<p>We will now define the metric that assess the accuracy of our
+algorithm/pipeline. Let's use the good old cross validation.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">cross_validation</span>
+<span class="k">def</span> <span class="nf">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">):</span>
+<span class="k">print</span> <span class="s1">&#39;Mean Squared Error&#39;</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_validation</span><span class="o">.</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+<span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;mean_squared_error&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="o">-</span><span class="n">scores</span>
+<span class="k">print</span> <span class="s1">&#39;Accuracy: </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="o">-</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+
+<p>So, now, we can try a bunch of algorithms and see which one works best
+by calling <em>evaluate_model</em>. It is now time to implement a first
+algorithm. So, let's explore a bit the data set. Is there any pattern we
+can exploit?</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span>\<span class="p">[</span><span class="s1">&#39;RM&#39;</span>\<span class="p">],</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Average number of rooms&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Housing price in \$1000</span><span class="se">\\</span><span class="s1">&#39;</span><span class="n">s</span><span class="s1">&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="download" class="alignnone
+.size-full wp-image-78" height="438" src="http://Marco-Santoni.github.io/images/download.png" width="610" /></p>
+<p>As expected, there is a relation between the average number of rooms and
+the median price. So, let's build the first algorithm.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">FunctionTransformer</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="k">def</span> <span class="nf">just_RM_column</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="n">RM_col_index</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">return</span> <span class="n">X</span>\<span class="p">[:,</span> \<span class="p">[</span><span class="n">RM_col_index</span>\<span class="p">]</span>\<span class="p">]</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">just_RM_column</span><span class="p">),</span>
+<span class="n">LinearRegression</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>How well does it perform?</p>
+<div class="highlight"><pre><span></span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;Mean Squared Error \[ 43.19492771 41.72813479 46.89293772\] Accuracy:</span>
+<span class="sd">43.94&#39;&#39;&#39;</span>
+</pre></div>
+
+
+<p>Can we visualize what the pipeline is actually doing?</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_model_RM</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">):</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span>
+<span class="n">cross_validation</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
+<span class="n">X</span><span class="p">,</span>
+<span class="n">y</span><span class="p">,</span>
+<span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span>
+<span class="n">random_state</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">fake_X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">fake_X_train</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">fake_X_train</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]),</span>
+<span class="nb">max</span><span class="p">(</span><span class="n">fake_X_train</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]),</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">fake_X_train</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]))</span>
+<span class="n">fake_X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">fake_X_test</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">fake_X_test</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]),</span>
+<span class="nb">max</span><span class="p">(</span><span class="n">fake_X_test</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]),</span> <span class="n">num</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">fake_X_test</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span>\<span class="p">[</span><span class="s1">&#39;RM&#39;</span>\<span class="p">],</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fake_X_train</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">],</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">fake_X_train</span><span class="p">),</span>
+<span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Average number of rooms&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Housing price in \$1000</span><span class="se">\\</span><span class="s1">&#39;</span><span class="n">s</span><span class="s1">&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Train Data Set&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span>\<span class="p">[</span><span class="s1">&#39;RM&#39;</span>\<span class="p">],</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fake_X_test</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">],</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">fake_X_test</span><span class="p">),</span>
+<span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Average number of rooms&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Housing price in \$1000</span><span class="se">\\</span><span class="s1">&#39;</span><span class="n">s</span><span class="s1">&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Test Data Set&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">plot_model_RM</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="download
+(1)" class="alignnone
+.size-full wp-image-84" height="449" src="http://Marco-Santoni.github.io/images/download-1.png" width="1173" /></p>
+<p>We now do a bit of feature engineering. We square the features.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_squared_col</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span>\<span class="o">*</span>\<span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">just_RM_column</span><span class="p">),</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">add_squared_col</span><span class="p">),</span>
+<span class="n">LinearRegression</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>We evaluate this other pipeline.</p>
+<div class="highlight"><pre><span></span><span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mean Squared Error</span>
+<span class="sd">\[ 40.31207562 36.75642688 40.75444834\]</span>
+<span class="sd">Accuracy: 39.27&#39;&#39;&#39;</span>
+</pre></div>
+
+
+<p>And we see how the algorithm is fitting the data set.</p>
+<div class="highlight"><pre><span></span><span class="n">plot_model_RM</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="download
+(2)" class="alignnone
+.size-full wp-image-86" height="449" src="http://Marco-Santoni.github.io/images/download-2.png" width="1165" />
+We now try a different model like a <em>decision tree</em>.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">just_RM_column</span><span class="p">),</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">add_squared_col</span><span class="p">),</span>
+<span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mean Squared Error</span>
+<span class="sd">\[ 57.28366371 61.5437311 84.32756118\]</span>
+<span class="sd">Accuracy: 67.72</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">plot_model_RM</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="download
+(3)" class="alignnone
+.size-full wp-image-87" height="449" src="http://Marco-Santoni.github.io/images/download-3.png" width="1165" /></p>
+<p>We now explore a second feature: <em>INDUS</em>.</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span>\<span class="p">[</span><span class="s1">&#39;INDUS&#39;</span>\<span class="p">],</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Average number of rooms&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Housing price in \$1000</span><span class="se">\\</span><span class="s1">&#39;</span><span class="n">s</span><span class="s1">&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="download
+(4)" class="alignnone
+.size-full wp-image-89" height="438" src="http://Marco-Santoni.github.io/images/download-4.png" width="610" /></p>
+<p>So, we see another relation between <em>INDUS</em> and <em>PRICE</em>. So, let's add
+this second feature.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">RM_and_INDUS_cols</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="n">RM_col_index</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">INDUS_col_index</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">return</span> <span class="n">X</span>\<span class="p">[:,</span> \<span class="p">[</span><span class="n">RM_col_index</span><span class="p">,</span> <span class="n">INDUS_col_index</span>\<span class="p">]</span>\<span class="p">]</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">RM_and_INDUS_cols</span><span class="p">),</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">add_squared_col</span><span class="p">),</span>
+<span class="n">LinearRegression</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mean Squared Error</span>
+<span class="sd">\[ 32.3420789 31.4260901 35.95835866\]</span>
+<span class="sd">Accuracy: 33.24</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+
+<p>Now, plotting a model in 3D needs a bit more effort.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_model_RM_INDUS</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">):</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span>
+<span class="n">cross_validation</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
+<span class="n">X</span><span class="p">,</span>
+<span class="n">y</span><span class="p">,</span>
+<span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span>
+<span class="n">random_state</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">)</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">p3</span><span class="o">.</span><span class="n">Axes3D</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">X_test</span>\<span class="p">[:,</span> <span class="mi">2</span>\<span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">X_test</span>\<span class="p">[:,</span> <span class="mi">5</span>\<span class="p">]</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">y_test</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">fake_X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>\<span class="p">[</span><span class="mi">0</span>\<span class="p">]):</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span>\<span class="p">[</span><span class="mi">1</span>\<span class="p">]):</span>
+<span class="n">fake_X</span>\<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span>\<span class="p">]</span> <span class="o">=</span> <span class="n">X</span>\<span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span>\<span class="p">]</span>
+<span class="n">fake_X</span>\<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span>\<span class="p">]</span> <span class="o">=</span> <span class="n">Y</span>\<span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span>\<span class="p">]</span>
+<span class="n">Z</span>\<span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span>\<span class="p">]</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">fake_X</span><span class="p">)</span>\<span class="p">[</span><span class="mi">0</span>\<span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;INDUS&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;RM&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">)</span>
+
+<span class="n">plot_model_RM_INDUS</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="animation" class="alignnone
+.size-full wp-image-91" height="504" src="http://Marco-Santoni.github.io/images/animation.gif" width="720" /></p>
+<p>How pretty is that?</p>
+<p>The following step is to use all the features available. So, we move to
+a 13-dimensional feature vector.</p>
+<div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="n">LinearRegression</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mean Squared Error</span>
+<span class="sd">\[ 20.50009513 22.42870192 27.88911654\]</span>
+<span class="sd">Accuracy: 23.61&#39;&#39;&#39;</span>
+</pre></div>
+
+
+<p>The error got quite smaller. We cannot however plot the model in
+13-dimensions. We will now re-use the function that adds a squared
+feature.</p>
+<div class="highlight"><pre><span></span><span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">add_squared_col</span><span class="p">),</span>
+<span class="n">LinearRegression</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mean Squared Error</span>
+<span class="sd">\[ 16.7819682 14.599869 18.17785453\]</span>
+<span class="sd">Accuracy: 16.52&#39;&#39;&#39;</span>
+</pre></div>
+
+
+<p>Even better. Now, we will switch to a ridge-regressor (combined with a
+normalization of the features).</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="n">StandardScaler</span><span class="p">(),</span>
+<span class="n">FunctionTransformer</span><span class="p">(</span><span class="n">add_squared_col</span><span class="p">),</span>
+<span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Mean Squared Error</span>
+<span class="sd">\[ 16.4292824 14.50522561 18.27167008\]</span>
+<span class="sd">Accuracy: 16.40&#39;&#39;&#39;</span>
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

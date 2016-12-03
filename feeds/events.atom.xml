@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni - Data Scientist</title><link href="http://Marco-Santoni.github.io/" rel="alternate"></link><link href="http://Marco-Santoni.github.io/feeds/events.atom.xml" rel="self"></link><id>http://Marco-Santoni.github.io/</id><updated>2016-05-20T17:56:00+02:00</updated><entry><title>Insights from Data Science Milan - 19/05/16</title><link href="http://Marco-Santoni.github.io/insights-from-data-science-milan-190516.html" rel="alternate"></link><published>2016-05-20T17:56:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-05-20:insights-from-data-science-milan-190516.html</id><summary type="html">&lt;p&gt;https://twitter.com/andreaesseci/status/733044189349482496&lt;/p&gt;
+&lt;p&gt;A new &lt;strong&gt;Data Science meetup&lt;/strong&gt; is out in Milan. Two talks about Deep
+Learning were given in the first event.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Neural Networks and Deep Learning: An
+Introduction. &lt;a href="https://twitter.com/milanhightech"&gt;@MilanHighTech&lt;/a&gt;.&lt;/strong&gt; The
+first talk by Valentino Zocca was a quick intro to Deep Learning The
+speaker was able to explain the role of the additional layers in a
+neural network. Each layer is learning something, and each one is
+learning a different representation of the output. In particular, each
+additional layer is learning a more abstract representation of the
+output.&lt;/p&gt;
+&lt;p&gt;&lt;img .alignnone_width="370" alt="Face recognition" height="506" src="https://indico.io/blog/wp-content/uploads/2016/02/cnn_deeper.jpg" /&gt;&lt;/p&gt;
+&lt;p&gt;Each layer is learning a higher level of abstraction. In the example,
+the first layer is learning the edges in the image; the second layer is
+learning the parts of a face like the nose or the eye; the third layer
+is learning large sections of a face. Ref: "&lt;em&gt;Convolutional Deep Belief
+Networks for Scalable Unsupervised Learning of Hierarchical
+Representations&lt;/em&gt;", Lee et al.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bringing Deep Learning into production.&lt;/strong&gt;
+&lt;a href="https://twitter.com/axlpado"&gt;@axlpado&lt;/a&gt;. The speaker gave his point of
+view on deploying machine learning algorithms in production. There are a
+variety of frameworks, and it's always easy to choose which one to
+adopt. He gave a series of interesting tips, and I'll write here the
+main ones.&lt;/p&gt;
+&lt;p&gt;You can write machine learning in many languages such as Python, Java,
+R, Matlab, Scala, etc. A good guideline is: choose the one you know the
+most. Do not add the complexity of learning a new language to the
+complexity of designing the algorithm.&lt;/p&gt;
+&lt;p&gt;Different languages in different teams.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Data science
+languages" class="alignnone
+.size-full wp-image-58" height="504" src="http://Marco-Santoni.github.io/images/20160519_193804-1.jpg" width="896" /&gt;&lt;/p&gt;
+&lt;p&gt;It can be challenge to bring machine learning models from a team to
+another. The reason is that often teams work in different languages or
+in different frameworks. This organization leads to complex deployment
+processes.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Tips for
+deployment" class="alignnone
+.size-full wp-image-59" height="504" src="http://Marco-Santoni.github.io/images/20160519_194315.jpg" width="896" /&gt;&lt;/p&gt;
+&lt;p&gt;Paolo recommended to have the entire team on the same framework. The
+idea is to have the deployment pipeline as smooth as possible. It can be
+an effort for the data scientists at the beginning to learn the data
+engineer tools, but it can make the difference on the long term.&lt;/p&gt;</summary><category term="Events"></category></entry><entry><title>Insights from PyData Florence 16</title><link href="http://Marco-Santoni.github.io/insights-from-pydata-florence-16.html" rel="alternate"></link><published>2016-04-20T06:05:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-04-20:insights-from-pydata-florence-16.html</id><summary type="html">&lt;p&gt;I have just joined &lt;a href="https://www.pycon.it/p3/schedule/pycon7/"&gt;PyData&lt;/a&gt;
+conference in Florence, and I will list briefly some
+interesting insights.&lt;/p&gt;
+&lt;p&gt;https://twitter.com/leriomaggio/status/720894471060201472&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Time Travel and Time Series Analysis with Pandas and Statsmodels,
+&lt;a href="http://twitter.com/hendorf"&gt;@hendorf.&lt;/a&gt;&lt;/strong&gt; The focus of the talk was time
+series analysis. The speaker pointed out something that a data scientist
+should not forget when doing such time series analysis. He pointed out
+that the time level of aggregation is something to do with care when
+doing such analysis. Do you take into account that February has a number
+of days that accounts to only 90% of the number of days of March? If you
+compare e.g. sales per month, you cannot just ignore this fact. In the
+talk, I found out that statsmodels has some nice tools that perform
+trend analysis and seasonality analysis.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Machine learning and IoT for automatic presence detection of workers
+on fall protection life lines,
+&lt;a href="http://twitter.com/stefanoterna"&gt;@stefanoterna&lt;/a&gt;.&lt;/strong&gt; The talk was an
+excellent overview of how TomorrowData is able to deploy machine
+learning systems in the "real world". Their system uses neural networks
+to detect a man walking on industrial cables. It was interesting to hear
+about the different challenges that one has to consider in the Internet
+of Things area due to hardware and environmental constraints. The fact
+that they had to manually annotate the signals coming from an
+accelerometer reminded me of &lt;a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&amp;amp;arnumber=7346953&amp;amp;url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D7346953"&gt;my
+work&lt;/a&gt;
+about indoor localization. In this kind of areas, the data collection is
+indeed a challenge due to its manual cost (compared to the datasets you
+can easily collect through a web app).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Introduzione a Orange Data Mining,
+&lt;a href="http://twitter.com/ericbonfadini"&gt;@ericbonfadini&lt;/a&gt;.&lt;/strong&gt; Eric introduced
+Orange Data Mining which is both a python library and a GUI for machine
+learning projects. I found interesting the nice GUI. It allows to define
+pipelines of jobs to mine data. You can quickly get insights about data
+and play around with machine learning models. I see this tool as quite
+useful mainly for didactic purposes. I think it can be a nice tool for
+teachers to explain data mining and machine learning in a nice graphical
+way. It is really suitable for lectures.&lt;/p&gt;
+&lt;p&gt;https://twitter.com/pydatait/status/721235005746188289&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Simple APIs and innovative documentation processes: looking back at
+the success of Scientific Python,
+&lt;a href="http://twitter.com/EGouillart"&gt;@EGouillart&lt;/a&gt;.&lt;/strong&gt; The talk was the point
+of view of a core developer of a scientific package like &lt;em&gt;scikit-image&lt;/em&gt;.
+The speaker gave nice insights about the API design choices that need to
+be taken when you contribute to open source projects. For example, what
+is the advantage of getting rid of most classes in your package and
+mainly expose functions. The idea is that, if you get rid of the
+boilerplate of classes, you are forced to expose/return just numpy
+arrays which you can then easily integrate to other tools in your
+pipeline, e.g. scikit-learn. Another thing to take into account is that
+54% of the users of packages are running a Windows machine (although
+probably the developers of such package don't). So, you need to take
+into account the tech gap between the developers and the end users.
+Finally, the speaker mentioned the power of Sphinx as a documentation
+tool.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Building Data Pipelines in Python,
+&lt;a href="http://twitter.com/marcobonzanini"&gt;@marcobonzanini&lt;/a&gt;.&lt;/strong&gt; Luigi is an
+awesome tool because simply it makes you feel relaxed when you are
+running a data pipeline. You can programmatically define arbitrary
+dependencies between tasks, and Luigi will make sure that the
+dependencies are fulfilled. Marco's talk was a really nice intro to the
+tool.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Going Functional in the Python Data Science Stack,
+&lt;a href="http://twitter.com/data_hope"&gt;@data_hope&lt;/a&gt;. &lt;/strong&gt;The speaker explained
+the directed acyclic graphs that are behind functional programming. It
+was interesting to hear about Dask package and how you can bring its
+lazy evaluation model. Dask allows you to abstract your code and perform
+operations on datasets that do not fit in memory. The speaker pointed
+out that doing functional programming means to decouple "how" from
+"what". You can just focus on "what" your algorithm should do, then you
+just choose "how" it will do it (e.g. Dask).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Reti Neurali in Python, &lt;a href="http://twitter.com/spiunno"&gt;@spiunno&lt;/a&gt;.&lt;/strong&gt; The
+talk was a great overview of what are neural networks and how you can
+implement them with Theano and Lasagne. The speaker was able give a talk
+that was suitable both to beginners and both to an intermediate
+audience. In particular, the Q&amp;amp;A session was really active, and
+interesting topics were discussed, e.g. preventing overfitting,
+computational costs, gravitational waves, etc. Regarding overfitting
+prevention, I learnt about "dropout" which is a nice technique that
+consists basically in dropping out links of the networks at random for
+each sample. The advantage is that you prevent overfitting and reduce
+the computational cost at the same time.&lt;/p&gt;
+&lt;p&gt;https://twitter.com/hendorf/status/722763440448606208&lt;/p&gt;</summary><category term="Events"></category></entry></feed>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Insights from PyData Florence 16</title>
+        <link rel="stylesheet" href="http://Marco-Santoni.github.io/theme/css/main.css" />
+        <link href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni - Data Scientist Atom Feed" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://Marco-Santoni.github.io/">Marco Santoni - Data Scientist </a></h1>
+                <nav><ul>
+                    <li><a href="http://Marco-Santoni.github.io/category/code.html">Code</a></li>
+                    <li class="active"><a href="http://Marco-Santoni.github.io/category/events.html">Events</a></li>
+                    <li><a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="http://Marco-Santoni.github.io/insights-from-pydata-florence-16.html" rel="bookmark"
+           title="Permalink to Insights from PyData Florence 16">Insights from PyData Florence 16</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-04-20T06:05:00+02:00">
+                Published: Wed 20 April 2016
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+        </address>
+<p>In <a href="http://Marco-Santoni.github.io/category/events.html">Events</a>.</p>
+<p>tags: <a href="http://Marco-Santoni.github.io/tag/events.html">Events</a> </p>
+</footer><!-- /.post-info -->      <p>I have just joined <a href="https://www.pycon.it/p3/schedule/pycon7/">PyData</a>
+conference in Florence, and I will list briefly some
+interesting insights.</p>
+<p>https://twitter.com/leriomaggio/status/720894471060201472</p>
+<p><strong>Time Travel and Time Series Analysis with Pandas and Statsmodels,
+<a href="http://twitter.com/hendorf">@hendorf.</a></strong> The focus of the talk was time
+series analysis. The speaker pointed out something that a data scientist
+should not forget when doing such time series analysis. He pointed out
+that the time level of aggregation is something to do with care when
+doing such analysis. Do you take into account that February has a number
+of days that accounts to only 90% of the number of days of March? If you
+compare e.g. sales per month, you cannot just ignore this fact. In the
+talk, I found out that statsmodels has some nice tools that perform
+trend analysis and seasonality analysis.</p>
+<p><strong>Machine learning and IoT for automatic presence detection of workers
+on fall protection life lines,
+<a href="http://twitter.com/stefanoterna">@stefanoterna</a>.</strong> The talk was an
+excellent overview of how TomorrowData is able to deploy machine
+learning systems in the "real world". Their system uses neural networks
+to detect a man walking on industrial cables. It was interesting to hear
+about the different challenges that one has to consider in the Internet
+of Things area due to hardware and environmental constraints. The fact
+that they had to manually annotate the signals coming from an
+accelerometer reminded me of <a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&amp;arnumber=7346953&amp;url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D7346953">my
+work</a>
+about indoor localization. In this kind of areas, the data collection is
+indeed a challenge due to its manual cost (compared to the datasets you
+can easily collect through a web app).</p>
+<p><strong>Introduzione a Orange Data Mining,
+<a href="http://twitter.com/ericbonfadini">@ericbonfadini</a>.</strong> Eric introduced
+Orange Data Mining which is both a python library and a GUI for machine
+learning projects. I found interesting the nice GUI. It allows to define
+pipelines of jobs to mine data. You can quickly get insights about data
+and play around with machine learning models. I see this tool as quite
+useful mainly for didactic purposes. I think it can be a nice tool for
+teachers to explain data mining and machine learning in a nice graphical
+way. It is really suitable for lectures.</p>
+<p>https://twitter.com/pydatait/status/721235005746188289</p>
+<p><strong>Simple APIs and innovative documentation processes: looking back at
+the success of Scientific Python,
+<a href="http://twitter.com/EGouillart">@EGouillart</a>.</strong> The talk was the point
+of view of a core developer of a scientific package like <em>scikit-image</em>.
+The speaker gave nice insights about the API design choices that need to
+be taken when you contribute to open source projects. For example, what
+is the advantage of getting rid of most classes in your package and
+mainly expose functions. The idea is that, if you get rid of the
+boilerplate of classes, you are forced to expose/return just numpy
+arrays which you can then easily integrate to other tools in your
+pipeline, e.g. scikit-learn. Another thing to take into account is that
+54% of the users of packages are running a Windows machine (although
+probably the developers of such package don't). So, you need to take
+into account the tech gap between the developers and the end users.
+Finally, the speaker mentioned the power of Sphinx as a documentation
+tool.</p>
+<p><strong>Building Data Pipelines in Python,
+<a href="http://twitter.com/marcobonzanini">@marcobonzanini</a>.</strong> Luigi is an
+awesome tool because simply it makes you feel relaxed when you are
+running a data pipeline. You can programmatically define arbitrary
+dependencies between tasks, and Luigi will make sure that the
+dependencies are fulfilled. Marco's talk was a really nice intro to the
+tool.</p>
+<p><strong>Going Functional in the Python Data Science Stack,
+<a href="http://twitter.com/data_hope">@data_hope</a>. </strong>The speaker explained
+the directed acyclic graphs that are behind functional programming. It
+was interesting to hear about Dask package and how you can bring its
+lazy evaluation model. Dask allows you to abstract your code and perform
+operations on datasets that do not fit in memory. The speaker pointed
+out that doing functional programming means to decouple "how" from
+"what". You can just focus on "what" your algorithm should do, then you
+just choose "how" it will do it (e.g. Dask).</p>
+<p><strong>Reti Neurali in Python, <a href="http://twitter.com/spiunno">@spiunno</a>.</strong> The
+talk was a great overview of what are neural networks and how you can
+implement them with Theano and Lasagne. The speaker was able give a talk
+that was suitable both to beginners and both to an intermediate
+audience. In particular, the Q&amp;A session was really active, and
+interesting topics were discussed, e.g. preventing overfitting,
+computational costs, gravitational waves, etc. Regarding overfitting
+prevention, I learnt about "dropout" which is a nice technique that
+consists basically in dropping out links of the networks at random for
+each sample. The advantage is that you prevent overfitting and reduce
+the computational cost at the same time.</p>
+<p>https://twitter.com/hendorf/status/722763440448606208</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
