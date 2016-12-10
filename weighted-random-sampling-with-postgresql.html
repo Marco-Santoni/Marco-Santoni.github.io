@@ -3,8 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>Weighted Random Sampling with PostgreSQL</title>
-        <link rel="stylesheet" href="http://Marco-Santoni.github.io/theme/css/main.css" />
-        <link href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni - Data Scientist Atom Feed" />
+        <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -13,18 +12,18 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="http://Marco-Santoni.github.io/">Marco Santoni - Data Scientist </a></h1>
+                <h1><a href="/">Marco Santoni - Data Scientist </a></h1>
                 <nav><ul>
-                    <li class="active"><a href="http://Marco-Santoni.github.io/category/code.html">Code</a></li>
-                    <li><a href="http://Marco-Santoni.github.io/category/events.html">Events</a></li>
-                    <li><a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a></li>
+                    <li class="active"><a href="/category/code.html">Code</a></li>
+                    <li><a href="/category/events.html">Events</a></li>
+                    <li><a href="/category/uncategorized.html">Uncategorized</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="http://Marco-Santoni.github.io/weighted-random-sampling-with-postgresql.html" rel="bookmark"
+        <a href="/weighted-random-sampling-with-postgresql.html" rel="bookmark"
            title="Permalink to Weighted Random Sampling with PostgreSQL">Weighted Random Sampling with PostgreSQL</a></h1>
     </header>
 
@@ -35,9 +34,9 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/code.html">Code</a>.</p>
+<p>In <a href="/category/code.html">Code</a>.</p>
 
 </footer><!-- /.post-info -->      <p>You have a table like the following:</p>
 <div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">weights</span> <span class="p">(</span>
@@ -102,8 +101,8 @@ separately.</p>
 <span class="n">color</span>
 <span class="k">FROM</span> <span class="n">samples</span>
 <span class="k">JOIN</span> <span class="n">cumulative_bounds</span> <span class="k">ON</span>
-<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
-<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(\]&#39;</span><span class="p">);</span>
+<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&lt;@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
+<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(]&#39;</span><span class="p">);</span>
 </pre></div>
 
 
@@ -178,8 +177,8 @@ a <strong>discrete probability</strong> of that color being sampled.</p>
 <span class="n">color</span>
 <span class="k">FROM</span> <span class="n">samples</span>
 <span class="k">JOIN</span> <span class="n">cumulative_bounds</span> <span class="k">ON</span>
-<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
-<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(\]&#39;</span><span class="p">);</span>
+<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&lt;@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
+<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(]&#39;</span><span class="p">);</span>
 </pre></div>
 
 
@@ -246,7 +245,6 @@ discrete probability table above.</p>
                 <div class="social">
                         <h2>social</h2>
                         <ul>
-                            <li><a href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
                             <li><a href="#">You can add links in your config file</a></li>
                             <li><a href="#">Another social link</a></li>

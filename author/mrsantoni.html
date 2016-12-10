@@ -3,8 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>Marco Santoni - Data Scientist - mrsantoni</title>
-        <link rel="stylesheet" href="http://Marco-Santoni.github.io/theme/css/main.css" />
-        <link href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni - Data Scientist Atom Feed" />
+        <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -13,26 +12,26 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="http://Marco-Santoni.github.io/">Marco Santoni - Data Scientist </a></h1>
+                <h1><a href="/">Marco Santoni - Data Scientist </a></h1>
                 <nav><ul>
-                    <li><a href="http://Marco-Santoni.github.io/category/code.html">Code</a></li>
-                    <li><a href="http://Marco-Santoni.github.io/category/events.html">Events</a></li>
-                    <li><a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a></li>
+                    <li><a href="/category/code.html">Code</a></li>
+                    <li><a href="/category/events.html">Events</a></li>
+                    <li><a href="/category/uncategorized.html">Uncategorized</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="http://Marco-Santoni.github.io/weighted-random-sampling-with-postgresql.html">Weighted Random Sampling with PostgreSQL</a></h1>
+                    <h1 class="entry-title"><a href="/weighted-random-sampling-with-postgresql.html">Weighted Random Sampling with PostgreSQL</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2016-08-23T16:22:00+02:00">
                 Published: Tue 23 August 2016
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/code.html">Code</a>.</p>
+<p>In <a href="/category/code.html">Code</a>.</p>
 
 </footer><!-- /.post-info --><p>You have a table like the following:</p>
 <div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">weights</span> <span class="p">(</span>
@@ -97,8 +96,8 @@ separately.</p>
 <span class="n">color</span>
 <span class="k">FROM</span> <span class="n">samples</span>
 <span class="k">JOIN</span> <span class="n">cumulative_bounds</span> <span class="k">ON</span>
-<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
-<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(\]&#39;</span><span class="p">);</span>
+<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&lt;@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
+<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(]&#39;</span><span class="p">);</span>
 </pre></div>
 
 
@@ -173,8 +172,8 @@ a <strong>discrete probability</strong> of that color being sampled.</p>
 <span class="n">color</span>
 <span class="k">FROM</span> <span class="n">samples</span>
 <span class="k">JOIN</span> <span class="n">cumulative_bounds</span> <span class="k">ON</span>
-<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
-<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(\]&#39;</span><span class="p">);</span>
+<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&lt;@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
+<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(]&#39;</span><span class="p">);</span>
 </pre></div>
 
 
@@ -232,7 +231,7 @@ discrete probability table above.</p>                </article>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://Marco-Santoni.github.io/parallel-computing-in-python-with-concurrent-futures.html" rel="bookmark"
+                    <h1><a href="/parallel-computing-in-python-with-concurrent-futures.html" rel="bookmark"
                            title="Permalink to Parallel Computing in Python with concurrent.futures">Parallel Computing in Python with concurrent.futures</a></h1>
                 </header>
 
@@ -243,23 +242,30 @@ discrete probability table above.</p>                </article>
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a>.</p>
+<p>In <a href="/category/uncategorized.html">Uncategorized</a>.</p>
 
-</footer><!-- /.post-info -->                <p>I uploaded a
-<a href="http://www.marcosantoni.com/parallel_with_futures.html">notebook</a> as a
-quick intro to parallel computation with <strong>concurrent.futures </strong>in
-Python. Please, visit the
-<a href="http://www.marcosantoni.com/parallel_with_futures.html">link</a> to read
-the article.</p>
-                <a class="readmore" href="http://Marco-Santoni.github.io/parallel-computing-in-python-with-concurrent-futures.html">read more</a>
+</footer><!-- /.post-info -->                
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Going-Parallel-with-concurrent.futures">Going Parallel with concurrent.futures<a class="anchor-link" href="#Going-Parallel-with-concurrent.futures">¶</a></h1><p>Parallel computation can be implemented via the <a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent.futures</a> module. The module is part of the standard library since Python <code>3.2</code>.</p>
+<p>Let's look at a simple example.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+                <a class="readmore" href="/parallel-computing-in-python-with-concurrent-futures.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://Marco-Santoni.github.io/applied-bayesian-inference-with-pymc-video.html" rel="bookmark"
+                    <h1><a href="/applied-bayesian-inference-with-pymc-video.html" rel="bookmark"
                            title="Permalink to Applied Bayesian Inference with PyMC [video]">Applied Bayesian Inference with PyMC [video]</a></h1>
                 </header>
 
@@ -270,20 +276,20 @@ the article.</p>
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a>.</p>
+<p>In <a href="/category/uncategorized.html">Uncategorized</a>.</p>
 
 </footer><!-- /.post-info -->                <p>I was glad to give an intro to Bayesian Inference at PyData Florence
 2016. The video of the talk is now out.</p>
-<p>https://www.youtube.com/watch?v=BX1MjMDKhXU</p>
-                <a class="readmore" href="http://Marco-Santoni.github.io/applied-bayesian-inference-with-pymc-video.html">read more</a>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BX1MjMDKhXU" frameborder="0" allowfullscreen></iframe>
+                <a class="readmore" href="/applied-bayesian-inference-with-pymc-video.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://Marco-Santoni.github.io/a-simple-machine-learning-pipeline.html" rel="bookmark"
+                    <h1><a href="/a-simple-machine-learning-pipeline.html" rel="bookmark"
                            title="Permalink to A Simple Machine Learning Pipeline">A Simple Machine Learning Pipeline</a></h1>
                 </header>
 
@@ -294,9 +300,9 @@ the article.</p>
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a>.</p>
+<p>In <a href="/category/uncategorized.html">Uncategorized</a>.</p>
 
 </footer><!-- /.post-info -->                <p>This post contains the code that I used in my talk at Python Milano
 Meetup on <a href="http://www.meetup.com/Python-Milano/events/231710577/">June 22nd
@@ -305,13 +311,13 @@ was a quick overview of <strong>Pipeline</strong>, a nice API by <em>scikitlea
 abstract your machine learning algorithm. It is based on the Boston
 <a href="https://archive.ics.uci.edu/ml/datasets/Housing">Housing Data Set</a>.</p>
 <p>We'll just ...</p>
-                <a class="readmore" href="http://Marco-Santoni.github.io/a-simple-machine-learning-pipeline.html">read more</a>
+                <a class="readmore" href="/a-simple-machine-learning-pipeline.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://Marco-Santoni.github.io/install-a-deb-file-from-terminal-on-ubuntu.html" rel="bookmark"
+                    <h1><a href="/install-a-deb-file-from-terminal-on-ubuntu.html" rel="bookmark"
                            title="Permalink to Install a .deb file from terminal on Ubuntu">Install a .deb file from terminal on Ubuntu</a></h1>
                 </header>
 
@@ -322,9 +328,9 @@ abstract your machine learning algorithm. It is based on the Boston
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a>.</p>
+<p>In <a href="/category/uncategorized.html">Uncategorized</a>.</p>
 
 </footer><!-- /.post-info -->                <p>I use Ubuntu 16.04. Sometimes, when I double-click a <em>.deb</em> file, the
 installation program does not work. What often solves the problem is
@@ -332,13 +338,13 @@ installing it from terminal.</p>
 <div class="highlight"><pre><span></span>sudo dpkg -i my_deb_file.deb
 sudo apt-get -f install
 </pre></div>
-                <a class="readmore" href="http://Marco-Santoni.github.io/install-a-deb-file-from-terminal-on-ubuntu.html">read more</a>
+                <a class="readmore" href="/install-a-deb-file-from-terminal-on-ubuntu.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://Marco-Santoni.github.io/insights-from-data-science-milan-190516.html" rel="bookmark"
+                    <h1><a href="/insights-from-data-science-milan-190516.html" rel="bookmark"
                            title="Permalink to Insights from Data Science Milan - 19/05/16">Insights from Data Science Milan - 19/05/16</a></h1>
                 </header>
 
@@ -349,24 +355,26 @@ sudo apt-get -f install
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/events.html">Events</a>.</p>
-<p>tags: <a href="http://Marco-Santoni.github.io/tag/events.html">Events</a> </p>
-</footer><!-- /.post-info -->                <p>https://twitter.com/andreaesseci/status/733044189349482496</p>
+<p>In <a href="/category/events.html">Events</a>.</p>
+<p>tags: <a href="/tag/events.html">Events</a> </p>
+</footer><!-- /.post-info -->                <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/DeepLearning?src=hash">#DeepLearning</a> introduction and enterprise architectures using <a href="https://twitter.com/hashtag/H2O?src=hash">#H2O</a> - first <a href="https://twitter.com/hashtag/DataScienceMilan?src=hash">#DataScienceMilan</a> meetup! - <a href="https://t.co/I8LsfaFJSu">https://t.co/I8LsfaFJSu</a></p>&mdash; Andrea Scarso (@andreaesseci) <a href="https://twitter.com/andreaesseci/status/733044189349482496">May 18, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 <p>A new <strong>Data Science meetup</strong> is out in Milan. Two talks about Deep
 Learning were given in the first event.</p>
 <p><strong>Neural Networks and Deep Learning: An
 Introduction. <a href="https://twitter.com/milanhightech">@MilanHighTech</a>.</strong> The
-first talk by Valentino Zocca was a quick intro to Deep Learning The
-speaker was ...</p>
-                <a class="readmore" href="http://Marco-Santoni.github.io/insights-from-data-science-milan-190516.html">read more</a>
+first ...</p>
+                <a class="readmore" href="/insights-from-data-science-milan-190516.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://Marco-Santoni.github.io/bayesian-ab-testing-in-python.html" rel="bookmark"
+                    <h1><a href="/bayesian-ab-testing-in-python.html" rel="bookmark"
                            title="Permalink to Bayesian A/B Testing in Python">Bayesian A/B Testing in Python</a></h1>
                 </header>
 
@@ -377,23 +385,23 @@ speaker was ...</p>
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/code.html">Code</a>.</p>
-<p>tags: <a href="http://Marco-Santoni.github.io/tag/bayesian.html">Bayesian</a> </p>
+<p>In <a href="/category/code.html">Code</a>.</p>
+<p>tags: <a href="/tag/bayesian.html">Bayesian</a> </p>
 </footer><!-- /.post-info -->                <p>Imagine you re-designing your e-commerce website. You have to decide
 whether the "Buy Item" button should be blue or green. You decide to
 setup an A/B test, so you build two versions of the item page:</p>
 <ul>
 <li><strong>Page A</strong> which has a blue button;</li>
 <li><strong>Page B</strong> which has a green ...</li></ul>
-                <a class="readmore" href="http://Marco-Santoni.github.io/bayesian-ab-testing-in-python.html">read more</a>
+                <a class="readmore" href="/bayesian-ab-testing-in-python.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
 
             <li><article class="hentry">
                 <header>
-                    <h1><a href="http://Marco-Santoni.github.io/insights-from-pydata-florence-16.html" rel="bookmark"
+                    <h1><a href="/insights-from-pydata-florence-16.html" rel="bookmark"
                            title="Permalink to Insights from PyData Florence 16">Insights from PyData Florence 16</a></h1>
                 </header>
 
@@ -404,18 +412,20 @@ setup an A/B test, so you build two versions of the item page:</p>
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/events.html">Events</a>.</p>
-<p>tags: <a href="http://Marco-Santoni.github.io/tag/events.html">Events</a> </p>
+<p>In <a href="/category/events.html">Events</a>.</p>
+<p>tags: <a href="/tag/events.html">Events</a> </p>
 </footer><!-- /.post-info -->                <p>I have just joined <a href="https://www.pycon.it/p3/schedule/pycon7/">PyData</a>
 conference in Florence, and I will list briefly some
 interesting insights.</p>
-<p>https://twitter.com/leriomaggio/status/720894471060201472</p>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Oh my... We are already overcrowded <a href="https://twitter.com/pyconit">@pyconit</a> and it&#39;s *just* the beginning!! 🎉🎉 good job guys! 🙌🏻 <a href="https://twitter.com/hashtag/pycon7?src=hash">#pycon7</a></p>&mdash; (((Valerio Maggio))) (@leriomaggio) <a href="https://twitter.com/leriomaggio/status/720894471060201472">April 15, 2016</a></blockquote>
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 <p><strong>Time Travel and Time Series Analysis with Pandas and Statsmodels,
-<a href="http://twitter.com/hendorf">@hendorf.</a></strong> The focus of the talk was time
-series analysis. The speaker pointed out something that a data ...</p>
-                <a class="readmore" href="http://Marco-Santoni.github.io/insights-from-pydata-florence-16.html">read more</a>
+<a href="http://twitter.com/hendorf">@hendorf ...</a></strong></p>
+                <a class="readmore" href="/insights-from-pydata-florence-16.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
                 </ol><!-- /#posts-list -->
@@ -433,7 +443,6 @@ series analysis. The speaker pointed out something that a data ...</p>
                 <div class="social">
                         <h2>social</h2>
                         <ul>
-                            <li><a href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
                             <li><a href="#">You can add links in your config file</a></li>
                             <li><a href="#">Another social link</a></li>
