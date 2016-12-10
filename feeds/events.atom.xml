@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni - Data Scientist</title><link href="http://Marco-Santoni.github.io/" rel="alternate"></link><link href="http://Marco-Santoni.github.io/feeds/events.atom.xml" rel="self"></link><id>http://Marco-Santoni.github.io/</id><updated>2016-05-20T17:56:00+02:00</updated><entry><title>Insights from Data Science Milan - 19/05/16</title><link href="http://Marco-Santoni.github.io/insights-from-data-science-milan-190516.html" rel="alternate"></link><published>2016-05-20T17:56:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-05-20:insights-from-data-science-milan-190516.html</id><summary type="html">&lt;p&gt;https://twitter.com/andreaesseci/status/733044189349482496&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni - Data Scientist</title><link href="http://Marco-Santoni.github.io/" rel="alternate"></link><link href="http://Marco-Santoni.github.io/feeds/events.atom.xml" rel="self"></link><id>http://Marco-Santoni.github.io/</id><updated>2016-05-20T17:56:00+02:00</updated><entry><title>Insights from Data Science Milan - 19/05/16</title><link href="http://Marco-Santoni.github.io/insights-from-data-science-milan-190516.html" rel="alternate"></link><published>2016-05-20T17:56:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-05-20:insights-from-data-science-milan-190516.html</id><summary type="html">&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/hashtag/DeepLearning?src=hash"&gt;#DeepLearning&lt;/a&gt; introduction and enterprise architectures using &lt;a href="https://twitter.com/hashtag/H2O?src=hash"&gt;#H2O&lt;/a&gt; - first &lt;a href="https://twitter.com/hashtag/DataScienceMilan?src=hash"&gt;#DataScienceMilan&lt;/a&gt; meetup! - &lt;a href="https://t.co/I8LsfaFJSu"&gt;https://t.co/I8LsfaFJSu&lt;/a&gt;&lt;/p&gt;&amp;mdash; Andrea Scarso (@andreaesseci) &lt;a href="https://twitter.com/andreaesseci/status/733044189349482496"&gt;May 18, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
 &lt;p&gt;A new &lt;strong&gt;Data Science meetup&lt;/strong&gt; is out in Milan. Two talks about Deep
 Learning were given in the first event.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Neural Networks and Deep Learning: An
@@ -44,7 +47,10 @@ an effort for the data scientists at the beginning to learn the data
 engineer tools, but it can make the difference on the long term.&lt;/p&gt;</summary><category term="Events"></category></entry><entry><title>Insights from PyData Florence 16</title><link href="http://Marco-Santoni.github.io/insights-from-pydata-florence-16.html" rel="alternate"></link><published>2016-04-20T06:05:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-04-20:insights-from-pydata-florence-16.html</id><summary type="html">&lt;p&gt;I have just joined &lt;a href="https://www.pycon.it/p3/schedule/pycon7/"&gt;PyData&lt;/a&gt;
 conference in Florence, and I will list briefly some
 interesting insights.&lt;/p&gt;
-&lt;p&gt;https://twitter.com/leriomaggio/status/720894471060201472&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Oh my... We are already overcrowded &lt;a href="https://twitter.com/pyconit"&gt;@pyconit&lt;/a&gt; and it&amp;#39;s *just* the beginning!! 🎉🎉 good job guys! 🙌🏻 &lt;a href="https://twitter.com/hashtag/pycon7?src=hash"&gt;#pycon7&lt;/a&gt;&lt;/p&gt;&amp;mdash; (((Valerio Maggio))) (@leriomaggio) &lt;a href="https://twitter.com/leriomaggio/status/720894471060201472"&gt;April 15, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
 &lt;p&gt;&lt;strong&gt;Time Travel and Time Series Analysis with Pandas and Statsmodels,
 &lt;a href="http://twitter.com/hendorf"&gt;@hendorf.&lt;/a&gt;&lt;/strong&gt; The focus of the talk was time
 series analysis. The speaker pointed out something that a data scientist
@@ -78,7 +84,10 @@ and play around with machine learning models. I see this tool as quite
 useful mainly for didactic purposes. I think it can be a nice tool for
 teachers to explain data mining and machine learning in a nice graphical
 way. It is really suitable for lectures.&lt;/p&gt;
-&lt;p&gt;https://twitter.com/pydatait/status/721235005746188289&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&amp;quot;Simple APIs and innovative documentation processes&amp;quot; keynote by &lt;a href="https://twitter.com/EGouillart"&gt;@EGouillart&lt;/a&gt; now live &lt;a href="https://twitter.com/PyData"&gt;@PyData&lt;/a&gt; &lt;a href="https://twitter.com/pyconit"&gt;@pyconit&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/pydatait?src=hash"&gt;#pydatait&lt;/a&gt; &lt;a href="https://t.co/Gt8cxIyafJ"&gt;pic.twitter.com/Gt8cxIyafJ&lt;/a&gt;&lt;/p&gt;&amp;mdash; PyData Italy (@pydatait) &lt;a href="https://twitter.com/pydatait/status/721235005746188289"&gt;April 16, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
 &lt;p&gt;&lt;strong&gt;Simple APIs and innovative documentation processes: looking back at
 the success of Scientific Python,
 &lt;a href="http://twitter.com/EGouillart"&gt;@EGouillart&lt;/a&gt;.&lt;/strong&gt; The talk was the point
@@ -122,4 +131,6 @@ prevention, I learnt about "dropout" which is a nice technique that
 consists basically in dropping out links of the networks at random for
 each sample. The advantage is that you prevent overfitting and reduce
 the computational cost at the same time.&lt;/p&gt;
-&lt;p&gt;https://twitter.com/hendorf/status/722763440448606208&lt;/p&gt;</summary><category term="Events"></category></entry></feed>
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/hendorf"&gt;@hendorf&lt;/a&gt; thank you for coming! enjoy your next conference :)&lt;/p&gt;&amp;mdash; PyCon Italy (@pyconit) &lt;a href="https://twitter.com/pyconit/status/722763833387966465"&gt;April 20, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;</summary><category term="Events"></category></entry></feed>
