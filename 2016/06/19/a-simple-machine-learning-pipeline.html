@@ -3,8 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>A Simple Machine Learning Pipeline</title>
-        <link rel="stylesheet" href="http://Marco-Santoni.github.io/theme/css/main.css" />
-        <link href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni - Data Scientist Atom Feed" />
+        <link rel="stylesheet" href="/theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -13,18 +12,18 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="http://Marco-Santoni.github.io/">Marco Santoni - Data Scientist </a></h1>
+                <h1><a href="/">Marco Santoni - Data Scientist </a></h1>
                 <nav><ul>
-                    <li><a href="http://Marco-Santoni.github.io/category/code.html">Code</a></li>
-                    <li><a href="http://Marco-Santoni.github.io/category/events.html">Events</a></li>
-                    <li class="active"><a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a></li>
+                    <li><a href="/category/code.html">Code</a></li>
+                    <li><a href="/category/events.html">Events</a></li>
+                    <li class="active"><a href="/category/uncategorized.html">Uncategorized</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="http://Marco-Santoni.github.io/a-simple-machine-learning-pipeline.html" rel="bookmark"
+        <a href="/2016/06/19/a-simple-machine-learning-pipeline.html" rel="bookmark"
            title="Permalink to A Simple Machine Learning Pipeline">A Simple Machine Learning Pipeline</a></h1>
     </header>
 
@@ -35,9 +34,9 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="http://Marco-Santoni.github.io/author/mrsantoni.html">mrsantoni</a>
+                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
         </address>
-<p>In <a href="http://Marco-Santoni.github.io/category/uncategorized.html">Uncategorized</a>.</p>
+<p>In <a href="/category/uncategorized.html">Uncategorized</a>.</p>
 
 </footer><!-- /.post-info -->      <p>This post contains the code that I used in my talk at Python Milano
 Meetup on <a href="http://www.meetup.com/Python-Milano/events/231710577/">June 22nd
@@ -62,7 +61,7 @@ handle.</p>
 </pre></div>
 
 
-<p><img alt="table" src="http://Marco-Santoni.github.io/images/table.png" /></p>
+<p><img alt="table" src="/images/table.png" /></p>
 <p>The goal is to predict the <em>PRICE</em> variable given the other features.
 How does this variable distribute?</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -73,7 +72,7 @@ How does this variable distribute?</p>
 
 <p><img alt="download
 (8)" class="alignnone
-.size-full wp-image-74" height="271" src="http://Marco-Santoni.github.io/images/download-8.png" width="378" /></p>
+.size-full wp-image-74" height="271" src="/images/download-8.png" width="378" /></p>
 <p>Let's turn the dataframe into a ML-friendly notation.</p>
 <div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;PRICE&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PRICE&#39;</span><span class="p">]</span>
@@ -105,7 +104,7 @@ can exploit?</p>
 
 
 <p><img alt="download" class="alignnone
-.size-full wp-image-78" height="438" src="http://Marco-Santoni.github.io/images/download.png" width="610" /></p>
+.size-full wp-image-78" height="438" src="/images/download.png" width="610" /></p>
 <p>As expected, there is a relation between the average number of rooms and
 the median price. So, let's build the first algorithm.</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
@@ -169,7 +168,7 @@ the median price. So, let's build the first algorithm.</p>
 
 <p><img alt="download
 (1)" class="alignnone
-.size-full wp-image-84" height="449" src="http://Marco-Santoni.github.io/images/download-1.png" width="1173" /></p>
+.size-full wp-image-84" height="449" src="/images/download-1.png" width="1173" /></p>
 <p>We now do a bit of feature engineering. We square the features.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_squared_col</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
 <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
@@ -198,7 +197,7 @@ the median price. So, let's build the first algorithm.</p>
 
 <p><img alt="download
 (2)" class="alignnone
-.size-full wp-image-86" height="449" src="http://Marco-Santoni.github.io/images/download-2.png" width="1165" />
+.size-full wp-image-86" height="449" src="/images/download-2.png" width="1165" />
 We now try a different model like a <em>decision tree</em>.</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
 
@@ -219,7 +218,7 @@ We now try a different model like a <em>decision tree</em>.</p>
 
 <p><img alt="download
 (3)" class="alignnone
-.size-full wp-image-87" height="449" src="http://Marco-Santoni.github.io/images/download-3.png" width="1165" /></p>
+.size-full wp-image-87" height="449" src="/images/download-3.png" width="1165" /></p>
 <p>We now explore a second feature: <em>INDUS</em>.</p>
 <div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;INDUS&#39;</span><span class="p">],</span> <span class="n">y</span><span class="p">)</span>
@@ -231,7 +230,7 @@ We now try a different model like a <em>decision tree</em>.</p>
 
 <p><img alt="download
 (4)" class="alignnone
-.size-full wp-image-89" height="438" src="http://Marco-Santoni.github.io/images/download-4.png" width="610" /></p>
+.size-full wp-image-89" height="438" src="/images/download-4.png" width="610" /></p>
 <p>So, we see another relation between <em>INDUS</em> and <em>PRICE</em>. So, let's add
 this second feature.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">RM_and_INDUS_cols</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
@@ -291,7 +290,7 @@ this second feature.</p>
 
 
 <p><img alt="animation" class="alignnone
-.size-full wp-image-91" height="504" src="http://Marco-Santoni.github.io/images/animation.gif" width="720" /></p>
+.size-full wp-image-91" height="504" src="/images/animation.gif" width="720" /></p>
 <p>How pretty is that?</p>
 <p>The following step is to use all the features available. So, we move to
 a 13-dimensional feature vector.</p>
@@ -354,7 +353,6 @@ normalization of the features).</p>
                 <div class="social">
                         <h2>social</h2>
                         <ul>
-                            <li><a href="http://Marco-Santoni.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
                             <li><a href="#">You can add links in your config file</a></li>
                             <li><a href="#">Another social link</a></li>
