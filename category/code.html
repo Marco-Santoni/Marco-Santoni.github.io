@@ -1,289 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <title>Marco Santoni - Data Scientist - Code</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Marco Santoni - Articles in the Code category</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Marco Santoni">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:site" content="@mrsantoni">
+            <meta name="twitter:title" content="Marco Santoni">
+            <meta name="twitter:description" content="Data Scientist">
+                <meta name="twitter:image" content="/theme/images/post-bg.jpg">
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Marco Santoni - Data Scientist </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="/category/code.html">Code</a></li>
-                    <li><a href="/category/events.html">Events</a></li>
-                    <li><a href="/category/uncategorized.html">Uncategorized</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
+<body>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/2016/08/23/weighted-random-sampling-with-postgresql.html">Weighted Random Sampling with PostgreSQL</a></h1>
-<footer class="post-info">
-        <abbr class="published" title="2016-08-23T16:22:00+02:00">
-                Published: Tue 23 August 2016
-        </abbr>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Marco Santoni</a>
+            </div>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
-        </address>
-<p>In <a href="/category/code.html">Code</a>.</p>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
 
-</footer><!-- /.post-info --><p>You have a table like the following:</p>
-<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">weights</span> <span class="p">(</span>
-<span class="n">color</span> <span class="nb">varchar</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-<span class="n">weight</span> <span class="nb">float</span>
-<span class="p">);</span>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">weights</span> <span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
-<span class="k">VALUES</span>
-<span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
-</pre></div>
+    <!-- Page Header -->
+        <header class="intro-header" style="background-color: #1a1a1a">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Articles in the Code category</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-preview">
+            <a href="/2016/08/23/weighted-random-sampling-with-postgresql.html" rel="bookmark" title="Permalink to Weighted Random Sampling with PostgreSQL">
+                <h2 class="post-title">
+                    Weighted Random Sampling with PostgreSQL
+                </h2>
+            </a>
+                <p class="article-summary">
+                    You have a table like the following: CREATE TABLE weights ( color varchar primary key, weight float ); INSERT INTO weights (color, ...
+                </p>
+            <p class="post-meta">Posted by
+                    <a href="/author/mrsantoni.html">mrsantoni</a>
+                 on Tue 23 August 2016
+            </p>
+        </div>
+        <div class="post-preview">
+            <a href="/2016/05/15/bayesian-ab-testing-in-python.html" rel="bookmark" title="Permalink to Bayesian A/B Testing in Python">
+                <h2 class="post-title">
+                    Bayesian A/B Testing in Python
+                </h2>
+            </a>
+                <p class="article-summary">
+                    Imagine you re-designing your e-commerce website. You have to decide whether the "Buy Item" button should be blue or green. You decide ...
+                </p>
+            <p class="post-meta">Posted by
+                    <a href="/author/mrsantoni.html">mrsantoni</a>
+                 on Sun 15 May 2016
+            </p>
+        </div>
 
-<p>The table lists the weights associated with certain colors. Imagine a
-weight representing how much you like that color.</p>
-<p>Now, you want to add 1000 colored tiles to your website. You want the
-color of the tiles to be <strong>sampled at random</strong> according to the
-<em>weights</em> table.</p>
-<p>We'll write a PostgreSQL script that implements such random sampling.
-I'll write the <strong>entire query first</strong>, and then explain each part
-separately.</p>
-<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sampled_colors</span> <span class="k">AS</span>
-<span class="k">WITH</span> <span class="n">weights_with_sum</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="n">weight</span><span class="p">,</span>
-<span class="n">weight_sum</span>
-<span class="k">FROM</span> <span class="n">weights</span>
-<span class="k">CROSS</span> <span class="k">JOIN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">sum</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span> <span class="k">AS</span> <span class="n">weight_sum</span> <span class="k">FROM</span> <span class="n">weights</span><span class="p">)</span> <span class="n">s</span>
-<span class="p">),</span>
-<span class="n">sampling_probability</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="n">weight</span> <span class="o">/</span> <span class="n">weight_sum</span> <span class="k">AS</span> <span class="n">prob</span>
-<span class="k">FROM</span> <span class="n">weights_with_sum</span>
-<span class="p">),</span>
-<span class="n">sampling_cumulative_prob</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="k">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">color</span><span class="p">)</span> <span class="k">AS</span> <span class="n">cum_prob</span>
-<span class="k">FROM</span> <span class="n">sampling_probability</span>
-<span class="p">),</span>
-<span class="n">cumulative_bounds</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="n">COALESCE</span><span class="p">(</span>
-<span class="n">lag</span><span class="p">(</span><span class="n">cum_prob</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">cum_prob</span><span class="p">,</span> <span class="n">color</span><span class="p">),</span>
-<span class="mi">0</span>
-<span class="p">)</span> <span class="k">AS</span> <span class="n">lower_cum_bound</span><span class="p">,</span>
-<span class="n">cum_prob</span> <span class="k">AS</span> <span class="n">upper_cum_bound</span>
-<span class="k">FROM</span> <span class="n">sampling_cumulative_prob</span>
-<span class="p">),</span>
-<span class="n">samples</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="k">AS</span> <span class="n">sample_idx</span><span class="p">,</span>
-<span class="n">random</span><span class="p">()</span> <span class="k">AS</span> <span class="n">sample</span>
-<span class="p">)</span>
-<span class="k">SELECT</span>
-<span class="n">color</span>
-<span class="k">FROM</span> <span class="n">samples</span>
-<span class="k">JOIN</span> <span class="n">cumulative_bounds</span> <span class="k">ON</span>
-<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&lt;@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
-<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(]&#39;</span><span class="p">);</span>
-</pre></div>
+            </div>
+        </div>
+    </div>
 
+    <hr>
 
-<p>Let's look at one piece at a time.</p>
-<div class="highlight"><pre><span></span><span class="k">WITH</span> <span class="n">weights_with_sum</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="n">weight</span><span class="p">,</span>
-<span class="n">weight_sum</span>
-<span class="k">FROM</span> <span class="n">weights</span>
-<span class="k">CROSS</span> <span class="k">JOIN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">sum</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span> <span class="k">AS</span> <span class="n">weight_sum</span> <span class="k">FROM</span> <span class="n">weights</span><span class="p">)</span> <span class="n">s</span>
-<span class="p">),</span>
-<span class="n">sampling_probability</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="n">weight</span> <span class="o">/</span> <span class="n">weight_sum</span> <span class="k">AS</span> <span class="n">prob</span>
-<span class="k">FROM</span> <span class="n">weights_with_sum</span>
-<span class="p">)</span>
-<span class="k">SELECT</span> <span class="o">*</span>
-<span class="k">FROM</span> <span class="n">sampling_probability</span><span class="p">;</span>
-<span class="c1">-- output:</span>
-<span class="n">color</span> <span class="o">|</span> <span class="n">prob</span>
-<span class="c1">--------+--------------------</span>
-<span class="n">red</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">258064516129032</span>
-<span class="n">blue</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span>
-<span class="n">green</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">32258064516129</span>
-<span class="n">yellow</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">32258064516129</span>
-</pre></div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/msantoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/mrsantoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
 
+    <!-- jQuery -->
+    <script src="/theme/js/jquery.min.js"></script>
 
-<p>Here, we're just normalizing the weights. Each weight is divided by the
-total sum of the weights. In this way, we are re-writing each weight as
-a <strong>discrete probability</strong> of that color being sampled.</p>
-<div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="n">sampling_cumulative_prob</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="k">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">color</span><span class="p">)</span> <span class="k">AS</span> <span class="n">cum_prob</span>
-<span class="k">FROM</span> <span class="n">sampling_probability</span>
-<span class="p">),</span>
-<span class="n">cumulative_bounds</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="n">COALESCE</span><span class="p">(</span>
-<span class="n">lag</span><span class="p">(</span><span class="n">cum_prob</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">cum_prob</span><span class="p">,</span> <span class="n">color</span><span class="p">),</span>
-<span class="mi">0</span>
-<span class="p">)</span> <span class="k">AS</span> <span class="n">lower_cum_bound</span><span class="p">,</span>
-<span class="n">cum_prob</span> <span class="k">AS</span> <span class="n">upper_cum_bound</span>
-<span class="k">FROM</span> <span class="n">sampling_cumulative_prob</span>
-<span class="p">)</span>
-<span class="k">SELECT</span> <span class="o">*</span>
-<span class="k">FROM</span> <span class="n">cumulative_bounds</span><span class="p">;</span>
-<span class="c1">-- output:</span>
-<span class="n">color</span> <span class="o">|</span> <span class="n">lower_cum_bound</span> <span class="o">|</span> <span class="n">upper_cum_bound</span>
-<span class="c1">--------+--------------------+--------------------</span>
-<span class="n">blue</span> <span class="o">|</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span>
-<span class="n">green</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">419354838709677</span>
-<span class="n">red</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">419354838709677</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">67741935483871</span>
-<span class="n">yellow</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">67741935483871</span> <span class="o">|</span> <span class="mi">1</span>
-</pre></div>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/theme/js/bootstrap.min.js"></script>
 
-
-<p>In this piece of code, we're are representing the weights as a
-<strong>cumulative</strong> distribution function.</p>
-<div class="highlight"><pre><span></span><span class="p">...</span>
-<span class="n">samples</span> <span class="k">AS</span> <span class="p">(</span>
-<span class="k">SELECT</span>
-<span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="k">AS</span> <span class="n">sample_idx</span><span class="p">,</span>
-<span class="n">random</span><span class="p">()</span> <span class="k">AS</span> <span class="n">sample</span>
-<span class="p">)</span>
-<span class="k">SELECT</span>
-<span class="n">color</span>
-<span class="k">FROM</span> <span class="n">samples</span>
-<span class="k">JOIN</span> <span class="n">cumulative_bounds</span> <span class="k">ON</span>
-<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&lt;@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
-<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(]&#39;</span><span class="p">);</span>
-</pre></div>
-
-
-<p>In the last part, we're sampling 1000 times a random number between 0
-and 1. We then assign this sample to the corresponding color based on
-the values of the cumulative function. For example, if the first sample
-is 0.45, it will match the <em>'red'</em> range (0.41-0.67). Therefore, that
-sample will be <em>'red'</em>.</p>
-<p>The result of the query is a table filled with 1000 colors sampled at
-random based on the weights.</p>
-<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span>
-<span class="k">FROM</span> <span class="n">sampled_colors</span>
-<span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
-<span class="c1">-- output:</span>
-<span class="n">color</span>
-<span class="c1">--------</span>
-<span class="n">green</span>
-<span class="n">green</span>
-<span class="n">red</span>
-<span class="n">yellow</span>
-<span class="n">yellow</span>
-<span class="n">green</span>
-<span class="n">blue</span>
-<span class="n">red</span>
-<span class="n">red</span>
-<span class="n">red</span>
-</pre></div>
-
-
-<p>Can we check that the result is correct? Were the weights really taken
-into account?</p>
-<div class="highlight"><pre><span></span><span class="k">SELECT</span>
-<span class="n">color</span><span class="p">,</span>
-<span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="k">FROM</span> <span class="n">sampled_colors</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
-<span class="c1">-- output:</span>
-<span class="n">color</span> <span class="o">|</span> <span class="k">count</span>
-<span class="c1">--------+-------</span>
-<span class="n">yellow</span> <span class="o">|</span> <span class="mi">309</span>
-<span class="n">green</span> <span class="o">|</span> <span class="mi">320</span>
-<span class="n">red</span> <span class="o">|</span> <span class="mi">276</span>
-<span class="n">blue</span> <span class="o">|</span> <span class="mi">95</span>
-</pre></div>
-
-
-<p>The proportion of samples is quite close to the proportion of the
-weights. This similarity is clear if we compare this table with the
-discrete probability table above.</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/2016/05/15/bayesian-ab-testing-in-python.html" rel="bookmark"
-                           title="Permalink to Bayesian A/B Testing in Python">Bayesian A/B Testing in Python</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2016-05-15T15:33:00+02:00">
-                Published: Sun 15 May 2016
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/mrsantoni.html">mrsantoni</a>
-        </address>
-<p>In <a href="/category/code.html">Code</a>.</p>
-<p>tags: <a href="/tag/bayesian.html">Bayesian</a> </p>
-</footer><!-- /.post-info -->                <p>Imagine you re-designing your e-commerce website. You have to decide
-whether the "Buy Item" button should be blue or green. You decide to
-setup an A/B test, so you build two versions of the item page:</p>
-<ul>
-<li><strong>Page A</strong> which has a blue button;</li>
-<li><strong>Page B</strong> which has a green ...</li></ul>
-                <a class="readmore" href="/2016/05/15/bayesian-ab-testing-in-python.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+        <!-- Custom Theme JavaScript -->
+        <script src="/theme/js/clean-blog.min.js"></script>
 
 </body>
+
 </html>

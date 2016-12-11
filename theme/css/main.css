@@ -12,12 +12,13 @@
 @import url("reset.css");
 @import url("pygment.css");
 @import url("typogrify.css");
-@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz&subset=latin);
+@import url(//fonts.googleapis.com/css?family=Yanone+Kaffeesatz&subset=latin);
 
 /***** Global *****/
 /* Body */
 body {
-    background: #F5F4EF;
+/*    background: #F5F4EF; */ /* trog */
+    background: #fafafa;
     color: #000305;
     font-size: 87.5%; /* Base font size: 14px */
     font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -50,12 +51,15 @@ hr { border: 2px solid #EEEEEE; }
 a {outline: 0;}
 a img {border: 0px; text-decoration: none;}
 a:link, a:visited {
-	color: #C74350;
+	/*color: #C74350;*/ /*trog*/
+	color: #000000;
 	padding: 0 1px;
 	text-decoration: underline;
 }
 a:hover, a:active {
-	background-color: #C74350;
+	/*background-color: #C74350;*/
+	background-color: #000000;
+
 	color: #fff;
 	text-decoration: none;
 	text-shadow: 1px 1px 1px #333;
@@ -84,8 +88,7 @@ ol {
 	margin: 0em 0 0 1.5em;
 }
 
-li { margin-top: 0.5em;
-     margin-bottom: 1em; }
+li { margin-top: 0.5em;}
 
 .post-info {
     float:right;
@@ -170,7 +173,8 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	}
 	#banner h1 a:hover, #banner h1 a:active {
 		background: none;
-		color: #C74350;
+		/*color: #C74350;*/ /*trog*/
+		color: #000000;
 		text-shadow: none;
 	}
 	
@@ -204,7 +208,9 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	}
 	#banner nav a:hover, #banner nav a:active,
 	#banner nav .active a:link, #banner nav .active a:visited {
-		background: #C74451;
+		/*background: #C74350;*/ /*trog*/
+		background: #000000;
+
 		color: #fff;
 		text-shadow: none !important;
 	}
@@ -227,7 +233,8 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	margin-bottom: 2em;
 	overflow: hidden;
 	padding: 20px;
-	width: 760px;
+	/* trog width: 760px;*/ 
+	width: 906px;
 	
 	border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -242,7 +249,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 }
 #featured figure img {display: block; float: right;}
 
-#featured h2 {color: #C74451; font-size: 1.714em; margin-bottom: 0.333em;}
+#featured h2 {color: #000000; font-size: 1.714em; margin-bottom: 0.333em;}
 #featured h3 {font-size: 1.429em; margin-bottom: .5em;}
 
 #featured h3 a:link, #featured h3 a:visited {color: #000305; text-decoration: none;}
@@ -256,12 +263,27 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	margin-bottom: 2em;
 	overflow: hidden;
 	padding: 20px 20px;
-	width: 760px;
+	/* trog width: 760px;*/ 
+	width: 906px;
 	
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
+
+#pagecontent {
+	background: #fff;
+	margin-bottom: 2em;
+	overflow: hidden;
+	padding: 20px 20px;
+	/* trog width: 760px;*/ 
+	width: 1024px;
+	
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
 
 /*
 	Extras
@@ -271,7 +293,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 #extras ul {list-style: none; margin: 0;}
 #extras li {border-bottom: 1px solid #fff;}
 #extras h2 {
-	color: #C74350;
+	color: #000000;
 	font-size: 1.429em;
 	margin-bottom: .25em;
 	padding: 0 3px;
@@ -345,8 +367,10 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	overflow: hidden;
 	padding: 20px;
 	text-align: left;
-	width: 760px;
-	
+	/* trog width: 760px;*/ 
+	width: 906px;
+
+
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
@@ -450,3 +474,32 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 	
 	#add-comment input[type='submit'] {float: right; margin: 0 .5em;}
 	#add-comment * {margin-bottom: .5em;}
+
+/** Greyscale filter stuff **/
+.bw {   
+	filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+	width: 200px;
+	padding: 11px;
+}
+
+.greyoff {
+	filter: grayscale(0);
+	-webkit-filter: grayscale(0);
+	transition-property: filter;
+	transition-duration: 1s;
+	-webkit-transition: 1s -webkit-filter linear;
+	width: 200px;
+	padding: 11px;
+}
+
+.greyon {
+	filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+	transition-property: filter;
+	transition-duration: 5s;
+	-webkit-transition: 1s -webkit-filter linear;
+	width: 200px;
+	padding: 11px;
+}
+
