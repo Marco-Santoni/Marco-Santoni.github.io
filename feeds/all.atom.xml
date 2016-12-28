@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni - Data Scientist</title><link href="http://Marco-Santoni.github.io/" rel="alternate"></link><link href="http://Marco-Santoni.github.io/feeds/all.atom.xml" rel="self"></link><id>http://Marco-Santoni.github.io/</id><updated>2016-08-23T16:22:00+02:00</updated><entry><title>Weighted Random Sampling with PostgreSQL</title><link href="http://Marco-Santoni.github.io/weighted-random-sampling-with-postgresql.html" rel="alternate"></link><published>2016-08-23T16:22:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-08-23:weighted-random-sampling-with-postgresql.html</id><summary type="html">&lt;p&gt;You have a table like the following:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="http://www.marcosantoni.com/" rel="alternate"></link><link href="http://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>http://www.marcosantoni.com/</id><updated>2016-12-26T16:22:00+01:00</updated><entry><title>Insights from IEEE Big Data 16</title><link href="http://www.marcosantoni.com/ieee_big_data_16.html" rel="alternate"></link><published>2016-12-26T16:22:00+01:00</published><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2016-12-26:ieee_big_data_16.html</id><summary type="html">&lt;p&gt;I have attended the IEEE Big Data 16 conference in Washington DC. I thank my company for sponsoring the trip. The conference included a &lt;a href="http://cci.drexel.edu/bigdata/bigdata2016/SpecialSymposium.html"&gt;special symposium&lt;/a&gt; dedicated to manufacturing. The symposium hosted some participants of the &lt;a href="https://www.kaggle.com/c/bosch-production-line-performance"&gt;Bosch Production Line Performance&lt;/a&gt; competition from Kaggle.&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;2016 IEEE International Conference on Big Data kicked off today in Washington, DC. Share highlights w/ hashtag &lt;a href="https://twitter.com/hashtag/IEEEBigData16?src=hash"&gt;#IEEEBigData16&lt;/a&gt; &amp;amp; we’ll RT!&lt;/p&gt;&amp;mdash; IEEE Big Data (@ieeebigdata) &lt;a href="https://twitter.com/ieeebigdata/status/805799488128425984"&gt;December 5, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;I'll list here a few notes I took during the conference.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Streaming Processing.&lt;/strong&gt; I heard about the most popular architectures nowadays, and I highly recommend reading the blog posts by the authors of such architectures:&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html"&gt;Lambda architecture&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.oreilly.com/ideas/questioning-the-lambda-architecture"&gt;Kappa architecture&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;K-Spectral Centroid.&lt;/strong&gt; The K-Spectral Centroid algorithm clusters time series by their shape, and finds the most representative shape (the cluster centroid) for each cluster.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;K-D Tree partition:&lt;/strong&gt; an algorithm for space partitioning.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Database Decay.&lt;/strong&gt; Interesting keynote by Michael Stonebraker. Shortly, large applications often share a centralized database used by different groups of a company. The DBA point of view:&lt;ul&gt;
+&lt;li&gt;High Risk. When changing a DB schema, I need to find applications all around in the company and update them accordingly (do I have budget for that?).&lt;/li&gt;
+&lt;li&gt;Low Risk. No change in schema, I do a workaround in data.&lt;/li&gt;
+&lt;li&gt;Claim. DBA want to lower the risk. --&amp;gt; no change in schema --&amp;gt; ER diagram diverges from reality --&amp;gt; database decay.&lt;/li&gt;
+&lt;li&gt;At some point, a total rewrite is the only way forward.&lt;/li&gt;
+&lt;li&gt;If you work in analytics getting data from operational DB, you realize data is getting more and more dirty.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PMML Scoring Engine.&lt;/strong&gt; Max Ferguson introduced what a Predictive Model Markup Language (PMML) is. Basically, if you train a model and want to share it in a different application, PMML is a standard that defines how models should be stored as an XML.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Uncertainty in RFs.&lt;/strong&gt; Random Forests can express uncertainty. One just needs to look at distribution of predictions among the decision trees of the model.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bosch.&lt;/strong&gt; Rumi Ghosh introduced the data science team at Bosch.&lt;ul&gt;
+&lt;li&gt;Insight from production plants: plant managers prefer interpretable models (logistic regression or decision tree) over black box models.&lt;/li&gt;
+&lt;li&gt;Research directions:&lt;/li&gt;
+&lt;li&gt;Root cause analysis (via Bayesian inference)&lt;/li&gt;
+&lt;li&gt;Class imbalance&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;3 Approaches in Kaggle Competition.&lt;/strong&gt; &lt;a href="https://www.kaggle.com/bpavlyshenko"&gt;Bohdan Pavlyshenko&lt;/a&gt; gave a talk on the three approaches he explored during the Kaggle competition about failure detection:&lt;ul&gt;
+&lt;li&gt;Pure machine learning approach. 2-Levels of model ensembling, a pure black-box.&lt;/li&gt;
+&lt;li&gt;Generalized Linear Model with Lasso regularization. Informative about feature impact.&lt;/li&gt;
+&lt;li&gt;Bayesian model in BUGS. It enables to obtain the estimate of the probability distribution for each coefficient.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FTLR.&lt;/strong&gt; Follow the regularized leader: a feature engineering method used to convert all categorical feature into one numerical feature.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CRF.&lt;/strong&gt; Conditional Random Fields is a class of predictive models used when the dataset is represented as a graph. Each node is a sample with a vector X and a target variable y.&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Weighted Random Sampling with PostgreSQL</title><link href="http://www.marcosantoni.com/2016/08/23/weighted-random-sampling-with-postgresql.html" rel="alternate"></link><published>2016-08-23T16:22:00+02:00</published><author><name>mrsantoni</name></author><id>tag:www.marcosantoni.com,2016-08-23:2016/08/23/weighted-random-sampling-with-postgresql.html</id><summary type="html">&lt;p&gt;You have a table like the following:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="n"&gt;weights&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
 &lt;span class="n"&gt;color&lt;/span&gt; &lt;span class="nb"&gt;varchar&lt;/span&gt; &lt;span class="k"&gt;primary&lt;/span&gt; &lt;span class="k"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;span class="n"&gt;weight&lt;/span&gt; &lt;span class="nb"&gt;float&lt;/span&gt;
@@ -188,7 +227,7 @@ into account?&lt;/p&gt;
 
 &lt;p&gt;The proportion of samples is quite close to the proportion of the
 weights. This similarity is clear if we compare this table with the
-discrete probability table above.&lt;/p&gt;</summary></entry><entry><title>Parallel Computing in Python with concurrent.futures</title><link href="http://Marco-Santoni.github.io/parallel-computing-in-python-with-concurrent-futures.html" rel="alternate"></link><published>2016-07-04T15:38:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-07-04:parallel-computing-in-python-with-concurrent-futures.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+discrete probability table above.&lt;/p&gt;</summary></entry><entry><title>Parallel Computing in Python with concurrent.futures</title><link href="http://www.marcosantoni.com/2016/07/04/parallel-computing-in-python-with-concurrent-futures.html" rel="alternate"></link><published>2016-07-04T15:38:00+02:00</published><author><name>mrsantoni</name></author><id>tag:www.marcosantoni.com,2016-07-04:2016/07/04/parallel-computing-in-python-with-concurrent-futures.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -1395,9 +1434,9 @@ done: 3
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary></entry><entry><title>Applied Bayesian Inference with PyMC [video]</title><link href="http://Marco-Santoni.github.io/applied-bayesian-inference-with-pymc-video.html" rel="alternate"></link><published>2016-06-30T17:03:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-06-30:applied-bayesian-inference-with-pymc-video.html</id><summary type="html">&lt;p&gt;I was glad to give an intro to Bayesian Inference at PyData Florence
+</summary></entry><entry><title>Applied Bayesian Inference with PyMC [video]</title><link href="http://www.marcosantoni.com/2016/06/30/applied-bayesian-inference-with-pymc-video.html" rel="alternate"></link><published>2016-06-30T17:03:00+02:00</published><author><name>mrsantoni</name></author><id>tag:www.marcosantoni.com,2016-06-30:2016/06/30/applied-bayesian-inference-with-pymc-video.html</id><summary type="html">&lt;p&gt;I was glad to give an intro to Bayesian Inference at PyData Florence
 2016. The video of the talk is now out.&lt;/p&gt;
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/BX1MjMDKhXU" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</summary></entry><entry><title>A Simple Machine Learning Pipeline</title><link href="http://Marco-Santoni.github.io/a-simple-machine-learning-pipeline.html" rel="alternate"></link><published>2016-06-19T10:37:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-06-19:a-simple-machine-learning-pipeline.html</id><summary type="html">&lt;p&gt;This post contains the code that I used in my talk at Python Milano
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/BX1MjMDKhXU" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</summary></entry><entry><title>A Simple Machine Learning Pipeline</title><link href="http://www.marcosantoni.com/2016/06/19/a-simple-machine-learning-pipeline.html" rel="alternate"></link><published>2016-06-19T10:37:00+02:00</published><author><name>mrsantoni</name></author><id>tag:www.marcosantoni.com,2016-06-19:2016/06/19/a-simple-machine-learning-pipeline.html</id><summary type="html">&lt;p&gt;This post contains the code that I used in my talk at Python Milano
 Meetup on &lt;a href="http://www.meetup.com/Python-Milano/events/231710577/"&gt;June 22nd
 2016&lt;/a&gt;. The talk
 was a quick overview of &lt;strong&gt;Pipeline&lt;/strong&gt;, a nice API by &lt;em&gt;scikitlearn&lt;/em&gt; to
@@ -1420,7 +1459,7 @@ handle.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;img alt="table" src="http://Marco-Santoni.github.io/images/table.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="table" src="http://www.marcosantoni.com/images/table.png" /&gt;&lt;/p&gt;
 &lt;p&gt;The goal is to predict the &lt;em&gt;PRICE&lt;/em&gt; variable given the other features.
 How does this variable distribute?&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="kn"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
@@ -1431,7 +1470,7 @@ How does this variable distribute?&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="download
 (8)" class="alignnone
-.size-full wp-image-74" height="271" src="http://Marco-Santoni.github.io/images/download-8.png" width="378" /&gt;&lt;/p&gt;
+.size-full wp-image-74" height="271" src="http://www.marcosantoni.com/images/download-8.png" width="378" /&gt;&lt;/p&gt;
 &lt;p&gt;Let's turn the dataframe into a ML-friendly notation.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;drop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;PRICE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;PRICE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
@@ -1463,7 +1502,7 @@ can exploit?&lt;/p&gt;
 
 
 &lt;p&gt;&lt;img alt="download" class="alignnone
-.size-full wp-image-78" height="438" src="http://Marco-Santoni.github.io/images/download.png" width="610" /&gt;&lt;/p&gt;
+.size-full wp-image-78" height="438" src="http://www.marcosantoni.com/images/download.png" width="610" /&gt;&lt;/p&gt;
 &lt;p&gt;As expected, there is a relation between the average number of rooms and
 the median price. So, let's build the first algorithm.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;sklearn.pipeline&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;make_pipeline&lt;/span&gt;
@@ -1527,7 +1566,7 @@ the median price. So, let's build the first algorithm.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="download
 (1)" class="alignnone
-.size-full wp-image-84" height="449" src="http://Marco-Santoni.github.io/images/download-1.png" width="1173" /&gt;&lt;/p&gt;
+.size-full wp-image-84" height="449" src="http://www.marcosantoni.com/images/download-1.png" width="1173" /&gt;&lt;/p&gt;
 &lt;p&gt;We now do a bit of feature engineering. We square the features.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;add_squared_col&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
 &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hstack&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -1556,7 +1595,7 @@ the median price. So, let's build the first algorithm.&lt;/p&gt;
 
 &lt;p&gt;&lt;img alt="download
 (2)" class="alignnone
-.size-full wp-image-86" height="449" src="http://Marco-Santoni.github.io/images/download-2.png" width="1165" /&gt;
+.size-full wp-image-86" height="449" src="http://www.marcosantoni.com/images/download-2.png" width="1165" /&gt;
 We now try a different model like a &lt;em&gt;decision tree&lt;/em&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;sklearn.tree&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;DecisionTreeRegressor&lt;/span&gt;
 
@@ -1577,7 +1616,7 @@ We now try a different model like a &lt;em&gt;decision tree&lt;/em&gt;.&lt;/p&gt
 
 &lt;p&gt;&lt;img alt="download
 (3)" class="alignnone
-.size-full wp-image-87" height="449" src="http://Marco-Santoni.github.io/images/download-3.png" width="1165" /&gt;&lt;/p&gt;
+.size-full wp-image-87" height="449" src="http://www.marcosantoni.com/images/download-3.png" width="1165" /&gt;&lt;/p&gt;
 &lt;p&gt;We now explore a second feature: &lt;em&gt;INDUS&lt;/em&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;figure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;figsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scatter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;df&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;INDUS&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1589,7 +1628,7 @@ We now try a different model like a &lt;em&gt;decision tree&lt;/em&gt;.&lt;/p&gt
 
 &lt;p&gt;&lt;img alt="download
 (4)" class="alignnone
-.size-full wp-image-89" height="438" src="http://Marco-Santoni.github.io/images/download-4.png" width="610" /&gt;&lt;/p&gt;
+.size-full wp-image-89" height="438" src="http://www.marcosantoni.com/images/download-4.png" width="610" /&gt;&lt;/p&gt;
 &lt;p&gt;So, we see another relation between &lt;em&gt;INDUS&lt;/em&gt; and &lt;em&gt;PRICE&lt;/em&gt;. So, let's add
 this second feature.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;RM_and_INDUS_cols&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
@@ -1649,7 +1688,7 @@ this second feature.&lt;/p&gt;
 
 
 &lt;p&gt;&lt;img alt="animation" class="alignnone
-.size-full wp-image-91" height="504" src="http://Marco-Santoni.github.io/images/animation.gif" width="720" /&gt;&lt;/p&gt;
+.size-full wp-image-91" height="504" src="http://www.marcosantoni.com/images/animation.gif" width="720" /&gt;&lt;/p&gt;
 &lt;p&gt;How pretty is that?&lt;/p&gt;
 &lt;p&gt;The following step is to use all the features available. So, we move to
 a 13-dimensional feature vector.&lt;/p&gt;
@@ -1694,12 +1733,12 @@ normalization of the features).&lt;/p&gt;
 &lt;span class="sd"&gt;Mean Squared Error&lt;/span&gt;
 &lt;span class="sd"&gt;[ 16.4292824 14.50522561 18.27167008]&lt;/span&gt;
 &lt;span class="sd"&gt;Accuracy: 16.40&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Install a .deb file from terminal on Ubuntu</title><link href="http://Marco-Santoni.github.io/install-a-deb-file-from-terminal-on-ubuntu.html" rel="alternate"></link><published>2016-05-23T08:18:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-05-23:install-a-deb-file-from-terminal-on-ubuntu.html</id><summary type="html">&lt;p&gt;I use Ubuntu 16.04. Sometimes, when I double-click a &lt;em&gt;.deb&lt;/em&gt; file, the
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Install a .deb file from terminal on Ubuntu</title><link href="http://www.marcosantoni.com/2016/05/23/install-a-deb-file-from-terminal-on-ubuntu.html" rel="alternate"></link><published>2016-05-23T08:18:00+02:00</published><author><name>mrsantoni</name></author><id>tag:www.marcosantoni.com,2016-05-23:2016/05/23/install-a-deb-file-from-terminal-on-ubuntu.html</id><summary type="html">&lt;p&gt;I use Ubuntu 16.04. Sometimes, when I double-click a &lt;em&gt;.deb&lt;/em&gt; file, the
 installation program does not work. What often solves the problem is
 installing it from terminal.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo dpkg -i my_deb_file.deb
 sudo apt-get -f install
-&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Insights from Data Science Milan - 19/05/16</title><link href="http://Marco-Santoni.github.io/insights-from-data-science-milan-190516.html" rel="alternate"></link><published>2016-05-20T17:56:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-05-20:insights-from-data-science-milan-190516.html</id><summary type="html">&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/hashtag/DeepLearning?src=hash"&gt;#DeepLearning&lt;/a&gt; introduction and enterprise architectures using &lt;a href="https://twitter.com/hashtag/H2O?src=hash"&gt;#H2O&lt;/a&gt; - first &lt;a href="https://twitter.com/hashtag/DataScienceMilan?src=hash"&gt;#DataScienceMilan&lt;/a&gt; meetup! - &lt;a href="https://t.co/I8LsfaFJSu"&gt;https://t.co/I8LsfaFJSu&lt;/a&gt;&lt;/p&gt;&amp;mdash; Andrea Scarso (@andreaesseci) &lt;a href="https://twitter.com/andreaesseci/status/733044189349482496"&gt;May 18, 2016&lt;/a&gt;&lt;/blockquote&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Insights from Data Science Milan - 19/05/16</title><link href="http://www.marcosantoni.com/2016/05/20/insights-from-data-science-milan-190516.html" rel="alternate"></link><published>2016-05-20T17:56:00+02:00</published><author><name>mrsantoni</name></author><id>tag:www.marcosantoni.com,2016-05-20:2016/05/20/insights-from-data-science-milan-190516.html</id><summary type="html">&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;&lt;a href="https://twitter.com/hashtag/DeepLearning?src=hash"&gt;#DeepLearning&lt;/a&gt; introduction and enterprise architectures using &lt;a href="https://twitter.com/hashtag/H2O?src=hash"&gt;#H2O&lt;/a&gt; - first &lt;a href="https://twitter.com/hashtag/DataScienceMilan?src=hash"&gt;#DataScienceMilan&lt;/a&gt; meetup! - &lt;a href="https://t.co/I8LsfaFJSu"&gt;https://t.co/I8LsfaFJSu&lt;/a&gt;&lt;/p&gt;&amp;mdash; Andrea Scarso (@andreaesseci) &lt;a href="https://twitter.com/andreaesseci/status/733044189349482496"&gt;May 18, 2016&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
 
@@ -1733,18 +1772,18 @@ complexity of designing the algorithm.&lt;/p&gt;
 &lt;p&gt;Different languages in different teams.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Data science
 languages" class="alignnone
-.size-full wp-image-58" height="504" src="http://Marco-Santoni.github.io/images/20160519_193804-1.jpg" width="896" /&gt;&lt;/p&gt;
+.size-full wp-image-58" height="504" src="http://www.marcosantoni.com/images/20160519_193804-1.jpg" width="896" /&gt;&lt;/p&gt;
 &lt;p&gt;It can be challenge to bring machine learning models from a team to
 another. The reason is that often teams work in different languages or
 in different frameworks. This organization leads to complex deployment
 processes.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Tips for
 deployment" class="alignnone
-.size-full wp-image-59" height="504" src="http://Marco-Santoni.github.io/images/20160519_194315.jpg" width="896" /&gt;&lt;/p&gt;
+.size-full wp-image-59" height="504" src="http://www.marcosantoni.com/images/20160519_194315.jpg" width="896" /&gt;&lt;/p&gt;
 &lt;p&gt;Paolo recommended to have the entire team on the same framework. The
 idea is to have the deployment pipeline as smooth as possible. It can be
 an effort for the data scientists at the beginning to learn the data
-engineer tools, but it can make the difference on the long term.&lt;/p&gt;</summary><category term="Events"></category></entry><entry><title>Bayesian A/B Testing in Python</title><link href="http://Marco-Santoni.github.io/bayesian-ab-testing-in-python.html" rel="alternate"></link><published>2016-05-15T15:33:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-05-15:bayesian-ab-testing-in-python.html</id><summary type="html">&lt;p&gt;Imagine you re-designing your e-commerce website. You have to decide
+engineer tools, but it can make the difference on the long term.&lt;/p&gt;</summary><category term="Events"></category></entry><entry><title>Bayesian A/B Testing in Python</title><link href="http://www.marcosantoni.com/2016/05/15/bayesian-ab-testing-in-python.html" rel="alternate"></link><published>2016-05-15T15:33:00+02:00</published><author><name>mrsantoni</name></author><id>tag:www.marcosantoni.com,2016-05-15:2016/05/15/bayesian-ab-testing-in-python.html</id><summary type="html">&lt;p&gt;Imagine you re-designing your e-commerce website. You have to decide
 whether the "Buy Item" button should be blue or green. You decide to
 setup an A/B test, so you build two versions of the item page:&lt;/p&gt;
 &lt;ul&gt;
@@ -1856,7 +1895,7 @@ inference.&lt;/p&gt;
 
 
 &lt;p&gt;&lt;img alt="p_A_hist_N_1500" class="alignnone
-.wp-image-38 size-full" height="700" src="http://Marco-Santoni.github.io/images/p_A_hist_N_1500.png" width="800" /&gt;&lt;/p&gt;
+.wp-image-38 size-full" height="700" src="http://www.marcosantoni.com/images/p_A_hist_N_1500.png" width="800" /&gt;&lt;/p&gt;
 &lt;p&gt;Then, we might want to answer the question: where am I 90% confident
 that the true &lt;span class="math"&gt;\(p_A\)&lt;/span&gt; lies? That's easy to answer.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;p_A_samples&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;mcmc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;trace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;p_A&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[:]&lt;/span&gt;
@@ -1936,7 +1975,7 @@ between &lt;span class="math"&gt;\(p_A\)&lt;/span&gt; and &lt;span class="math
 
 
 &lt;p&gt;&lt;img alt="A_and_B" class="alignnone
-.wp-image-40 size-full" height="600" src="http://Marco-Santoni.github.io/images/A_and_B.png" width="800" /&gt;&lt;/p&gt;
+.wp-image-40 size-full" height="600" src="http://www.marcosantoni.com/images/A_and_B.png" width="800" /&gt;&lt;/p&gt;
 &lt;p&gt;Then, we can answer a question like: what is the probability that
 &lt;span class="math"&gt;\( p_A &amp;gt; p_B\)&lt;/span&gt;?&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Probability that p_A &amp;gt; p_B:&amp;#39;&lt;/span&gt;
@@ -2002,7 +2041,7 @@ between &lt;span class="math"&gt;\(p_A\)&lt;/span&gt; and &lt;span class="math
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</summary><category term="Bayesian"></category></entry><entry><title>Insights from PyData Florence 16</title><link href="http://Marco-Santoni.github.io/insights-from-pydata-florence-16.html" rel="alternate"></link><published>2016-04-20T06:05:00+02:00</published><author><name>mrsantoni</name></author><id>tag:Marco-Santoni.github.io,2016-04-20:insights-from-pydata-florence-16.html</id><summary type="html">&lt;p&gt;I have just joined &lt;a href="https://www.pycon.it/p3/schedule/pycon7/"&gt;PyData&lt;/a&gt;
+&lt;/script&gt;</summary><category term="Bayesian"></category></entry><entry><title>Insights from PyData Florence 16</title><link href="http://www.marcosantoni.com/2016/04/20/insights-from-pydata-florence-16.html" rel="alternate"></link><published>2016-04-20T06:05:00+02:00</published><author><name>mrsantoni</name></author><id>tag:www.marcosantoni.com,2016-04-20:2016/04/20/insights-from-pydata-florence-16.html</id><summary type="html">&lt;p&gt;I have just joined &lt;a href="https://www.pycon.it/p3/schedule/pycon7/"&gt;PyData&lt;/a&gt;
 conference in Florence, and I will list briefly some
 interesting insights.&lt;/p&gt;
 &lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;Oh my... We are already overcrowded &lt;a href="https://twitter.com/pyconit"&gt;@pyconit&lt;/a&gt; and it&amp;#39;s *just* the beginning!! 🎉🎉 good job guys! 🙌🏻 &lt;a href="https://twitter.com/hashtag/pycon7?src=hash"&gt;#pycon7&lt;/a&gt;&lt;/p&gt;&amp;mdash; (((Valerio Maggio))) (@leriomaggio) &lt;a href="https://twitter.com/leriomaggio/status/720894471060201472"&gt;April 15, 2016&lt;/a&gt;&lt;/blockquote&gt;

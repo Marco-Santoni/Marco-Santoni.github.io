@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="http://Marco-Santoni.github.io/" rel="alternate"></link><link href="http://Marco-Santoni.github.io/feeds/misc.atom.xml" rel="self"></link><id>http://Marco-Santoni.github.io/</id><updated>2016-12-26T16:22:00+01:00</updated><entry><title>Insights from IEEE Big Data 16</title><link href="http://Marco-Santoni.github.io/ieee_big_data_16.html" rel="alternate"></link><published>2016-12-26T16:22:00+01:00</published><author><name>Marco Santoni</name></author><id>tag:Marco-Santoni.github.io,2016-12-26:ieee_big_data_16.html</id><summary type="html">&lt;p&gt;I have attended the IEEE Big Data 16 conference in Washington DC. I thank my company for sponsoring the trip. The conference included a &lt;a href="http://cci.drexel.edu/bigdata/bigdata2016/SpecialSymposium.html"&gt;special symposium&lt;/a&gt; dedicated to manufacturing. The symposium hosted some participants of the &lt;a href="https://www.kaggle.com/c/bosch-production-line-performance"&gt;Bosch Production Line Performance&lt;/a&gt; competition from Kaggle.&lt;/p&gt;
+&lt;blockquote class="twitter-tweet" data-lang="en"&gt;&lt;p lang="en" dir="ltr"&gt;2016 IEEE International Conference on Big Data kicked off today in Washington, DC. Share highlights w/ hashtag &lt;a href="https://twitter.com/hashtag/IEEEBigData16?src=hash"&gt;#IEEEBigData16&lt;/a&gt; &amp;amp; we’ll RT!&lt;/p&gt;&amp;mdash; IEEE Big Data (@ieeebigdata) &lt;a href="https://twitter.com/ieeebigdata/status/805799488128425984"&gt;December 5, 2016&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;script async src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;p&gt;I'll list here a few notes I took during the conference.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Streaming Processing.&lt;/strong&gt; I heard about the most popular architectures nowadays, and I highly recommend reading the blog posts by the authors of such architectures:&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://nathanmarz.com/blog/how-to-beat-the-cap-theorem.html"&gt;Lambda architecture&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.oreilly.com/ideas/questioning-the-lambda-architecture"&gt;Kappa architecture&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;K-Spectral Centroid.&lt;/strong&gt; The K-Spectral Centroid algorithm clusters time series by their shape, and finds the most representative shape (the cluster centroid) for each cluster.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;K-D Tree partition:&lt;/strong&gt; an algorithm for space partitioning.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Database Decay.&lt;/strong&gt; Interesting keynote by Michael Stonebraker. Shortly, large applications often share a centralized database used by different groups of a company. The DBA point of view:&lt;ul&gt;
+&lt;li&gt;High Risk. When changing a DB schema, I need to find applications all around in the company and update them accordingly (do I have budget for that?).&lt;/li&gt;
+&lt;li&gt;Low Risk. No change in schema, I do a workaround in data.&lt;/li&gt;
+&lt;li&gt;Claim. DBA want to lower the risk. --&amp;gt; no change in schema --&amp;gt; ER diagram diverges from reality --&amp;gt; database decay.&lt;/li&gt;
+&lt;li&gt;At some point, a total rewrite is the only way forward.&lt;/li&gt;
+&lt;li&gt;If you work in analytics getting data from operational DB, you realize data is getting more and more dirty.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PMML Scoring Engine.&lt;/strong&gt; Max Ferguson introduced what a Predictive Model Markup Language (PMML) is. Basically, if you train a model and want to share it in a different application, PMML is a standard that defines how models should be stored as an XML.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Uncertainty in RFs.&lt;/strong&gt; Random Forests can express uncertainty. One just needs to look at distribution of predictions among the decision trees of the model.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Bosch.&lt;/strong&gt; Rumi Ghosh introduced the data science team at Bosch.&lt;ul&gt;
+&lt;li&gt;Insight from production plants: plant managers prefer interpretable models (logistic regression or decision tree) over black box models.&lt;/li&gt;
+&lt;li&gt;Research directions:&lt;/li&gt;
+&lt;li&gt;Root cause analysis (via Bayesian inference)&lt;/li&gt;
+&lt;li&gt;Class imbalance&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;3 Approaches in Kaggle Competition.&lt;/strong&gt; &lt;a href="https://www.kaggle.com/bpavlyshenko"&gt;Bohdan Pavlyshenko&lt;/a&gt; gave a talk on the three approaches he explored during the Kaggle competition about failure detection:&lt;ul&gt;
+&lt;li&gt;Pure machine learning approach. 2-Levels of model ensembling, a pure black-box.&lt;/li&gt;
+&lt;li&gt;Generalized Linear Model with Lasso regularization. Informative about feature impact.&lt;/li&gt;
+&lt;li&gt;Bayesian model in BUGS. It enables to obtain the estimate of the probability distribution for each coefficient.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FTLR.&lt;/strong&gt; Follow the regularized leader: a feature engineering method used to convert all categorical feature into one numerical feature.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CRF.&lt;/strong&gt; Conditional Random Fields is a class of predictive models used when the dataset is represented as a graph. Each node is a sample with a vector X and a target variable y.&lt;/li&gt;
+&lt;/ul&gt;</summary></entry></feed>
