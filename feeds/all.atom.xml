@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="http://www.marcosantoni.com/" rel="alternate"></link><link href="http://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>http://www.marcosantoni.com/</id><updated>2017-01-21T18:00:00+01:00</updated><entry><title>Monitoring Bus Frequencies in Rome</title><link href="http://www.marcosantoni.com/monitoring_bus_frequencies_in_rome.html" rel="alternate"></link><published>2017-01-21T18:00:00+01:00</published><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2017-01-21:monitoring_bus_frequencies_in_rome.html</id><summary type="html">&lt;p&gt;I have just launched &lt;a href="http://atacmonitor.com/"&gt;atacmonitor&lt;/a&gt;. It is a website providing information about the waiting time at bus stops in Rome.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="http://www.marcosantoni.com/" rel="alternate"></link><link href="http://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>http://www.marcosantoni.com/</id><updated>2017-02-10T21:00:00+01:00</updated><entry><title>Weighted Random Sampling with PostgreSQL [Follow-up]</title><link href="http://www.marcosantoni.com/weighted_random_sampling_follow_up.html" rel="alternate"></link><published>2017-02-10T21:00:00+01:00</published><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2017-02-10:weighted_random_sampling_follow_up.html</id><summary type="html">&lt;blockquote&gt;
+&lt;p&gt;I received valuable feedbacks by &lt;a href="https://www.linkedin.com/in/decibel/"&gt;Jim Nasby&lt;/a&gt; regarding &lt;a href="http://www.marcosantoni.com/2016/08/23/weighted-random-sampling-with-postgresql.html"&gt;the post&lt;/a&gt; about weighted random sampling with PostgreSQL. I will report here Jim's email.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Sadly, Common Table Expressions (CTE)s are &lt;em&gt;insanely&lt;/em&gt; expensive, because
+each one must be fully materialized. So in your example, you're
+essentially creating 5 temp tables (one for each CTE). Obviously that's
+not a big deal with only 4 weights and 1000 samples, but for other use
+cases that overhead could really add up. Note that this is not the same
+as the &lt;code&gt;OFFSET 0&lt;/code&gt; trick...
+You can get a similar breakdown of code by using subselects in &lt;code&gt;FROM&lt;/code&gt;
+clauses. That would look something like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="n"&gt;color&lt;/span&gt;
+   &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;samples&lt;/span&gt; &lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;samples&lt;/span&gt;
+   &lt;span class="k"&gt;JOIN&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+     &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;cumulative_bounds&lt;/span&gt; &lt;span class="k"&gt;SELECT&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+       &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+         &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;sampling_cumulative_prob&lt;/span&gt; &lt;span class="k"&gt;SELECT&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+           &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="p"&gt;(....)&lt;/span&gt;
+        &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;sampling_cumulative_prob&lt;/span&gt;
+     &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;cumulative_bounds&lt;/span&gt; &lt;span class="k"&gt;ON&lt;/span&gt; &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Not as nice as &lt;code&gt;WITH&lt;/code&gt;, but not horrible. You can also create temporary
+views for each of the intermediate steps.&lt;/p&gt;
+&lt;p&gt;in weights_with_sum, you can get rid of the &lt;code&gt;join&lt;/code&gt; in favor of &lt;code&gt;sum(weight)
+OVER() AS weight_sum&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, &lt;code&gt;random()&lt;/code&gt; produces &lt;code&gt;0.0 &amp;lt;= x &amp;lt; 1.0&lt;/code&gt;, so the bounds on the &lt;code&gt;numrange&lt;/code&gt;
+should be &lt;code&gt;'[)'&lt;/code&gt;, not &lt;code&gt;'(]'&lt;/code&gt;. Personally, I would just create the &lt;code&gt;numrange&lt;/code&gt;
+immediately in &lt;code&gt;cummulative_bounds&lt;/code&gt;, but that's mostly just a matter of style.&lt;/p&gt;
+&lt;p&gt;BTW, if you've got &lt;code&gt;plpythonu&lt;/code&gt; loaded there's probably an easier way to
+generate the set of ranges, which could then be joined to the random
+samples.&lt;/p&gt;
+&lt;p&gt;BTW, &lt;code&gt;width_bucket(operand anyelement, thresholds anyarray)&lt;/code&gt; (see &lt;em&gt;second&lt;/em&gt;
+instance on &lt;a href="https://www.postgresql.org/docs/current/static/functions-math.html"&gt;docs&lt;/a&gt;)
+might be even faster; it'd definitely be simpler:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;width_bucket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt; &lt;span class="n"&gt;thresholds&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;generate_series&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+     &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+       &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="n"&gt;array_agg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;colors&lt;/span&gt;
+           &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;array_agg&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cum_prod&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;thresholds&lt;/span&gt;
+         &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;sampling_cumulative_prod&lt;/span&gt;
+     &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;prob&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>Monitoring Bus Frequencies in Rome</title><link href="http://www.marcosantoni.com/monitoring_bus_frequencies_in_rome.html" rel="alternate"></link><published>2017-01-21T18:00:00+01:00</published><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2017-01-21:monitoring_bus_frequencies_in_rome.html</id><summary type="html">&lt;p&gt;I have just launched &lt;a href="http://atacmonitor.com/"&gt;atacmonitor&lt;/a&gt;. It is a website providing information about the waiting time at bus stops in Rome.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Waiting times" src="http://www.marcosantoni.com/images/atacmonitor.gif" /&gt;&lt;/p&gt;
 &lt;h2&gt;Overview&lt;/h2&gt;
 &lt;p&gt;The datasource is live data about bus waiting time of ATAC, Rome's public transport company. The transport office provides &lt;a href="https://romamobilita.it/it/azienda/open-data/api-real-time"&gt;public API&lt;/a&gt; with real-time data.&lt;/p&gt;
