@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>The Pragmatic Programmer [Review]</title>
+
+            <link href="http://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Full Atom Feed" />
+            <link href="http://www.marcosantoni.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="Marco Santoni Full RSS Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://www.marcosantoni.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://www.marcosantoni.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://www.marcosantoni.com/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Rather than construction, software is more like gardening— it is more organic than concrete. You plant many things in a garden according ...">
+
+        <meta name="author" content="Marco Santoni">
+
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Marco Santoni">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://www.marcosantoni.com/author/marco-santoni.html">
+	<meta property="og:url" content="http://www.marcosantoni.com/the_pragmatic_programmer.html">
+	<meta property="og:title" content="The Pragmatic Programmer [Review]">
+	<meta property="article:published_time" content="2018-02-10 14:31:00+01:00">
+            <meta property="og:description" content="Rather than construction, software is more like gardening— it is more organic than concrete. You plant many things in a garden according ...">
+
+            <meta property="og:image" content="http://www.marcosantoni.com/theme/images/post-bg.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@mrsantoni">
+        <meta name="twitter:title" content="The Pragmatic Programmer [Review]">
+
+            <meta name="twitter:image" content="http://www.marcosantoni.com/theme/images/post-bg.jpg">
+
+            <meta name="twitter:description" content="Rather than construction, software is more like gardening— it is more organic than concrete. You plant many things in a garden according ...">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://www.marcosantoni.com/">Marco Santoni</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-color: #1a1a1a">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>The Pragmatic Programmer [Review]</h1>
+                        <span class="meta">Posted by
+                                <a href="http://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                             on Sat 10 February 2018
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <blockquote>
+<p>Rather than construction, software is more like gardening— it is more organic than concrete. You plant many things in a garden according to an initial plan and conditions. Some thrive, others are destined to end up as compost. [...] You constantly monitor the health of the garden, and make adjustments (to the soil, the plants, the layout) as needed.</p>
+</blockquote>
+<p><em>The Pragmatic Programmer: from Journeyman to Master</em> by Andrew Hunt and David Thomas is a guide to best practices of software development. A software developer is like a woodcrafter. There are good practices that help him in achieving quality and efficiency in its work. I will summarize here some interesting hints that you can find in the book.</p>
+<p>The book was originally published in 1999, so technologies and tools are quite outdated. However, the main principle remain surprisingly up to date.</p>
+<p><img alt="The Pragmatic Programmer" src="http://www.marcosantoni.com/images/pragmatic_programmer.jpg" /></p>
+<h2>1. Don't Repeat Yourself</h2>
+<blockquote>
+<p>DRY— Don't Repeat Yourself The alternative is to have the same thing expressed in two or more places. If you change one, you have to remember to change the others [...]. It isn't a question of whether you'll remember: it's a question of <strong>when you'll forget</strong>.</p>
+</blockquote>
+<h2>2. Coding over GUIs</h2>
+<blockquote>
+<p>A benefit of GUIs is WYSIWYG— what you see is what you get. The disadvantage is WYSIAYG— what you see is <strong>all</strong> you get.</p>
+</blockquote>
+<h2>3. One Editor for All</h2>
+<blockquote>
+<p>We think it is better to know one editor very well, and use it for all editing tasks: code, documentation, memos, system administration, and so on. Without a single editor, you face a potential modern day Babel of confusion.</p>
+</blockquote>
+<h2>4. Always Source Control. Always.</h2>
+<blockquote>
+<p>Always. Even if you are a single-person team on a one-week project. Even if it's a "throw-away" prototype. Even if the stuff you're working on isn't source code. Make sure that everything is under source code control— documentation, phone number lists, memos to vendors, makefiles, build and release procedures, that little shell script that burns the CD master— everything.</p>
+</blockquote>
+<h2>5. Things can Happen</h2>
+<blockquote>
+<p>It goes THIS CAN NEVER HAPPEN... "This code won't be used 30 years from now, so two-digit dates are fine." "This application will never be used abroad, so why internationalize it?" "count can't be negative." "This printf can't fail.". Let's not practice this kind of self-deception, particularly when coding.</p>
+</blockquote>
+<h2>6. Become a User</h2>
+<blockquote>
+<p>There's a simple technique for getting inside your users' requirements that isn't used often enough: become a user. Are you writing a system for the help desk? Spend a couple of days monitoring the phones with an experienced support person. Are you automating a manual stock control system? Work in the warehouse for a week. As well as giving you insight into how the system will really be used, you'd be amazed at how the request "May I sit in for a week while you do your job?" helps build trust and establishes a basis for communication with your users. Just remember not to get in the way!</p>
+</blockquote>
+<h2>7. Web Docs over Files</h2>
+<blockquote>
+<p>Web-based distribution also avoids the typical two-inch-thick binder entitled Requirements Analysis that no one ever reads and that becomes outdated the instant ink hits paper. If it's on the Web, the programmers may even read it.</p>
+</blockquote>
+<h2>8. Quality, quality, quality.</h2>
+<blockquote>
+<p>Teams as a whole should not tolerate broken windows— those small imperfections that no one fixes. The team must take responsibility for the quality of the product, supporting developers who understand the no broken windows</p>
+<p>Some team methodologies have a quality officer— someone to whom the team delegates the responsibility for the quality of the deliverable. This is clearly <strong>ridiculous</strong>: quality can come only from the individual contributions of all team members.</p>
+</blockquote>
+<h2>9. Marketing the Project</h2>
+<blockquote>
+<p>There is a simple marketing trick that helps teams communicate as one: generate a brand. When you start a project, come up with a name for it, ideally something off-the-wall.</p>
+</blockquote>
+<h2>10. Manual Ensures Errors</h2>
+<blockquote>
+<p>A great way to ensure both consistency and accuracy is to automate everything the team does.</p>
+</blockquote>
+<h2>Reference</h2>
+<p>Hunt, Andrew; Thomas, David. The Pragmatic Programmer: From Journeyman to Master. Pearson Education. Kindle Edition.</p>
+    </article>
+
+
+    <hr>
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://linkedin.com/in/msantoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/mrsantoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://www.marcosantoni.com/theme/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://www.marcosantoni.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://www.marcosantoni.com/theme/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
