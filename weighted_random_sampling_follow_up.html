@@ -5,27 +5,24 @@
             <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
 
-        <title>Marco Santoni</title>
 
-            <link href="http://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Full Atom Feed" />
-            <link href="http://www.marcosantoni.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="Marco Santoni Full RSS Feed" />
+        <title>Weighted Random Sampling with PostgreSQL [Follow-up]</title>
 
         <!-- Bootstrap Core CSS -->
-        <link href="http://www.marcosantoni.com/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="http://www.marcosantoni.com/theme/css/clean-blog.min.css" rel="stylesheet">
+        <link href="/theme/css/clean-blog.min.css" rel="stylesheet">
 
         <!-- Code highlight color scheme -->
-            <link href="http://www.marcosantoni.com/theme/css/code_blocks/darkly.css" rel="stylesheet">
+            <link href="/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
 
         <!-- Custom Fonts -->
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,11 +33,32 @@
 
 
 
+        <meta name="description" content="I received valuable feedbacks by Jim Nasby regarding the post about weighted random sampling with PostgreSQL. I will report here Jim's...">
+
+        <meta name="author" content="Marco Santoni">
 
 
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Marco Santoni">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="/author/marco-santoni.html">
+	<meta property="og:url" content="/weighted_random_sampling_follow_up.html">
+	<meta property="og:title" content="Weighted Random Sampling with PostgreSQL [Follow-up]">
+	<meta property="article:published_time" content="2017-02-10 21:00:00+01:00">
+            <meta property="og:description" content="I received valuable feedbacks by Jim Nasby regarding the post about weighted random sampling with PostgreSQL. I will report here Jim's...">
+
+            <meta property="og:image" content="/theme/images/post-bg.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@mrsantoni">
+        <meta name="twitter:title" content="Weighted Random Sampling with PostgreSQL [Follow-up]">
+
+            <meta name="twitter:image" content="/theme/images/post-bg.jpg">
+
+            <meta name="twitter:description" content="I received valuable feedbacks by Jim Nasby regarding the post about weighted random sampling with PostgreSQL. I will report here Jim's...">
 </head>
 
-<body>
+<body class="article-weighted_random_sampling_follow_up">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -53,13 +71,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://www.marcosantoni.com/">Marco Santoni</a>
+                <a class="navbar-brand" href="/">Marco Santoni</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
+                            <li><a href="/pages/atacmonitor.html">atacmonitor</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -68,14 +87,14 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('http://www.marcosantoni.com/theme/images/post-bg.jpg')">
+        <header class="intro-header" style="background-color: #1a1a1a">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>Weighted Random Sampling with PostgreSQL [Follow-up]</h1>
                         <span class="meta">Posted by
-                                <a href="http://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                                <a href="/author/marco-santoni.html">Marco Santoni</a>
                              on Fri 10 February 2017
                         </span>
                         
@@ -137,7 +156,9 @@ might be even faster; it'd definitely be simpler:</p>
 </pre></div>
     </article>
 
+
     <hr>
+
             </div>
         </div>
     </div>
@@ -150,46 +171,39 @@ might be even faster; it'd definitely be simpler:</p>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
-                        <li>
-                            <a href="">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
+                            <li>
+                                <a href="https://linkedin.com/in/msantoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/mrsantoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
                     </ul>
-                    <p class="copyright text-muted">Blog powered by <a href="http://getpelican.com">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.</p>
-                </div>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Marco Santoni
+</p>                </div>
             </div>
         </div>
     </footer>
 
     <!-- jQuery -->
-    <script src="http://www.marcosantoni.com/theme/js/jquery.js"></script>
+    <script src="/theme/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="http://www.marcosantoni.com/theme/js/bootstrap.min.js"></script>
+    <script src="/theme/js/bootstrap.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="http://www.marcosantoni.com/theme/js/clean-blog.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="/theme/js/clean-blog.min.js"></script>
 
 </body>
 

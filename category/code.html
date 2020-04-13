@@ -5,27 +5,24 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+
 
         <title>Marco Santoni - Articles in the Code category</title>
 
-            <link href="http://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Full Atom Feed" />
-            <link href="http://www.marcosantoni.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="Marco Santoni Full RSS Feed" />
-
         <!-- Bootstrap Core CSS -->
-        <link href="http://www.marcosantoni.com/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom CSS -->
-        <link href="http://www.marcosantoni.com/theme/css/clean-blog.min.css" rel="stylesheet">
+        <link href="/theme/css/clean-blog.min.css" rel="stylesheet">
 
         <!-- Code highlight color scheme -->
-            <link href="http://www.marcosantoni.com/theme/css/code_blocks/darkly.css" rel="stylesheet">
+            <link href="/theme/css/code_blocks/darkly.css" rel="stylesheet">
+
 
         <!-- Custom Fonts -->
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,9 +30,17 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+
+                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Marco Santoni">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:site" content="@mrsantoni">
+            <meta name="twitter:title" content="Marco Santoni">
+            <meta name="twitter:description" content="Data Science">
+                <meta name="twitter:image" content="/theme/images/post-bg.jpg">
 </head>
 
-<body>
+<body class="category-code">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -48,13 +53,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://www.marcosantoni.com/">Marco Santoni</a>
+                <a class="navbar-brand" href="/">Marco Santoni</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
+                            <li><a href="/pages/atacmonitor.html">atacmonitor</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -63,7 +69,7 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('http://www.marcosantoni.com/theme/images/home-bg.jpg')">
+        <header class="intro-header" style="background-color: #1a1a1a">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -80,41 +86,34 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="post-preview">
-            <a href="http://www.marcosantoni.com/2016/08/23/weighted-random-sampling-with-postgresql.html" rel="bookmark" title="Permalink to Weighted Random Sampling with PostgreSQL">
+            <a href="/2016/08/23/weighted-random-sampling-with-postgresql.html" rel="bookmark" title="Permalink to Weighted Random Sampling with PostgreSQL">
                 <h2 class="post-title">
                     Weighted Random Sampling with PostgreSQL
                 </h2>
             </a>
-                <p>You have a table like the following:</p>
-<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span...
+                <p class="article-summary">
+                    You have a table like the following: CREATE TABLE weights ( color varchar primary key, weight float ); INSERT INTO weights (color,...
+                </p>
             <p class="post-meta">Posted by
-                    <a href="http://www.marcosantoni.com/author/mrsantoni.html">mrsantoni</a>
+                    <a href="/author/mrsantoni.html">mrsantoni</a>
                  on Tue 23 August 2016
             </p>
         </div>
-        <hr>
         <div class="post-preview">
-            <a href="http://www.marcosantoni.com/2016/05/15/bayesian-ab-testing-in-python.html" rel="bookmark" title="Permalink to Bayesian A/B Testing in Python">
+            <a href="/2016/05/15/bayesian-ab-testing-in-python.html" rel="bookmark" title="Permalink to Bayesian A/B Testing in Python">
                 <h2 class="post-title">
                     Bayesian A/B Testing in Python
                 </h2>
             </a>
-                <p>Imagine you re-designing your e-commerce website. You have to decide
-whether the "Buy Item" button should be blue or green. You...
+                <p class="article-summary">
+                    Imagine you re-designing your e-commerce website. You have to decide whether the "Buy Item" button should be blue or green. You decide...
+                </p>
             <p class="post-meta">Posted by
-                    <a href="http://www.marcosantoni.com/author/mrsantoni.html">mrsantoni</a>
+                    <a href="/author/mrsantoni.html">mrsantoni</a>
                  on Sun 15 May 2016
             </p>
         </div>
-        <hr>
 
-    <!-- Pager -->
-    <ul class="pager">
-        <li class="next">
-        </li>
-    </ul>
-    Page 1 / 1
-    <hr>
             </div>
         </div>
     </div>
@@ -127,46 +126,39 @@ whether the "Buy Item" button should be blue or green. You...
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
-                        <li>
-                            <a href="">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
+                            <li>
+                                <a href="https://linkedin.com/in/msantoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/mrsantoni">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
                     </ul>
-                    <p class="copyright text-muted">Blog powered by <a href="http://getpelican.com">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.</p>
-                </div>
+<p class="copyright text-muted">
+    Blog powered by <a href="http://getpelican.com">Pelican</a>,
+    which takes great advantage of <a href="http://python.org">Python</a>. <br />        &copy;  Marco Santoni
+</p>                </div>
             </div>
         </div>
     </footer>
 
     <!-- jQuery -->
-    <script src="http://www.marcosantoni.com/theme/js/jquery.js"></script>
+    <script src="/theme/js/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="http://www.marcosantoni.com/theme/js/bootstrap.min.js"></script>
+    <script src="/theme/js/bootstrap.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="http://www.marcosantoni.com/theme/js/clean-blog.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="/theme/js/clean-blog.min.js"></script>
 
 </body>
 
