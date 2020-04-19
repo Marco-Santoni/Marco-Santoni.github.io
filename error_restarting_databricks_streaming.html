@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Install a .deb file from terminal on Ubuntu</title>
+        <title>Error when restarting Databricks streaming job</title>
 
             <link href="http://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Full Atom Feed" />
             <link href="http://www.marcosantoni.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate" title="Marco Santoni Full RSS Feed" />
@@ -35,32 +35,32 @@
 
 
 
-        <meta name="description" content="I use Ubuntu 16.04. Sometimes, when I double-click a .deb file, the installation program does not work. What often solves the problem is...">
+        <meta name="description" content="This is an error I encountered when I have a Spark Streaming job running on Databricks 6.1. Consider the case I have to update a running...">
 
-        <meta name="author" content="mrsantoni">
+        <meta name="author" content="Marco Santoni">
 
 
 	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="Marco Santoni">
 
 	<meta property="og:type" content="article">
-            <meta property="article:author" content="http://www.marcosantoni.com/author/mrsantoni.html">
-	<meta property="og:url" content="http://www.marcosantoni.com/2016/05/23/install-a-deb-file-from-terminal-on-ubuntu.html">
-	<meta property="og:title" content="Install a .deb file from terminal on Ubuntu">
-	<meta property="article:published_time" content="2016-05-23 08:18:00+02:00">
-            <meta property="og:description" content="I use Ubuntu 16.04. Sometimes, when I double-click a .deb file, the installation program does not work. What often solves the problem is...">
+            <meta property="article:author" content="http://www.marcosantoni.com/author/marco-santoni.html">
+	<meta property="og:url" content="http://www.marcosantoni.com/error_restarting_databricks_streaming.html">
+	<meta property="og:title" content="Error when restarting Databricks streaming job">
+	<meta property="article:published_time" content="2020-04-19 18:00:00+02:00">
+            <meta property="og:description" content="This is an error I encountered when I have a Spark Streaming job running on Databricks 6.1. Consider the case I have to update a running...">
 
             <meta property="og:image" content="http://www.marcosantoni.com/theme/images/post-bg.jpg">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@mrsantoni">
-        <meta name="twitter:title" content="Install a .deb file from terminal on Ubuntu">
+        <meta name="twitter:title" content="Error when restarting Databricks streaming job">
 
             <meta name="twitter:image" content="http://www.marcosantoni.com/theme/images/post-bg.jpg">
 
-            <meta name="twitter:description" content="I use Ubuntu 16.04. Sometimes, when I double-click a .deb file, the installation program does not work. What often solves the problem is...">
+            <meta name="twitter:description" content="This is an error I encountered when I have a Spark Streaming job running on Databricks 6.1. Consider the case I have to update a running...">
 </head>
 
-<body class="article-2016/05/23/install-a-deb-file-from-terminal-on-ubuntu">
+<body class="article-error_restarting_databricks_streaming">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -94,10 +94,10 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Install a .deb file from terminal on Ubuntu</h1>
+                        <h1>Error when restarting Databricks streaming job</h1>
                         <span class="meta">Posted by
-                                <a href="http://www.marcosantoni.com/author/mrsantoni.html">mrsantoni</a>
-                             on Mon 23 May 2016
+                                <a href="http://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                             on Sun 19 April 2020
                         </span>
                         
                     </div>
@@ -112,12 +112,28 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>I use Ubuntu 16.04. Sometimes, when I double-click a <em>.deb</em> file, the
-installation program does not work. What often solves the problem is
-installing it from terminal.</p>
-<div class="highlight"><pre><span></span>sudo dpkg -i my_deb_file.deb
-sudo apt-get -f install
+        <p>This is an error I encountered when I have a Spark Streaming job running on Databricks 6.1. Consider the case I have to update a running streaming query. Databricks <a href="https://docs.databricks.com/spark/latest/structured-streaming/production.html#configure-jobs-to-restart-streaming-queries-on-failure">recommends</a> to always start (and restart too?) a streaming query on a <strong>new</strong> dedicated cluster. However, in some scenario you might not be able to do so, and you may want to:</p>
+<ul>
+<li>cancel the job run</li>
+<li>update the notebooks</li>
+<li>restart the job run</li>
+</ul>
+<p>By taking these steps, I encountered these error:</p>
+<div class="highlight"><pre><span></span>Concurrent update to the log. Multiple streaming jobs detected for ...
+
+# or
+
+Multiple streaming queries are concurrently using ... [checkpoint]
 </pre></div>
+
+
+<p>They did not occur every time I restarted the query, but most of the times. When restarting 2-3 times, the issue was solved and the streaming query run smoothly. By investigating a bit more the error, we found that cancelling a job run via Databricks CLI was not letting the stream query close smoothly. What happened? The running query was not closing cleanly the <a href="https://docs.databricks.com/spark/latest/structured-streaming/production.html#enable-checkpointing">checkpoints</a>. So, when a new job run started, it raised an error because it found a corrupted checkpoint.</p>
+<h2>Solution</h2>
+<p>You can</p>
+<ul>
+<li>upgrade do Databricks 6.3 and set <a href="https://docs.databricks.com/release-notes/runtime/6.3.html#improvements">spark.sql.streaming.stopActiveRunOnRestart</a> to true</li>
+<li>wait for Databricks 7 to be release where this configuration is enabled by default</li>
+</ul>
     </article>
 
 
