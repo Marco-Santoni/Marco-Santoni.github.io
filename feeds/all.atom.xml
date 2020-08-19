@@ -1,5 +1,1217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="http://www.marcosantoni.com/" rel="alternate"></link><link href="http://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>http://www.marcosantoni.com/</id><updated>2020-04-19T18:00:00+02:00</updated><subtitle>Data Science</subtitle><entry><title>Error when restarting Databricks streaming job</title><link href="http://www.marcosantoni.com/error_restarting_databricks_streaming.html" rel="alternate"></link><published>2020-04-19T18:00:00+02:00</published><updated>2020-04-19T18:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2020-04-19:/error_restarting_databricks_streaming.html</id><summary type="html">&lt;p&gt;This is an error I encountered when I have a Spark Streaming job running on Databricks 6.1. Consider the case I have to update a running streaming query. Databricks &lt;a href="https://docs.databricks.com/spark/latest/structured-streaming/production.html#configure-jobs-to-restart-streaming-queries-on-failure"&gt;recommends&lt;/a&gt; to always start (and restart too?) a streaming query on a &lt;strong&gt;new&lt;/strong&gt; dedicated cluster. However, in some scenario you …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is an error I encountered when I have a Spark Streaming job running on Databricks 6.1. Consider the case I have to update a running streaming query. Databricks &lt;a href="https://docs.databricks.com/spark/latest/structured-streaming/production.html#configure-jobs-to-restart-streaming-queries-on-failure"&gt;recommends&lt;/a&gt; to always start (and restart too?) a streaming query on a &lt;strong&gt;new&lt;/strong&gt; dedicated cluster. However, in some scenario you might not be able to do so, and you may want to:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="http://www.marcosantoni.com/" rel="alternate"></link><link href="http://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>http://www.marcosantoni.com/</id><updated>2020-08-19T06:41:00+02:00</updated><subtitle>Data Science</subtitle><entry><title>Summary: Building AI Solutions with Azure ML</title><link href="http://www.marcosantoni.com/summary_building_ai_solutions_azure_ml.html" rel="alternate"></link><published>2020-08-19T06:41:00+02:00</published><updated>2020-08-19T06:41:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2020-08-19:/summary_building_ai_solutions_azure_ml.html</id><summary type="html">&lt;p&gt;While studying for the &lt;em&gt;Azure Data Scientist Associate&lt;/em&gt; certification, I took notes from &lt;a href="https://docs.microsoft.com/en-us/learn/paths/build-ai-solutions-with-azure-ml-service/"&gt;Building AI Solution with Azure ML&lt;/a&gt; course. In this single page, you'll find the entire content of the course (as of 18th August, 2020). This page is a small support for those preparing for earning the certification …&lt;/p&gt;</summary><content type="html">&lt;p&gt;While studying for the &lt;em&gt;Azure Data Scientist Associate&lt;/em&gt; certification, I took notes from &lt;a href="https://docs.microsoft.com/en-us/learn/paths/build-ai-solutions-with-azure-ml-service/"&gt;Building AI Solution with Azure ML&lt;/a&gt; course. In this single page, you'll find the entire content of the course (as of 18th August, 2020). This page is a small support for those preparing for earning the certification.&lt;/p&gt;
+&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;h2&gt;Azure ML Workspace&lt;/h2&gt;
+&lt;p&gt;workspaces are azure resources. include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;compute&lt;/li&gt;
+&lt;li&gt;notebooks&lt;/li&gt;
+&lt;li&gt;pipelines&lt;/li&gt;
+&lt;li&gt;data&lt;/li&gt;
+&lt;li&gt;experiments&lt;/li&gt;
+&lt;li&gt;models&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;created alongside&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;storage account: files by WS + data&lt;/li&gt;
+&lt;li&gt;application insights&lt;/li&gt;
+&lt;li&gt;key vault&lt;/li&gt;
+&lt;li&gt;vm&lt;/li&gt;
+&lt;li&gt;container registry&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;permission: RBAC&lt;/p&gt;
+&lt;p&gt;edition
+- basic (no graphic designer)
+- enterprise&lt;/p&gt;
+&lt;h2&gt;Tools&lt;/h2&gt;
+&lt;p&gt;Azure ML Studio
+- designer (no code ML model dev)
+- automated ML&lt;/p&gt;
+&lt;p&gt;Azure ML SDK&lt;/p&gt;
+&lt;p&gt;Azure ML CLI Extensions&lt;/p&gt;
+&lt;p&gt;Compute Instances
+- choose VM
+- store notebooks independently of VMs&lt;/p&gt;
+&lt;p&gt;VS Code - Azure ML Extension&lt;/p&gt;
+&lt;h2&gt;Experiments&lt;/h2&gt;
+&lt;p&gt;Azure ML tracks run of experiments&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;...
+run = experiment.start_logging()
+...
+run.complete()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;logging metrics. &lt;code&gt;run.log('name', value)&lt;/code&gt;. You can review them via &lt;code&gt;RunDetails(run).show()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;experiment output file. Example: trained models. &lt;code&gt;run.upload_file(..)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Script as an experiment&lt;/strong&gt;. In the script, you can get the context: &lt;code&gt;run = Rune.get_context()&lt;/code&gt;. To run it, you define:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RunConfiguration: python environment&lt;/li&gt;
+&lt;li&gt;ScriptRunConfig: associates RunConfiguration with script&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Train a ML model&lt;/h1&gt;
+&lt;h2&gt;Estimators&lt;/h2&gt;
+&lt;p&gt;Estimator: encapsulates a run configuration and a script configuration in a single object. Save trained model as pickle in &lt;code&gt;outputs&lt;/code&gt; folder&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;estimator = Estimator(
+  source_directory=&amp;#39;experiment&amp;#39;,
+  entry_script=&amp;#39;training.py&amp;#39;,
+  compute_target=&amp;#39;local&amp;#39;,
+  conda_packages=[&amp;#39;scikit-learn&amp;#39;]
+)
+experiment = Experiment(workspace, name=&amp;#39;train_experiment&amp;#39;)
+run = experiment.submit(config=estimator)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Framework-specific estimators simplify configurations&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;azureml.train.sklearn&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;SKLearn&lt;/span&gt;
+
+&lt;span class="n"&gt;estimator&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;SKLearn&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+  &lt;span class="n"&gt;source_directory&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;experiment&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="n"&gt;entry_script&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;training.py&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="n"&gt;compute_target&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;local&amp;#39;&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Script parameters&lt;/h2&gt;
+&lt;p&gt;Use &lt;code&gt;argparse&lt;/code&gt; to read the parameters in a script (eg regularization rate). To pass a parameter to an &lt;code&gt;Estimator&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;estimator = SKLearn(
+  source_directory=&amp;#39;experiment&amp;#39;,
+  entry_script=&amp;#39;training.py&amp;#39;,
+  script_params={&amp;#39;--reg_rate&amp;#39;: 0.1}
+  compute_target=&amp;#39;local&amp;#39;
+)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Registering models&lt;/h2&gt;
+&lt;p&gt;Once the experiment &lt;code&gt;Run&lt;/code&gt; has completed, you can retrieve its outputs (eg trained model).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;run.download_file(name=&amp;#39;outputs/models.pkl&amp;#39;, output_file_path=&amp;#39;model.pkl&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Registering a model allows to track multiple versions of a model.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;model = Model.register(
+  workspace=ws,
+  model_name=&amp;#39;classification_model&amp;#39;,
+  model_path=&amp;#39;model.pkl&amp;#39;, #local path
+  description=&amp;#39;a classification model&amp;#39;,
+  tags={&amp;#39;dept&amp;#39;: &amp;#39;sales&amp;#39;},
+  model_framework=Model.Framework.SCIKITLEARN,
+  model_framework_version=&amp;#39;0.20.3&amp;#39;
+)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;or register from run:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;run.register_model(
+  ...
+  model_path=&amp;#39;outputs/model.pkl&amp;#39;
+  ...
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Datastores&lt;/h1&gt;
+&lt;p&gt;Abstractions of cloud data sources encapsulating the information required to connect.&lt;/p&gt;
+&lt;p&gt;You can register a data store&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;via ML Studio&lt;/li&gt;
+&lt;li&gt;via SDK&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ws = Workspace.from_config()
+blob = Datastore.register_azure_blob_container(
+  workspace=ws,
+  datastore_name=&amp;#39;blob_data&amp;#39;,
+  container_name=&amp;#39;data_container&amp;#39;,
+  account_name=&amp;#39;az_acct&amp;#39;,
+  account_key=&amp;#39;123456&amp;#39;
+)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the SDK, you can list data stores.&lt;/p&gt;
+&lt;h2&gt;Use datastores&lt;/h2&gt;
+&lt;p&gt;Most common: Azure blob and file&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;blob_ds.upload(
+  src_dir=&amp;#39;/files&amp;#39;,
+  target_path=&amp;#39;/data/files&amp;#39;,
+  overwrite=True
+)
+blob_ds.download(
+  target_path=&amp;#39;downloads&amp;#39;,
+  prefix=&amp;#39;/data&amp;#39;
+)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You pass a data reference to the script to use a datastore. Data access models&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;download: contents downloaded to the compute context of experiment&lt;/li&gt;
+&lt;li&gt;upload: files generated by experiment are uploaded after run&lt;/li&gt;
+&lt;li&gt;mount: path of datastore mounted as remote storage (only on remote compute target)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pass reference as script parameter:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;data_ref = blob_ds.path(&amp;#39;data/files&amp;#39;).as_download(path_on_compute=&amp;#39;training_data&amp;#39;)
+estimator = SKLearn(
+  source_directory=&amp;#39;experiment_folder&amp;#39;,
+  entry_script=&amp;#39;training_script.py&amp;#39;,
+  compute_target=&amp;#39;local&amp;#39;,
+  script_params={&amp;#39;--data_folder&amp;#39;: data_ref}
+)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Retrieve it in script and use it like local folder:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;parser = argparse.ArgumentParser()
+parser.add_argument(&amp;#39;--data_folder&amp;#39;, type=&amp;#39;str&amp;#39;, dest=&amp;#39;data_folder&amp;#39;)
+args = parser.parse_args()
+data_files = os.listdir(args.data_folder)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Datasets&lt;/h2&gt;
+&lt;p&gt;Datasets are versioned packaged data objects consumed in experiments and pipelines. Types&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;tabular: read as table&lt;/li&gt;
+&lt;li&gt;file: list of file paths&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can create dataset via Azure ML Studio or via SDK. File paths can have wildcards (&lt;code&gt;/files/*.csv&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Once a dataset is created, you can &lt;strong&gt;register&lt;/strong&gt; it in the workspace (available later too).&lt;/p&gt;
+&lt;p&gt;Tabular:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;azureml.core&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Dataset&lt;/span&gt;
+
+&lt;span class="n"&gt;blob_ds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;we&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_default_datastore&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;csv_paths&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;blob_ds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;data/files/current_data.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;blob_ds&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;data/files/archive/*.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;tab_ds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Dataset&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Tabular&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_delimited_files&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;csv_paths&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;tab_ds&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tab_ds&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;workspace&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;csv_table&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;File:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;blob_ds = ws.get_default_datastore()
+file_ds = Dataset.File.from_files(path=(blob_ds, &amp;#39;data/files/images/*.jpg&amp;#39;))
+file_ds = file_ds.register(workspace=ws, name=&amp;#39;img_files&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Retrieve&lt;/strong&gt; a dataset&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ws = Workspace.from_config()
+
+# Get a dataset from workspace datasets collection
+ds1 = ws.datasets[&amp;#39;csv_table&amp;#39;]
+
+# Get a dataset by name from the datasets class
+ds2 = Dataset.get_by_name(ws, &amp;#39;img_files&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Datasets can be &lt;strong&gt;versioned&lt;/strong&gt;. Create a new versioning by registering with same name and &lt;code&gt;create_new_version&lt;/code&gt; property:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;file_ds = file_ds.register(workspace=ws, name=&amp;#39;img_files&amp;#39;, create_new_version=True)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Retrieve specific version:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;img_ds = Dataset.get_by_name(workspace=ws, name=&amp;#39;img_files&amp;#39;, version=2)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Compute Contexts&lt;/h1&gt;
+&lt;p&gt;The runtime context for each experiment consists of&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;environment&lt;/em&gt; for the script, which includes all packages&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;compute target&lt;/em&gt; on which the environment will be deployed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Intro to Environments&lt;/h2&gt;
+&lt;p&gt;Python runs in virtual environments (eg &lt;code&gt;Conda&lt;/code&gt;, &lt;code&gt;pip&lt;/code&gt;). Azure creates a Docker container and creates the environment. You create environments by&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Conda&lt;/code&gt; or &lt;code&gt;pip&lt;/code&gt; yaml file and load it:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;env = Environment.from_conda_specification(name=&amp;#39;training_env&amp;#39;, file_path=&amp;#39;./conda.yml&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;from existing &lt;code&gt;Conda&lt;/code&gt; environment:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;env = Environment.from_conda_environment(name=&amp;#39;training_env&amp;#39;,
+                            conda_environment_name=&amp;#39;py_env&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;specifying packages:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;env = Environment(&amp;#39;training_env&amp;#39;)
+deps = CondaDependencies.create(conda_packages=[&amp;#39;pandas&amp;#39;, &amp;#39;numpy&amp;#39;]
+                              pip_packages=[&amp;#39;azureml-defaults&amp;#39;])
+env.python.conda_dependencies = deps
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once created, you can register the environment in the workspace.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;env.register(workspace=ws)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Retrieve and assign it to a &lt;code&gt;ScriptRunConfig&lt;/code&gt; or an &lt;code&gt;Estimator&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;tr_env = Environment.get(workspace=ws, name=&amp;#39;training_env&amp;#39;)
+estimator = Estimator(
+  source_directory=&amp;#39;experiment_folder&amp;#39;,
+  entry_script=&amp;#39;training_script.py&amp;#39;,
+  compute_target=&amp;#39;local&amp;#39;,
+  environment_definition=tr_env
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Compute targets&lt;/h2&gt;
+&lt;p&gt;Compute targets are physical or virtual computer on which experiments are run. Types of compute&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;local compute&lt;/em&gt;: your workstation or a virtual machine&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;compute clusters&lt;/em&gt;: multi-node clusters of VMs that automatically scale up or down&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;inference clusters&lt;/em&gt;: to deploy models, they use containers to initiate computing&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;attached compute&lt;/em&gt;: attach a VM or Databricks cluster that you already use&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can create a compute target via AML studio or via SDK. A &lt;strong&gt;managed&lt;/strong&gt; compute target is one managed by AML. Via SDK&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ws = Workspace.from_config()
+compute_name = &amp;#39;aml-cluster&amp;#39;
+compute_config = AmlCompute.provisioning_configuration(
+  vm_size=&amp;#39;STANDARD_DS12_V2&amp;#39;,
+  min_nodes=0,
+  max_nodes=4,
+  vm_priority=&amp;#39;dedicated&amp;#39;
+  )
+aml_cluster = ComputeTarget.create(we, compute_name, compute_config)
+aml_cluster.wait_for_completion()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;An &lt;strong&gt;unmanaged&lt;/strong&gt; compute target is defined and managed outside AML. You can attach it via SDK:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ws = Workspace.from_config()
+compute_name = &amp;#39;db-cluster&amp;#39;
+db_workspace_name = &amp;#39;db_workspace&amp;#39;
+db_resource_group = &amp;#39;db_resource_group&amp;#39;
+db_access_token = &amp;#39;aocsinaocnasoivn&amp;#39;
+db_config = DatabricksCompute.attach_configuration(
+  resource_group=db_resource_group,
+  workspace_name=db_workspace_name,
+  access_token=db_access_token
+  )
+db_cluster = ComputeTarget.create(we, compute_name, db_config)
+db_cluster.wait_for_completion()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can check if a compute target does not exist already:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;compute_name = &amp;#39;aml_cluster&amp;#39;
+try:
+  aml_cluster = ComputeTarget(workspace=ws, name=compute_name)
+except ComputeTargetException:
+  # create it
+  ...
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can use a compute target in an experiment run by specifying it as a parameter&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;compute_name = &amp;#39;aml_cluster&amp;#39;
+training_env = Environment.get(workspace=ws, name=&amp;#39;training_env&amp;#39;)
+estimator = Estimator(
+  source_directory=&amp;#39;experiment_folder&amp;#39;,
+  entry_script=&amp;#39;training_script.py&amp;#39;,
+  environment_definition=training_env,
+  compute_target=compute_name
+  )
+# or specify a ComputeTarget object
+training_cluster = ComputeTarget(workspace=ws, name=compute_name)
+estimator = Estimator(
+  source_directory=&amp;#39;experiment_folder&amp;#39;,
+  entry_script=&amp;#39;training_script.py&amp;#39;,
+  environment_definition=training_env,
+  compute_target=training_cluster
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Orchestrating with Pipelines&lt;/h1&gt;
+&lt;p&gt;A &lt;em&gt;pipeline&lt;/em&gt; is a workflow of ml tasks in which each tasks is implemented as a &lt;em&gt;step&lt;/em&gt; (either sequential or parallel). You can combine different compute targets. Common types of step:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;PythonScriptStep&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;EstimatorStep&lt;/em&gt;: runs an estimator&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;DataTransferStep&lt;/em&gt;: uses ADF&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;DatabricksStep&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;AdlaStep&lt;/em&gt;: runs a &lt;code&gt;U-SQL&lt;/code&gt; job in Azure Data Lake Analytics&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Define steps:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;step1 = PythonScriptStep(
+  name=&amp;#39;prepare data&amp;#39;,
+  source_directory=&amp;#39;scripts&amp;#39;,
+  script_name=&amp;#39;data_prep.py&amp;#39;,
+  compute_target=&amp;#39;aml-cluster&amp;#39;,
+  runconfig=run_config
+  )
+
+step2 = EstimatorStep(
+  name=&amp;#39;train model&amp;#39;,
+  estimator=sk_estimator,
+  compute_target=&amp;#39;aml-cluster&amp;#39;
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Assign steps to pipeline:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;train_pipeline = Pipeline(
+  workspace=ws,
+  steps=[step1,step2]
+  )
+# create experiment and run pipeline
+experiment = Experiment(workspace=ws, name=&amp;#39;training-pipeline&amp;#39;)
+pipeline_run = experiment.submit(train_pipeline)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Pass data between steps&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;PipelineData&lt;/code&gt; object is a special kind of &lt;code&gt;DataReference&lt;/code&gt; that&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;reference a location in a store&lt;/li&gt;
+&lt;li&gt;creates a da dependency between pipelines&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To pass it&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;define a &lt;code&gt;PipelineData&lt;/code&gt; object that references a location in a data store&lt;/li&gt;
+&lt;li&gt;specify the object as input or output for the steps that use it&lt;/li&gt;
+&lt;li&gt;pass the &lt;code&gt;PipelineData&lt;/code&gt; object as a script parameter in steps that run scripts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;raw_ds = Dataset.get_by_name(ws, &amp;#39;raw_dataset&amp;#39;)
+# Define object to pass data between steps
+data_store = ws.get_default_datastore()
+prepped_data = PipelineData(&amp;#39;prepped&amp;#39;, datastore=data_store)
+
+step1 = PythonScriptStep(
+  name=&amp;#39;prepare data&amp;#39;,
+  source_directory=&amp;#39;scripts&amp;#39;,
+  script_name=&amp;#39;data_prep.py&amp;#39;,
+  compute_target=&amp;#39;aml-cluster&amp;#39;,
+  runconfig=run_config,
+  # specify dataset
+  inputs = [raw_ds.as_named_input(&amp;#39;raw_data&amp;#39;)],
+  # specify PipelineData as output
+  outputs = [prepped_data],
+  # script reference
+  arugments = [&amp;#39;--folder&amp;#39;, prepped_data]
+  )
+
+step2 = EstimatorStep(
+  name=&amp;#39;train model&amp;#39;,
+  estimator=sk_estimator,
+  compute_target=&amp;#39;aml-cluster&amp;#39;
+  # specify PipelineData
+  inputs = [prepped_data],
+  # pass reference to estimator script
+  estimator_entry_script_arguments = [&amp;#39;--folder&amp;#39;, prepped_data]
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Inside the script, you can get reference to &lt;code&gt;PipelineData&lt;/code&gt; object from the argument, and use it like  a local folder.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;parser = argpare.ArgumentParser()
+parser.add_argument(&amp;#39;--folder&amp;#39;, type=str, dest=&amp;#39;folder&amp;#39;)
+args = parser.parse_args()
+output_folder = args.folder
+
+# ...
+
+# save data to PipelineData location
+os.makedirs(output_folder, exist_ok=True)
+output_path = os.path.join(output_folder, &amp;#39;prepped_data.csv&amp;#39;)
+df.to_csv(output_path)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Reuse steps&lt;/h2&gt;
+&lt;p&gt;By default, the step output from a previous pipeline run is reused without rerunning the step (if script, source directory and other params have not changed). You can control this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;step1 = PythonScriptStep(
+  #...
+  allow_reuse=False
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can force the steps to run regardless of individual configuration:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pipeline_run = experiment.submit(train_pipeline, regenerate_outputs=True)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Publish pipelines&lt;/h2&gt;
+&lt;p&gt;You can publish a pipelien to create a REST endpoint through which the pipeline can be run on demand.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;published_pipeline = pipeline.publish(
+  name=&amp;#39;training_pipeline&amp;#39;,
+  description=&amp;#39;Model training pipeline&amp;#39;,
+  version=&amp;#39;1.0&amp;#39;
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can view it in ML Studio and get the endpoint:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;published_pipeline.endpoint
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You start a published endpoint by making an HTTP request to it. You pass the authorisation header (with token) and a JSON payload specifying the experiment name. The pipeline is run asynchronously, you get the run ID as response.&lt;/p&gt;
+&lt;h2&gt;Pipeline parameters&lt;/h2&gt;
+&lt;p&gt;Create a &lt;code&gt;PipelineParameter&lt;/code&gt; object for each parameter. Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;reg_param = PipelineParameter(name=&amp;#39;reg_rate&amp;#39;, default_value=0.01)
+# ...
+step2 = EstimatorStep(
+  # ...
+  estimator_entry_script_arguments=[
+    &amp;#39;--folder&amp;#39;, prepped,
+    &amp;#39;--reg&amp;#39;, reg_param
+  ]
+)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After you publish a parametrised pipeline, you can pass parameter values in the JSON payload of the REST interface. Example&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;requests.post(
+  enpoint,
+  headers=auth_header,
+  json={
+    &amp;#39;ExperimentName&amp;#39;: &amp;#39;run_training_pipeline&amp;#39;,
+    &amp;#39;ParameterAssignments&amp;#39;: {
+      &amp;#39;reg_rate&amp;#39;: 0.1
+    }
+  }
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Schedule pipelines&lt;/h2&gt;
+&lt;p&gt;Define a &lt;code&gt;ScheduleRecurrence&lt;/code&gt; and use it to create a &lt;code&gt;Schedule&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;daily = ScheduleRecurrence(
+  frequency=&amp;#39;Day&amp;#39;,
+  interval=1
+  )
+pipeline_schedule = Schedule.create(
+  ws,
+  name=&amp;#39;Daily Training&amp;#39;,
+  description=&amp;#39;train model every day&amp;#39;,
+  pipeline_id=published_pipeline.id,
+  experiment_name=&amp;#39;Training_Pipeline&amp;#39;,
+  recurrence=daily
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To schedule a pipeline to run whenever &lt;strong&gt;data changes&lt;/strong&gt;, you must create a &lt;code&gt;Schedule&lt;/code&gt; that monitors a specific path on a datastore:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;training_datastore = Datastore(workspace=ws, name=&amp;#39;blob_data&amp;#39;)
+pipeline_schedule = Schedule.create(
+  # ...
+  datastore=training_datastore,
+  path_on_datastore=&amp;#39;data/training&amp;#39;
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Deploy ML Models&lt;/h1&gt;
+&lt;p&gt;You can deploy ass &lt;strong&gt;container&lt;/strong&gt; to several compute targets&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Azure ML compute instance&lt;/li&gt;
+&lt;li&gt;Azure container instance&lt;/li&gt;
+&lt;li&gt;Azure function&lt;/li&gt;
+&lt;li&gt;Azure Kubernetes service&lt;/li&gt;
+&lt;li&gt;IoT module&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Steps&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;register the model&lt;/li&gt;
+&lt;li&gt;inference configuration&lt;/li&gt;
+&lt;li&gt;deployment configuration&lt;/li&gt;
+&lt;li&gt;deploy model&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;&lt;a name="registermodel"&gt;&lt;/a&gt;Register the model&lt;/h2&gt;
+&lt;p&gt;After training, you must register the model to Azure ML workspace.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;classification_model&lt;/span&gt; = &lt;span class="n"&gt;Model&lt;/span&gt;.&lt;span class="n"&gt;register&lt;/span&gt;(
+  &lt;span class="n"&gt;workspace&lt;/span&gt;=&lt;span class="n"&gt;ws&lt;/span&gt;,
+  &lt;span class="n"&gt;model_name&lt;/span&gt;=&lt;span class="s"&gt;&amp;#39;classification_model&amp;#39;&lt;/span&gt;,
+  &lt;span class="n"&gt;model_path&lt;/span&gt;=&lt;span class="s"&gt;&amp;#39;model.pkl&amp;#39;&lt;/span&gt;,
+  &lt;span class="n"&gt;description&lt;/span&gt;=&lt;span class="s"&gt;&amp;#39;A classification model&amp;#39;&lt;/span&gt;
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Or you can use the reference to the run:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;run.register_model(
+  model_name=&amp;#39;classification_model&amp;#39;,
+  model_path=&amp;#39;outputs/model.pkl&amp;#39;,
+  description=&amp;#39;A classification model&amp;#39;
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;&lt;a name="scoringscript"&gt;&lt;/a&gt;Inference configuration&lt;/h2&gt;
+&lt;p&gt;The model will be deployed as a service consisting of&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a script to load the model and return predictions for submitted data&lt;/li&gt;
+&lt;li&gt;an environment in which the script will be run&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Create the &lt;em&gt;entry script&lt;/em&gt; (or &lt;em&gt;scoring script&lt;/em&gt;) as a Python file including 2 functions&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;init()&lt;/code&gt; called when service is initialised (load model from registry)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;run(raw_data)&lt;/code&gt; called when new data is submitted to the service (generate predictions)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def init():
+  global model
+  model_path = Model.get_model_path(&amp;#39;classification_model&amp;#39;)
+  model = joblib.load(model_path)
+
+def run(raw_data):
+  data = np.array(json.loads(raw_data)[&amp;#39;data&amp;#39;])
+  predictions = model.predict(data)
+  # return predictions as any JSON seriazable format
+  return predictions.tolist()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can configure the environment using Conda. You can use a &lt;code&gt;CondaDependencies&lt;/code&gt; class to create a default environment (including &lt;code&gt;azureml-defaults&lt;/code&gt; and other commonly-used) and add any other required packages. You then serialize the environment to a string and save it.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;myenv = CondaDependencies()
+myenv.add_conda_package(&amp;#39;scikit-learn&amp;#39;)
+
+env_file = &amp;#39;service_files/env.yml&amp;#39;
+with open(env_file, &amp;#39;w&amp;#39;) as f:
+  f.write(myenv.serialize_to_string())
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After creating the script and the environment, you combine them in an &lt;code&gt;InferenceConfig&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;classifier_inference_config&lt;/span&gt; = &lt;span class="n"&gt;InferenceConfig&lt;/span&gt;(
+  &lt;span class="n"&gt;runtime&lt;/span&gt;=&lt;span class="s"&gt;&amp;#39;python&amp;#39;&lt;/span&gt;,
+  &lt;span class="n"&gt;source_directory&lt;/span&gt;=&lt;span class="s"&gt;&amp;#39;service_files&amp;#39;&lt;/span&gt;,
+  &lt;span class="n"&gt;entry_script&lt;/span&gt;=&lt;span class="s"&gt;&amp;#39;score.py&amp;#39;&lt;/span&gt;,
+  &lt;span class="n"&gt;conda_file&lt;/span&gt;=&lt;span class="s"&gt;&amp;#39;env.yml&amp;#39;&lt;/span&gt;
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Deployment configuration&lt;/h2&gt;
+&lt;p&gt;Now that you have the entry script and the environment, you configure the compute service. If you deploy to an AKS cluster, you create it&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cluster_name = &amp;#39;aks-cluster&amp;#39;
+compute_config = AksCompute.provisioning_configuration(location=&amp;#39;eastus&amp;#39;)
+production_cluster = ComputeTarget.create(ws, cluster_name, compute_config)
+production_cluster.wait_for_completion()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You define the deployment configuration&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;classifier_deploy_config&lt;/span&gt; = &lt;span class="n"&gt;AksWebservice&lt;/span&gt;.&lt;span class="n"&gt;deploy_configuration&lt;/span&gt;(
+  &lt;span class="n"&gt;cpu_cores&lt;/span&gt;=&lt;span class="mi"&gt;1&lt;/span&gt;,
+  &lt;span class="n"&gt;memory_gb&lt;/span&gt;=&lt;span class="mi"&gt;1&lt;/span&gt;
+)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Deploy the model&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;model = ws.models[&amp;#39;classification_model&amp;#39;]
+service = Model.deploy(
+  name=&amp;#39;classification-service&amp;#39;,
+  models=[model],
+  inference_config=classifier_inference_config,
+  deploy_config=classifier_deploy_config,
+  deployment_target=production_cluster
+  )
+service.wait_for_deployment()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Consuming a real-time inferencing service&lt;/h2&gt;
+&lt;p&gt;For &lt;strong&gt;testing&lt;/strong&gt;, you can use the AML SDK to call a web service through the &lt;code&gt;run&lt;/code&gt; method of a &lt;code&gt;WebService&lt;/code&gt; object. Typically,  you send data to &lt;code&gt;run&lt;/code&gt; method in a JSON like&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;{
+  &amp;#39;data&amp;#39;:[
+    [0.1, 0.2, 3.4],
+    [0.9, 8.2, 2.5],
+    ...
+  ]
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The response is a JSON with a prediction for each case&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;response = service.run(input_data=json_data)
+predictions = json.loads(response)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In &lt;strong&gt;production&lt;/strong&gt;, you use a REST endpoint. You find the endpoint of a deployed service in Azure ML studio, or by retrieving the &lt;code&gt;scoring_url&lt;/code&gt; property of a &lt;code&gt;Webservice&lt;/code&gt; object:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;endpoint = service.scoring_uri
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There are 2 kinds of &lt;strong&gt;authentication&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;key: requests are authenticated by specifying the key associated with the service&lt;/li&gt;
+&lt;li&gt;token: requests are authenticated by providing a JSON Web Token (JWT)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By default, authentication is disabled for Azure Container Instance service (set to key-based authentication for AKS).&lt;/p&gt;
+&lt;p&gt;To make an authenticate call to the REST endpoint, you include the oey or the token in the request header.&lt;/p&gt;
+&lt;h2&gt;Troubleshooting service deployment&lt;/h2&gt;
+&lt;p&gt;You can&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;check the service state (should be &lt;em&gt;healty&lt;/em&gt;): &lt;code&gt;service.state&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;review service logs: &lt;code&gt;service.get_logs()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;deploy to local container&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Batch inference pipelines&lt;/h1&gt;
+&lt;p&gt;Pipeline to read input data, load a registered model, predict labels, and write results.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="#registermodel"&gt;Register&lt;/a&gt; a model&lt;/li&gt;
+&lt;li&gt;Create a &lt;a href="#scoringscript"&gt;scoring script&lt;/a&gt;. The &lt;code&gt;run(mini_batch)&lt;/code&gt; method makes the inference on each batch.&lt;/li&gt;
+&lt;li&gt;Create a pipeline with ParallelRunStep&lt;/li&gt;
+&lt;li&gt;Run the pipeline and retrieve the step output&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Azure ML provides a pipeline step performs parallel batch inference. Using &lt;code&gt;ParallelRunStep&lt;/code&gt; class, you can read batches of files from a &lt;code&gt;File&lt;/code&gt; dataset and write the output to a &lt;code&gt;PipelineData&lt;/code&gt; reference. You can set the &lt;code&gt;output_action&lt;/code&gt; to &lt;em&gt;"append_row"&lt;/em&gt; (ensuring all instances of the step will collate the result to a single output file named &lt;code&gt;parallel_run_step.txt&lt;/code&gt;).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;batch_data_set = ws.datasets(&amp;#39;batch-data&amp;#39;)
+
+# output location
+default_ds = we.get_default_datastore()
+output_dir = PipelineData(
+  name=&amp;#39;inferences&amp;#39;,
+  datastore=default_ds,
+  output_path_on_compute=&amp;#39;results&amp;#39;
+)
+
+parallel_run_config = ParallelRunConfig(
+  source_directory=&amp;#39;batch_scripts&amp;#39;,
+  entry_script=&amp;#39;batch_scoring_script.py&amp;#39;,
+  mini_batch_size=&amp;quot;5&amp;quot;,
+  error_threshold=10,
+  output_action=&amp;quot;append_row&amp;quot;,
+  environment=batch_env,
+  compute_target=aml_cluster,
+  node_count=4
+  )
+
+parallelrun_step = ParallelRunStep(
+  name=&amp;quot;batch-score&amp;quot;,
+  parallel_run_config=parallel_run_config,
+  inputs=[batch_data_set.as_named_input(&amp;#39;batch_data&amp;#39;)],
+  output=output_dir,
+  arguments=[],
+  allow_reuse=True
+  )
+
+pipeline = Pipeline(
+  workspace=ws,
+  steps=[parallelrun_step]
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Run the pipeline and retrieve output.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pipeline_run = Experiment(ws, &amp;#39;batch_prediction_pipeline&amp;#39;).submit(pipeline)
+pipeline_run.wait_for_completion()
+
+prediction_run = next(pipeline_run.get_children())
+prediction_output = prediction_run.get_output_data(&amp;#39;inferences&amp;#39;)
+prediction_output.download(local_path=&amp;#39;results&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Publishing a batch inference pipeline&lt;/h2&gt;
+&lt;p&gt;You can publish it as a &lt;strong&gt;REST&lt;/strong&gt; service.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;published_pipeline = pipeline_run.publish_pipeline(
+  name=&amp;#39;Batch_Prediction_Pipeline&amp;#39;,
+  description=&amp;#39;Batch Pipeline&amp;#39;,
+  version=&amp;#39;1.0&amp;#39;
+  )
+
+rest_endpoint = published_pipeline.endpoint
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once published, you can use the endpoint to initiate a batch inferencing job.&lt;/p&gt;
+&lt;p&gt;You can also &lt;strong&gt;schedule&lt;/strong&gt; the published pipeline to have it run automatically.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;weekly = ScheduleRecurrence(frequency=&amp;#39;Week&amp;#39;, interval=1)
+pipeline_schedule = Schedule.create(
+  ws,
+  name=&amp;#39;Weekly Predictions&amp;#39;,
+  description=&amp;#39;batch inferencing&amp;#39;,
+  pipeline_id=published_pipeline.id,
+  experiment_name=&amp;#39;Batch_Prediction&amp;#39;,
+  recurrence=weekly
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Tuning hyperparameters&lt;/h1&gt;
+&lt;p&gt;Accomplished by training multiple models, using same algorithm and training data but different hyperparameter values. Then, evaluate for each the performance metric (eg accuracy), and the best-performing model is selected.&lt;/p&gt;
+&lt;p&gt;In Azure ML, you make an experiment that consist of a &lt;em&gt;hyperdrive&lt;/em&gt; run, which initiates a child run for each hyperparameter. Each child run uses a training script with parametrised hyperparameter values to train a model, and logs the target performance metric achieved by the training model.&lt;/p&gt;
+&lt;h2&gt;Define a search space&lt;/h2&gt;
+&lt;p&gt;Depends on the type of hyperparameter:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;discrete&lt;/strong&gt;. Make a &lt;code&gt;choice&lt;/code&gt; out of&lt;/li&gt;
+&lt;li&gt;an explicit python &lt;code&gt;list&lt;/code&gt;: &lt;code&gt;choice([10, 20, 30])&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;a &lt;code&gt;range&lt;/code&gt;: &lt;code&gt;choice(range(1,10))&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;select values from a discrete distribution: &lt;em&gt;qnormal, quniform, qlognormal, qloguniform&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;continuous&lt;/strong&gt;. Use any of these distribution: &lt;em&gt;normal, uniform, lognormal, loguniform&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Define a search space by creating a dictionary with parameter expressions for each hyperparameter.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;azureml.train.hyperdrive&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;normal&lt;/span&gt;
+
+&lt;span class="n"&gt;param_space&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="s1"&gt;&amp;#39;--batch_size&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;32&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+  &lt;span class="s1"&gt;&amp;#39;--learning_rate&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;normal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Configuring sampling&lt;/h2&gt;
+&lt;p&gt;The values used in a tuning run depend on the type of &lt;em&gt;sampling&lt;/em&gt; used.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Grid sampling.&lt;/strong&gt; Every possible combination when hyperparameters are discrete.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;param_space = {
+  &amp;#39;--batch_size&amp;#39;: choice(16, 32, 64),
+  &amp;#39;--learning_rate&amp;#39;: choice(10, 20)
+}
+
+param_sampling = GridParameterSampling(param_space)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Random sampling.&lt;/strong&gt; Randomly select a value for each hyperparameter.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;param_space = {
+  &amp;#39;--batch_size&amp;#39;: choice(16, 32, 64),
+  &amp;#39;--learning_rate&amp;#39;: normal(10, 3)
+}
+
+param_sampling = RandomParameterSampling(param_space)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Bayesian sampling.&lt;/strong&gt; Based on Bayesian optimisation algorithm that tries to select parameter combinations that will result in improved performance from the previous selection.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;param_space = {
+  &amp;#39;--batch_size&amp;#39;: choice(16, 32, 64),
+  &amp;#39;--learning_rate&amp;#39;: uniform(0.5, 0.1)
+}
+
+param_sampling = BayesianParameterSampling(param_space)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Can only be used with &lt;em&gt;choice, uniform, quniform&lt;/em&gt; distributions and can't be combined with &lt;em&gt;early termination&lt;/em&gt;.&lt;/p&gt;
+&lt;h2&gt;Configuring an early termination&lt;/h2&gt;
+&lt;p&gt;Typically, you set a maximum number of iterations, but this could still result in a large number of runs that don't result in a better model than a combination that has already been tried.&lt;/p&gt;
+&lt;p&gt;To help preventing wasting time, you can set an &lt;em&gt;early termination&lt;/em&gt; policy that abandons runs that are unlikely to produce a better result than previously completed runs. The policy is evaluated at an &lt;em&gt;evaluation interval&lt;/em&gt; you specify, based on each time the target performance metric is logged. You can also set a &lt;em&gt;delay evaluation&lt;/em&gt; parameter to avoid evaluating the policy until a minimum number of iterations have been completed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note.&lt;/strong&gt; Early termination is particularly useful for deep learning scenarios where a deep neural network is trained iteratively over a number of epochs. The training script can report the target metric after each epoch, and if the run is significantly underperforming previous runs after the same number of intervals, it can be abandoned.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Bandit policy.&lt;/strong&gt; Stop a run if the target performance metric underperforms the best run so far by a specified margin.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;early_termination_policy = BanditPolicy(
+  slack_amount=0.2, # abandon runs when metric is 0.2 or more worse than best run after the same number of intervals
+  evaluation_interval=1,
+  delay_evaluation=5
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can also use a slack &lt;em&gt;factor&lt;/em&gt; comparing the metric as ration rather than an absolute value.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Median stopping policy.&lt;/strong&gt; Abandoning runs where the target performance metric is worse than the median of the running averages fo all runs.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;early_termination_policy = MedianStoppingPolicy(
+  evaluation_interval=1,
+  delay_evaluation=5
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Truncation selection policy.&lt;/strong&gt; Cancelling the lower performing &lt;em&gt;X%%&lt;/em&gt; of runs at each evaluation interval  based on the &lt;em&gt;truncation_percentage&lt;/em&gt; valu you specify for &lt;em&gt;X&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;early_termination_policy = TruncationSelectionPolicy(
+  truncation_percentage=10,
+  evaluation_interval=1,
+  delay_evaluation=5
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Running a hyperparameter tuning experiment&lt;/h2&gt;
+&lt;p&gt;In Azure ML, you tune hyper by running a &lt;em&gt;hyperdrive&lt;/em&gt; experiment. You need to create a training script just the way you would do for any other training experiment, except that you &lt;strong&gt;must&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;include an argument for each hyperparameter&lt;/li&gt;
+&lt;li&gt;log the target performance metric.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This example script trains a logistic regression using a &lt;code&gt;--regularization&lt;/code&gt; argument (regularization rate), and logs the &lt;em&gt;accuracy&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;parser = argparse.ArgumentParser()
+parser.add_argument(&amp;#39;--regularization&amp;#39;, type=float, dest=&amp;#39;reg_rate&amp;#39;, default=0.01)
+args = parser.parse_args()
+reg = args.reg_rate
+
+# get experiment run context
+run = Run.get_context()
+
+data = run.input_datasets[&amp;#39;training_data&amp;#39;].to_pandas_dataframe()
+X = data[[&amp;#39;feature1&amp;#39;, &amp;#39;feature2&amp;#39;, &amp;#39;feature3&amp;#39;, &amp;#39;feature4&amp;#39;]].values
+y = data[&amp;#39;label&amp;#39;].values
+X_train, X_test, y_train, y_test = train_test_split(X, y test_size=0.3)
+
+model = LogisticRegression(C=1/reg, solver=&amp;#39;liblinear&amp;#39;).fit(X_train, y_train)
+
+# calculate and log accuracy
+y_hat = model.predict(X_test)
+acc = np.average(y_hat == y_test)
+run.log(&amp;#39;Accuracy&amp;#39;, np.float(acc))
+
+# save trained model
+os.makedirs(&amp;#39;outputs&amp;#39;, exist_ok=True)
+joblib.dump(value=model, filename=&amp;#39;outputs/model.pkl&amp;#39;)
+
+run.complete()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To prepare the hyperdrive experiment, you use a &lt;code&gt;HyperDriveConfig&lt;/code&gt; object to configure the experiment run.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;hyperdrive = HyperDriveConfig(
+  estimator=sklearn_estimator,
+  hyperparameter_sampling=param_sampling,
+  policy=None,
+  primary_metric_name=&amp;#39;Accuracy&amp;#39;,
+  primary_metricgoal=PrimaryMetricGoal.MAXIMIZE,
+  max_total_runs=6,
+  max_concurrent_runs=4
+  )
+
+experiment = Experiment(workspace=ws, name=&amp;#39;hyperdrive_training&amp;#39;)
+hyperdrive_run = experiment.submit(config=hyperdrive)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can monitor hyperdrive experiment in Azure ML studio. The experiment will initiate a child run for each hyperparameter combination to be tried&lt;/p&gt;
+&lt;h1&gt;Automate model selection&lt;/h1&gt;
+&lt;p&gt;Visual interface for automated ML in Azure ML Studio for &lt;em&gt;Enterprise&lt;/em&gt; edition only.&lt;/p&gt;
+&lt;p&gt;You can use automated ML to train models for the tasks below. Azure ML supports common algorithms for these tasks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;classification&lt;/li&gt;
+&lt;li&gt;logistic regression&lt;/li&gt;
+&lt;li&gt;light gradient boosting machine&lt;/li&gt;
+&lt;li&gt;decision tree&lt;/li&gt;
+&lt;li&gt;random forest&lt;/li&gt;
+&lt;li&gt;naive Bayes&lt;/li&gt;
+&lt;li&gt;linear SVM&lt;/li&gt;
+&lt;li&gt;XGBoost&lt;/li&gt;
+&lt;li&gt;DNN classifier&lt;/li&gt;
+&lt;li&gt;others...&lt;/li&gt;
+&lt;li&gt;regression&lt;/li&gt;
+&lt;li&gt;linear regression&lt;/li&gt;
+&lt;li&gt;light gradient boosting machine&lt;/li&gt;
+&lt;li&gt;decision tree&lt;/li&gt;
+&lt;li&gt;random forest&lt;/li&gt;
+&lt;li&gt;elastic net&lt;/li&gt;
+&lt;li&gt;LARS Lasso&lt;/li&gt;
+&lt;li&gt;XGBoost&lt;/li&gt;
+&lt;li&gt;Others&lt;/li&gt;
+&lt;li&gt;time series forecasting&lt;/li&gt;
+&lt;li&gt;linear regression&lt;/li&gt;
+&lt;li&gt;light gradient boosting machine&lt;/li&gt;
+&lt;li&gt;decision tree&lt;/li&gt;
+&lt;li&gt;random forest&lt;/li&gt;
+&lt;li&gt;elastic net&lt;/li&gt;
+&lt;li&gt;LARS Lasso&lt;/li&gt;
+&lt;li&gt;XGBoost&lt;/li&gt;
+&lt;li&gt;others&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By default, automated machine learning, will randomly select from the full range of algorithms for the specified task. You can choose to &lt;strong&gt;block&lt;/strong&gt; individual algorithms from being selected.&lt;/p&gt;
+&lt;h2&gt;Preprocessing and featurization&lt;/h2&gt;
+&lt;p&gt;Automated ML (AutoML) can apply preprocessing transformations to your data.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;scaling and normalization&lt;/strong&gt; applied to numeric data &lt;strong&gt;automatically&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;optional featurization&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;missing value imputation&lt;/li&gt;
+&lt;li&gt;categorical encoding&lt;/li&gt;
+&lt;li&gt;dropping high cardinality features (eg IDs)&lt;/li&gt;
+&lt;li&gt;feature engineering (eg date parts from DateTime)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Running AutoML experiment&lt;/h2&gt;
+&lt;p&gt;You can use Auzure ML Studio UI or use SDK (using &lt;code&gt;AutoMLConfig&lt;/code&gt; class).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;automl_run_config = RunConfiguration(framework=&amp;#39;python&amp;#39;)
+automl_config = AutoMLConfig(
+  name=&amp;#39;auto ml experiment&amp;#39;,
+  task=&amp;#39;classification&amp;#39;,
+  primary_metric=&amp;#39;AUC_weighted&amp;#39;,
+  compute_target=aml_compute,
+  training_data=train_dataset,
+  validation_data=test_dataset,
+  label_column_name=&amp;#39;label&amp;#39;,
+  featurization=&amp;#39;auto&amp;#39;,
+  iterations=12,
+  max_concurrent_iterations=4
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;With Azure ML Studio, you can create or select an Azure ML &lt;em&gt;dataset&lt;/em&gt; to be used as input for your AutoML experiment. When using the SDK, you can submit data by&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;specify a dataset or dataframe of &lt;em&gt;training data&lt;/em&gt; that includes features and label to be predicted&lt;/li&gt;
+&lt;li&gt;optionally, specify a second &lt;em&gt;validation data&lt;/em&gt; dataset or dataframe. If this is not provided, Azure ML will apply cross-validation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Alternatively:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;specify a dataset, dataframe, or numpy array of &lt;em&gt;X&lt;/em&gt; values containing features with a corresponding &lt;em&gt;y&lt;/em&gt; array of label values&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;One of the most important setting you specify is &lt;strong&gt;primary_metric&lt;/strong&gt; (ie target performance metric). Azure ML supports a set of named metrics for each type of task.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;get_primary_metrics(&amp;#39;classification&amp;#39;)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can &lt;strong&gt;submit&lt;/strong&gt; an AutoML experiment like any other SDK-based experiment:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;automl_experiment = Experiment(ws, &amp;#39;automl_experiment&amp;#39;)
+automl_run = automl_experiment.submit(automl_config)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can easily identify the best run in Auzre ML studio, and download or deploy the model it generated. Via SDK:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;best_run, fitted_model = automl_run.get_output()
+best_run_metrics = best_run.get_metrics()
+for metric_name in best_run_metrics:
+  metric = best_run_metrics[metric_name]
+  print(metric_name, metric)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;AutoML uses &lt;em&gt;scikit-learn&lt;/em&gt; pipelines. You can view the steps in the fitted model you obtained from the best run.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;for step in fitted_model.named_steps:
+  print(step)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Explain ML models&lt;/h1&gt;
+&lt;p&gt;Model explainers use statistical techniques to calculate &lt;strong&gt;feature importance&lt;/strong&gt;. Explainers work by evaluating a test data set of feature cases and the labels the model predicts for them.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Global feature importance&lt;/strong&gt; quantifies the relative importance of each feature in the test dataset as a whole: which feature in the dataset influences prediction?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Local feature importance&lt;/strong&gt; measures the influence of each feature value for a specific individual prediction. Example, will Sam go deafult?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Prediction=0: Samuel won't default on the loan repayment&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;loan amount&lt;/em&gt;; support for 0: &lt;code&gt;0.9&lt;/code&gt;; support for 1: &lt;code&gt;-0.9&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;income&lt;/em&gt;; support for 0: &lt;code&gt;0.6&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;age&lt;/em&gt;; support for 0: &lt;code&gt;-0.2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;marital status&lt;/em&gt;; support for 0: &lt;code&gt;0.1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Because this is a &lt;em&gt;classification&lt;/em&gt; model, each feature gets a local importance value for each possible class, indicating the amount of support for that class based on the feature value.&lt;/p&gt;
+&lt;p&gt;The most important feature for a prediction of class 1 is &lt;em&gt;loan amount&lt;/em&gt;. There could be multiple reasons why local importance for an individualprediction varies form global importance for the overall dataset. For example, Sam might have a lower income than average, but the loan amount in this case might be unusually small.&lt;/p&gt;
+&lt;p&gt;For a multi-class classification model, a local importance value for each possible class is calculated for every feature, with the total across all classes always being 0.&lt;/p&gt;
+&lt;p&gt;For a &lt;strong&gt;regression model&lt;/strong&gt;, the local importance values simply indicate the level of influence each feature has on the predicted scalar label.&lt;/p&gt;
+&lt;h2&gt;Using explainers&lt;/h2&gt;
+&lt;p&gt;You can use Azure ML SDK to create explainers for models even if they were not trained using an Azure ML experiment.&lt;/p&gt;
+&lt;p&gt;You install the &lt;code&gt;azureml-interpret&lt;/code&gt; package. Types of explainer include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MimicExplainer&lt;/code&gt; creates a &lt;em&gt;global surrogate model&lt;/em&gt; that approximates your trained model and can be used to generate explanations. This explainable model must have the same kind of architecture as your trained model (eg linear or tree-based)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TabularExplainer&lt;/code&gt; acts as a wrapper around various SHAP explainer algorithms, automatically choosing the one that is most appropriate for your model architecture&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PFIExplainer&lt;/code&gt; (&lt;em&gt;Permutation Feature Importance&lt;/em&gt;) analyzes feature importance by shuffling feature values and measuring the impact on prediction performance&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Example for hypothetical model named &lt;code&gt;loan_model&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mim_explainer = MimicExplainer(
+  model=loan_model,
+  initialization_examples=X_test,
+  explainable_model=DecisionTreeExplainableModel,
+  features=[&amp;#39;loan_amount&amp;#39;, &amp;#39;income&amp;#39;, &amp;#39;age&amp;#39;, &amp;#39;marital_status&amp;#39;],
+  classes=[&amp;#39;reject&amp;#39;, &amp;#39;approve&amp;#39;]
+  )
+
+tab_explainer = TabularExplainer(
+  model=loan_model,
+  initialization_examples=X_test,
+  features=[&amp;#39;loan_amount&amp;#39;, &amp;#39;income&amp;#39;, &amp;#39;age&amp;#39;, &amp;#39;marital_status&amp;#39;],
+  classes=[&amp;#39;reject&amp;#39;, &amp;#39;approve&amp;#39;]
+  )
+
+pfi_explainer = PFIExplainer(
+  model=loan_model,
+  features=[&amp;#39;loan_amount&amp;#39;, &amp;#39;income&amp;#39;, &amp;#39;age&amp;#39;, &amp;#39;marital_status&amp;#39;],
+  classes=[&amp;#39;reject&amp;#39;, &amp;#39;approve&amp;#39;]
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To retrieve &lt;strong&gt;global feature importance&lt;/strong&gt;, call the &lt;code&gt;explain_global()&lt;/code&gt; method of your explainer, and then use the &lt;code&gt;get_feature_importance_dict()&lt;/code&gt; method to get a dictionary of the feature importance values.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;global_mim_explanation = mim_explainer.explain_global(X_train)
+global_mim_feature_importance = global_mim_explanation.get_feature_importance_dict()
+
+# same as MimixExplainer
+global_tab_explanation = mim_explainer.explain_global(X_train)
+global_tab_feature_importance = global_tab_explanation.get_feature_importance_dict()
+
+# requires actual labels
+global_pfi_explanation = mim_explainer.explain_global(X_train)
+global_pfi_feature_importance = global_pfi_explanation.get_feature_importance_dict()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To retriev &lt;strong&gt;local feature importance&lt;/strong&gt; from a &lt;code&gt;MimicExplainer&lt;/code&gt; or a &lt;code&gt;TabularExplainer&lt;/code&gt;, you must call the &lt;code&gt;explain_local()&lt;/code&gt; specifying the subset of cases you want to explain. Then you use the &lt;code&gt;get_ranked_local_names()&lt;/code&gt; and &lt;code&gt;get_ranked_local_values()&lt;/code&gt; to retrieve dictionares.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# same for tab_explainer too
+local_mim_explanation = mim_explainer.explain(X_test[0:5])
+local_mim_features = local_mim_explanation.get_ranked_local_names()
+local_mim_importance = local_mim_explanation.get_ranked_local_values()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;PFIExplainer&lt;/code&gt; does not support local feature importance explanations.&lt;/p&gt;
+&lt;h2&gt;Creating explanations&lt;/h2&gt;
+&lt;p&gt;You can create an explainer and upload the explanation it generates to the run for later analysis.&lt;/p&gt;
+&lt;p&gt;To create an explanation for the &lt;strong&gt;experiment script&lt;/strong&gt;, you'll need to ensure that the &lt;code&gt;azureml-interpret&lt;/code&gt; and &lt;code&gt;azureml-contrib-interpret&lt;/code&gt; packages are installed in the run environment. Then you can use these to create an explanation from your trained model and upload it to the run outputs.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;run = Run.get_context()
+
+# code to train model goes here
+
+# get explanation
+explainer = TabularExplainer(model, X_train, features=features, classes=labels)
+explanation = explainer.explain_global(X_test)
+
+# get an explanation client and upload the explanation
+explain_client = ExplanationClient.from_run(run)
+explain_client.upload_model_explanation(explanation, comment=&amp;#39;Tabular Explanation&amp;#39;)
+
+run.complete()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can view the explanation you created for your model in the &lt;em&gt;Explanations&lt;/em&gt; tab for the run in Azure ML Studio.&lt;/p&gt;
+&lt;h2&gt;Visualizing explanations&lt;/h2&gt;
+&lt;p&gt;Model explanations in Azure ML Studio include multiple visualizations that you can use to explore feature importance. Visualizations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;global feature importance&lt;/li&gt;
+&lt;li&gt;summary importance: shows the distribution of individual importance values for each feature across the test dataset&lt;/li&gt;
+&lt;li&gt;local feature importance by selecting an individual data point&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Monitor models&lt;/h1&gt;
+&lt;p&gt;You can use Application Insights to capture and review telemetry from models published with Azure ML. You must have an Application Insights resource associated with your Azure ML workspace.&lt;/p&gt;
+&lt;p&gt;When you create an Azure ML workspace, you can select an Application Insights resource. If you do not select an existing resource, a new one is created in the same resource group as your workspace.&lt;/p&gt;
+&lt;p&gt;When deploying a new real-time service, you can &lt;strong&gt;enable&lt;/strong&gt; Application Insights in the deployment configuration for the service.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;dep_config = AciWebservice.deploy_configuration(
+  cpu_cores=1,
+  memory_gb=1,
+  enable_app_insights=True
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you want to enable Application Insights for a service that is already deployed, you can modify the deployment configuration for AKS based services in the Azure portal.&lt;/p&gt;
+&lt;h2&gt;Capture and view telemetry&lt;/h2&gt;
+&lt;p&gt;Application Insights automatically captures any information written to the standard output and error logs, and provides a query capability to view data in these logs.&lt;/p&gt;
+&lt;p&gt;You can write any value to the standard output in the scoring script by using a &lt;code&gt;print&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def run(raw_data):
+  data = json.loads(raw_data)[&amp;#39;data&amp;#39;]
+  predictions = model.predict(data)
+  print(&amp;#39;Data: &amp;#39; + str(data) + &amp;#39; - Predictions: &amp;#39; + str(predictions))
+  return predictions.tolist()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Azure ML creates a &lt;em&gt;custom dimension&lt;/em&gt; in the data model for the output you write.&lt;/p&gt;
+&lt;p&gt;Yuo can use the Log Analytics query interface for the Applcation Insights in the Azure portal. It supports a SQL-like query syntax.&lt;/p&gt;
+&lt;h1&gt;Monitor data drift&lt;/h1&gt;
+&lt;p&gt;Over time there may be trends that change the profile of the data, making your model less accurate. This change in data profiles between training and inferencing is known as &lt;em&gt;data drift&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Azure ML supports data drift monitoring through the use of &lt;em&gt;datasets&lt;/em&gt;. You can compare two registered datasets to detect data drift, or you can capture new feature data submitted to a deployed model service and compare it to the dataset with which the model was trained.&lt;/p&gt;
+&lt;p&gt;You register 2 datasets:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a &lt;em&gt;baseline&lt;/em&gt; dataset: original training data&lt;/li&gt;
+&lt;li&gt;a &lt;em&gt;target&lt;/em&gt; dataset that will be compared to the baseline on time intervals. This dataset requires a column for each feature you want to compare, and a timestamp column&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You define a &lt;em&gt;dataset monitor&lt;/em&gt; to detect data drift and trigger alerts if the rate of drift exceeds a specified threshold. You can create dataset monitors using Azure ML Studio or by using the &lt;code&gt;DataDriftDetector&lt;/code&gt; class.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;monitor = DataDriftDetector.create_from_datasets(
+  workspace=ws,
+  name=&amp;#39;dataset-drift-monitor&amp;#39;,
+  baseline_data_set=train_ds,
+  target_data_set=new_data_ds,
+  compute_target=&amp;#39;aml-cluster&amp;#39;,
+  frequency= &amp;#39;week&amp;#39;,
+  feature_list=[&amp;#39;age&amp;#39;, &amp;#39;height&amp;#39;, &amp;#39;bmi&amp;#39;],
+  latency=24
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can &lt;em&gt;backfill&lt;/em&gt; to immediately compare baseline to existing data in target.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;backfill = monitor.backfill( dt.datetime.now() - dt.timedelta(weeks=6), dt.datetime.now())
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If you have &lt;strong&gt;deployed a model&lt;/strong&gt; as a real-time web service, you can capture new inferencing data s it is submitted, and compare it to the original training data. It has the benefit of automatically collecting new target data as the deployed model is used.&lt;/p&gt;
+&lt;p&gt;You include the training dataset in the model registration to provide a baseline.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;model = Model.register(
+  workspace=ws,
+  model_path=&amp;#39;./model/model.pkl&amp;#39;,
+  model_name=&amp;#39;mymodel&amp;#39;,
+  datasets=[(Dataset.Scenario.TRAINING, train_ds)]
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You enable data collection for services in which the model is used. You use the &lt;code&gt;ModelDataCollector&lt;/code&gt; class in each service's scoring script, writing code to capture data and predictions and write them to the data collector (which will store them in Azure blob storage).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;def init():
+  global model, data_collect, predict_collect
+  model_name = &amp;#39;mymodel&amp;#39;
+  model = joblib.load(Model.get_model_path(model_name))
+
+  # enable collection of data and predictions
+  data_collect = ModelDataCollector(
+    model_name,
+    designation=&amp;#39;inputs&amp;#39;,
+    features=[&amp;#39;age&amp;#39;, &amp;#39;height&amp;#39;, &amp;#39;bmi&amp;#39;]
+    )
+  predict_collect = ModelDataCollector(
+    model_name,
+    designation=&amp;#39;predictions&amp;#39;,
+    features=[&amp;#39;prediction&amp;#39;]
+    )
+
+def run(raw_data):
+  data = json.loads(raw_data[&amp;#39;data&amp;#39;])
+  predictions = model.predict(data)
+
+  data_collect(data)
+  predict_collect(predictions)
+
+  return predictions.tolist()
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;With the data collection code in place in the scoring script, you can enable data collection in the deployment configuration.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;dep_config = AksWebservice.deploy_configuration(collect_model_data=True)
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can configure &lt;strong&gt;data drift monitoring&lt;/strong&gt; by using a &lt;code&gt;DataDriftDetector&lt;/code&gt; class.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;model = ws.models[&amp;#39;mymodel&amp;#39;]
+datadrift = DataDriftDetector.create_from_model(
+  ws,
+  model.name,
+  model.version,
+  services=[&amp;#39;my-svc&amp;#39;],
+  frequency=&amp;#39;Week&amp;#39;
+  )
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Scheduling alerts&lt;/h2&gt;
+&lt;p&gt;You can specify a threshold for the rate of data drift and an operator email for notifications.&lt;/p&gt;
+&lt;p&gt;Monitoring works by running a comparison at scheduled &lt;strong&gt;frequency&lt;/strong&gt; (day, week, or month), and calculating data drift metrics for the features. For dataset monitors, you can specify a &lt;strong&gt;latency&lt;/strong&gt; indicating the number of hours to allow for new data to be collected and added to the target dataset. For deployed model data drifts monitor, you can specify a &lt;code&gt;schedule_start&lt;/code&gt; time value to indicate when the data drift run should start (if omitted, the run will start at the current time).&lt;/p&gt;
+&lt;p&gt;Data drift is measured using a calculated &lt;em&gt;magnitude&lt;/em&gt; of change in the statistical distributions of feature values over time. You can configure a &lt;strong&gt;threshold&lt;/strong&gt; for data drift magnitude.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;alert_email = AlertConfiguration(&amp;#39;data_scientist@contoso.com&amp;#39;)
+monitor = DataDriftDetector.create_from_datasets(
+  ws,
+  &amp;#39;dataset-drift-detector&amp;#39;,
+  baseline_data_set,
+  target_data_set,
+  compute_target=cpu_cluster,
+  frequency=&amp;#39;Week&amp;#39;,
+  latency=2,
+  drift_threshold=0.3,
+  alert_configuration=alert_email
+  )
+&lt;/pre&gt;&lt;/div&gt;</content></entry><entry><title>Error when restarting Databricks streaming job</title><link href="http://www.marcosantoni.com/error_restarting_databricks_streaming.html" rel="alternate"></link><published>2020-04-19T18:00:00+02:00</published><updated>2020-04-19T18:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2020-04-19:/error_restarting_databricks_streaming.html</id><summary type="html">&lt;p&gt;This is an error I encountered when I have a Spark Streaming job running on Databricks 6.1. Consider the case I have to update a running streaming query. Databricks &lt;a href="https://docs.databricks.com/spark/latest/structured-streaming/production.html#configure-jobs-to-restart-streaming-queries-on-failure"&gt;recommends&lt;/a&gt; to always start (and restart too?) a streaming query on a &lt;strong&gt;new&lt;/strong&gt; dedicated cluster. However, in some scenario you …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is an error I encountered when I have a Spark Streaming job running on Databricks 6.1. Consider the case I have to update a running streaming query. Databricks &lt;a href="https://docs.databricks.com/spark/latest/structured-streaming/production.html#configure-jobs-to-restart-streaming-queries-on-failure"&gt;recommends&lt;/a&gt; to always start (and restart too?) a streaming query on a &lt;strong&gt;new&lt;/strong&gt; dedicated cluster. However, in some scenario you might not be able to do so, and you may want to:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;cancel the job run&lt;/li&gt;
 &lt;li&gt;update the notebooks&lt;/li&gt;
