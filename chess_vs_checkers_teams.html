@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Models of Data Science teams: Chess vs Checkers</title>
+        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+        <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+        <meta name="description" content="How many data engineers should we hire? Are they too many compared to our data scientists? One of the key decisions to take when building a data..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                <nav><ul>
+                    <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                    <li><a href="https://www.marcosantoni.com/pages/atacmonitor.html">atacmonitor</a></li>
+                    <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                    <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://www.marcosantoni.com/chess_vs_checkers_teams.html" rel="bookmark"
+           title="Permalink to Models of Data Science teams: Chess vs Checkers">Models of Data Science teams: Chess vs Checkers</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-03-27T09:35:00+01:00">
+                Published: Sat 27 March 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+        </address>
+<p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+
+</footer><!-- /.post-info -->      <blockquote>
+<p>How many data engineers should we hire? Are they too many compared to our data scientists?</p>
+</blockquote>
+<p>One of the key decisions to take when building a data science team is the <strong>mix of roles</strong>. This means choosing the right mix of background and of activities that each member of the team should have. I'll compare two models of teams I've experienced so far and define them as <strong>chess-team</strong> model and <strong>checkers-team</strong> model.</p>
+<h2>Chess-Team Model</h2>
+<p><img alt="Chess board" src="https://www.marcosantoni.com/images/chess_400.jpg"></p>
+<p>The chess-team model is the common model we read about in literature. In a chess-team, each member of the team has a <strong>specific role</strong>. Roles are usually: <em>data engineers</em>, <em>data scientists</em>, and <em>machine learning engineers</em>. These roles typically correspond to different sets of skills (eg ML and statistics vs coding and devops) and to different set of activities (model selection vs data preparation vs model deployment).</p>
+<p>Similarly to a chess piece which has a clear role that is different from the other pieces, a member of a data science chess-team is assigned a subset of the tasks that are part of the development pipeline. Let's consider a simplistic development pipeline:</p>
+<ul>
+<li>data preparation -&gt; data engineer</li>
+<li>model development -&gt; data scientists</li>
+<li>model deployment -&gt; machine learning engineer</li>
+</ul>
+<p>The three activities of this development pipeline correspond to the three roles of the team, and there is little space for confusion. A data engineer probably won't work a lot on the model development and selection, while a data scientist probably won't be the one deploying the model in production.</p>
+<h2>Checkers-Team Model</h2>
+<p><img alt="Checkers board" src="https://www.marcosantoni.com/images/checkers_400.jpg"></p>
+<p>The checkers-team model is a definition of a team model that I introduce in this post. In a checkers-team, each member of the team does not have a specific role because he may  in charge of working on <strong>any step of the development</strong> pipeline. There are no roles like <em>data engineer</em> or <em>data scientist</em> because taking such a role implies limiting the scope of activities a team member should work on. Let' make an example. In a checkers-team, there is no <em>data scientist</em> because no one is in charge of model development <strong>only</strong>.</p>
+<p>So, what is the role of someone working in a checkers-team? A member of the team can be defined as a <strong>full-stack data developer</strong>. A full-stack data developer is someone that for example works on data extraction <em>AND</em> model development <em>AND</em> model deployment. In a checkers-team, everyone works possibly on every piece of the development lifecycle. In this sense, the team is more similar to checkers pieces. There is no move that a piece can take and another piece cannot. Similarly, there is no activity that any team member cannot do. For example, everyone can contribute to building devops pipelines and automation.</p>
+<p>Of course, every team member has a different <strong>background</strong> and a different set of skills from his/her teammates. One can come from a software engineering experience, another one can come from data science studies. However, the strategy of building a checkers-team is to invest in <strong>training</strong> team members to grow <strong>horizontally</strong> their set of skills.</p>
+<h2>Pros and Cons</h2>
+<p>Let's consider some key differences between a chess and a checkers team model.</p>
+<p><strong>Flexibility.</strong> The balance of types of activities is not stable over time in a team. There can be times when there is a peak of work items in data engineering and little or no work items in ML model development. These peaks can be due to different phases of the data product development cycle or due to varying business requirements. A checkers-team is flexible and can adapt quickly to these peaks. A checkers-team could for example dedicate the entire team to develop data engineering pipelines in a Scrum sprint if needed. The same flexibility is not as easy in a chess-team model where you have constraints due to different skills and different responsibilities.</p>
+<p><strong>Complexity.</strong> Not every data science team is facing the same level of complexity in their projects. Imagine a team that is building an AI model for self-driving cars. It is a complex problem to solve that requires advanced skills in computer vision and AI. These skills cannot be learned quickly but usually need a specific education or career path. When facing such problems, you need team members which are specialists in area like vision or AI. A chess-team is designed to host specialists in certain fields and is designed to grow vertically such skills. In a checkers-team, there are not such specialists.</p>
+<p><strong>Awareness.</strong> A member of a checkers-team knows in details every phase of the development cycle. While he is designing a ML model, he is aware at the same time of how the release pipeline and the operations of the model work. He may take decisions during model selection that take into consideration where the model will be hosted and possible constraints of the production platform. On the other hand, a data scientist of a chess-team knows less details (because he has not being working on it by himself) of how the model will be deployed and run. This minor awareness may lead to assumptions taken during model development, and these assumptions can bring to more complexity to those in charge of deploying such model.</p>
+<p><strong>Sense of Ownership.</strong> In a checkers-team, you are in charge of both engineering data pipelines, developing models, and deploying them. Any issue that may occur in these phases is also <em>your</em> issue. You can't delegate too much, and, therefore, you naturally feel responsible to contribute to the resolution. Distributing the ownership makes every team member more active in improving the development life cycle.</p>
+<h2>When is a Team Model Right?</h2>
+<p>The answer depends on the context and the organization you work at. Is the data science team is working on the <strong>core product</strong> of the company? If this is the case, the models that are developed may need a level of specialization that can't just be achieved by a checkers-team.</p>
+<p>Or is the team rather working on adding tiny features or on improving the operations of the company? In this case, probably you won't be developing state-of-the-art AI models, and you can rely existing <strong>libraries or SaaS</strong> that make life easier for you. As complexity is not an obstacle, going for checkers-team may be a good option.</p>
+<p>What is the size of your data science team? Or even how many teams do you have? Large organizations go for multiple data teams. These teams may be divided <strong>functionally</strong> (eg 1 team of data engineers + 1 separate team of data sciensts) or they may be divided by <strong>business units</strong> (eg 1 data team for marketing and 1 data team for recommender system). You can't of course adopt the checkers-team model in an large organization that design the data teams by functions, but you may still adopt this model in a large organization that creates multiple self-organized teams each dedicated to a specific business unit.</p>
+<p>A last point to consider is the <strong>IT architecture</strong>. A checkers-team requires the same person to work on very different tasks. This is viable only if the complexity of such tasks is small. Adopting <strong>SaaS and PaaS</strong> resources simplifies every task by hiding the complexity of managing and running the resources. They let you focus on your goal. For example, building an API endpoint hosted by a function-as-a-service is something feasible by a data scientist with a mathematical background. Doing the same from scratch on an on-premise server is not as feasible.</p>
+<p><em>Images courtesy of <a href="https://unsplash.com/photos/DC-UrroFRr4">@pecanlie</a> and <a href="https://unsplash.com/photos/U_Kz2RnfFAk">@rafaelrex</a></em></p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                            <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-189451030-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+</body>
+</html>
