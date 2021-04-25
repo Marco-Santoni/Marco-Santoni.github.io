@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Notes from Designing Data-Intensive Applications</title>
+        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+        <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+        <meta name="description" content="Designing Data-Intensive Applications by Martin Kleppmann was not a quick-read. Let me be clear, it is not such a long book (the paper version is..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                <nav><ul>
+                    <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                    <li><a href="https://www.marcosantoni.com/pages/atacmonitor.html">atacmonitor</a></li>
+                    <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                    <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://www.marcosantoni.com/review_designing_data_intensive.html" rel="bookmark"
+           title="Permalink to Notes from Designing Data-Intensive Applications">Notes from Designing Data-Intensive Applications</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-04-10T07:31:00+02:00">
+                Published: Sat 10 April 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+        </address>
+<p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+
+</footer><!-- /.post-info -->      <p><a href="https://dataintensive.net/">Designing Data-Intensive Applications</a> by Martin Kleppmann was not a quick-read. Let me be clear, it is not such a long book (the paper version is 400 pages), but it is so dense of information that takes some time to go through. The book covers indeed a broad spectrum of data technologies and is dense of details in each paragraph. So, be ready before starting the journey.</p>
+<p><img alt="Ocean of distributed data" src="https://www.marcosantoni.com/images/data_map_600.jpg"></p>
+<p>What did I learn from the book? I'll take few quotes from my notes.</p>
+<blockquote>
+<p>An architecture that is appropriate for one level of load is unlikely to cope with 10 times that load. If you are working on a fast-growing service, it is therefore likely that you will need to rethink your architecture on every order of magnitude load increase — or perhaps even more often than that.</p>
+</blockquote>
+<p>We need to be able to test, develop, and change quickly our architecture. The book covers the main data solution designs, but you need a team and an organizaiton that is able to adapt and improve the architecture constantly. And more importantly, avoid <a href="http://wiki.c2.com/?PrematureOptimization">premature optimization</a> as much as possible. Prefer simplicity over complexity.</p>
+<blockquote>
+<p>If the same query can be written in 4 lines in one query language but requires 29 lines in another, that just shows that different data models are designed to satisfy different use cases. It’s important to pick a data model that is suitable for your application.</p>
+</blockquote>
+<p>Don't focus on data processing performance only, data models and query languages do matter. The overall simplicity and readability of the solution design should be taken into account when choosing the data model.</p>
+<blockquote>
+<p>On the surface, a data warehouse and a relational OLTP database look similar, because they both have a SQL query interface. However, the internals of the systems can look quite different, because they are optimized for very different query patterns. Many database vendors now focus on supporting either transaction processing or analytics workloads, but not both.</p>
+</blockquote>
+<p>We experienced this difference in my team. We started by building a data warehouse on top of SQL, but we run into performance issues quite soon. The statement by Kleppmann may seem obvious, but there are plenty of organization building data warehouses on SQL for a variety of reasons.</p>
+<blockquote>
+<p>... we will explore some of the most common ways how data flows between processes: via databases,  via service calls (eg REST and RPC), and via asynchronous message passing (eg MQTT, AMQP).</p>
+</blockquote>
+<p>I find this an amazing summary. In the end, any data flow architecture falls in one these 3 categories, isn't it true?</p>
+<blockquote>
+<p>When you deploy a new version of your application (of a server-side application, at least), you may entirely replace the old version with the new version within a few minutes. The same is not true of database contents: the five-year-old data will still be there, in the original encoding, unless you have explicitly rewritten it since then. This observation is sometimes summed up as data outlives code.</p>
+</blockquote>
+<p>Migrating data is harder than updating an application (and there are richer tools available for deploying an application than migrating a database).</p>
+<blockquote>
+<p>May your application’s evolution be rapid and your deployments be frequent.</p>
+</blockquote>
+<p>I love this wish 😊</p>
+<blockquote>
+<p>All of the difficulty in replication lies in handling changes to replicated data, and that’s what this chapter is about. We will discuss three popular algorithms for replicating changes between nodes: <em>single-leader</em>, <em>multi-leader</em>, and <em>leaderless replication</em>. Almost all distributed databases use one of these three approaches.</p>
+</blockquote>
+<p>I found this quote in the introduction to the <em>Replication</em> chapter of the book. I heard often mentioning these replication mechanism, but for the first time I did a deep dive in the topic (that is not as easy as I would have expected). Kleppmann throughout the book makes you clear one thing: there are many things that can go wrong around data (timestamp alignment, networking, nodes down, etc), and they will go wrong at some point.</p>
+<blockquote>
+<p>Because of this risk of skew and hot spots, many distributed datastores use a hash function to determine the partition for a given key. A good hash function takes skewed data and makes it uniformly distributed.</p>
+</blockquote>
+<p>And fortunately this hashing is often managed under the hood by datastores themselvs, eg Azure Cosmos.</p>
+<blockquote>
+<p>Atomicity, isolation, and durability are properties of the database, whereas consistency (in the ACID sense) is a property of the application. The application may rely on the database’s atomicity and isolation properties in order to achieve consistency, but it’s not up to the database alone. Thus, the letter C doesn’t really belong in ACID.</p>
+</blockquote>
+<p>Interesting to read that the <em>C</em> in such a popular acronym is there just to make the acronym work.</p>
+<blockquote>
+<p>Errors will inevitably happen, but many software developers prefer to think only about the happy path rather than the intricacies of error handling.</p>
+</blockquote>
+<p>True story, but experience helps thinking a bit more to the <em>sad path</em>.</p>
+<blockquote>
+<p>Simply dumping data in its raw form allows for several such transformations. This approach has been dubbed the sushi principle: "raw data is better"</p>
+</blockquote>
+<p>I have been following the <em>sushi principle</em> in the last year without being aware of this definition. Nice name!</p>
+<blockquote>
+<p>Database triggers can be used to implement change data capture by registering triggers that observe all changes to data tables and add corresponding entries to a changelog table. However, they tend to be fragile and have significant performance overheads. Parsing the replication log can be a more robust approach, although it also comes with challenges, such as handling schema changes.</p>
+</blockquote>
+<p>I see replication log parsing as a growing trend. It enables the method "take data to datalake and then we'll see what to do". Furthermore, it fits for steaming data applications too. Today, not all vendors support the publication of such change logs natively (eg I didn't find a simple solution for <em>SQL Server</em>).</p>
+<p><img alt="Database state as integral of stream" src="https://www.marcosantoni.com/images/state_as_integral_of_stream_600.png"></p>
+<blockquote>
+<p>If you are mathematically inclined, you might say that the application state is what you get when you integrate an event stream over time, and a change stream is what you get when you differentiate the state by time, as shown in figure. The analogy has limitations (for example, the second derivative of state does not seem to be meaningful), but it’s a useful starting point for thinking about data.</p>
+</blockquote>
+<p>This brilliant analogy is the intro of the <strong>chapter I enjoyed the most</strong> within the entire book, ie the <em>Stream Processing</em> chapter. It represents a database as the latest cache representing the replication logs (the opposite point of view we normally have).</p>
+<blockquote>
+<p>In the absence of widespread support for a good distributed transaction protocol, I believe that log-based derived data is the most promising approach for integrating different data systems.</p>
+</blockquote>
+<p>I have seen Kafka as a tool for stream processing so far. I was not thinking of it as a tool for integrating data systems. The last chapter of the book gives a hint on how <em>log-based derived data</em> may become a popular pattern soon.</p>
+<blockquote>
+<p>The trend has been to keep stateless application logic separate from state management (databases): not putting application logic in the database and not putting persistent state in the application. As people in the functional programming community like to joke, "We believe in the separation of Church and state"</p>
+</blockquote>
+<p>Good one.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                            <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-189451030-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+</body>
+</html>
