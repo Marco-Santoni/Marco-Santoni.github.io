@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Expectations from a Data Analyst</title>
+        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+        <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+        <meta name="description" content="When you work as a data analyst or data scientist (I'll use the terms interchangeably) in a company, you may not be training predictive models..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                <nav><ul>
+                    <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                    <li><a href="https://www.marcosantoni.com/pages/atacmonitor.html">atacmonitor</a></li>
+                    <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                    <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://www.marcosantoni.com/expectations_from_data_analyst.html" rel="bookmark"
+           title="Permalink to Expectations from a Data Analyst">Expectations from a Data Analyst</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2023-08-07T07:35:00+02:00">
+                Published: Mon 07 August 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+        </address>
+<p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+
+</footer><!-- /.post-info -->      <p>When you work as a data analyst or data scientist (I'll use the terms interchangeably) in a company, you may not be training predictive models every single day. A significant (and often interesting) part of your job is answering business questions via data mining regardless if you do it with machine learning, descriptive statistics or whatever. You may start with a business question like:</p>
+<blockquote>
+<p>why are our revenues increasing in the last quarter?</p>
+<p>what are common patterns between our loyal customers?</p>
+</blockquote>
+<p>Such simple questions often require a complex work that goes beyond knowing well statistics. You need to know how how your business work and what are the expectations of your stakeholder.</p>
+<h2>What the analyst enjoys the most (and the least)</h2>
+<p>Once a business question has arrived, where do we start from? Most data analysts would start mining into the <strong>data exploration</strong> phase. This phase is usually the first one of the activity, and the data analysts look into distributions and patterns in the data. The goal here is to get a good comprehension of the data we are sitting on. And usually the data analysts has fun during this data exploration time.🎉🙌 He or she is playing with charts and with some statistics from the dataset.</p>
+<p>What does the data analyst usually <strong>not</strong> enjoy doing? 👎😭 Based on my experience, preparing the <strong>presentation</strong> about the results of the analysis is the part of the activity that most data analysts enjoy the least. And what does it imply?</p>
+<p><img alt="Time dedicated to slides" src="https://www.marcosantoni.com/images/time_dedicated_to_slides_small.png"></p>
+<p>Imagine you have <strong>10 days</strong> to work on this data analysis before the meeting with your stakeholders. As our dear data analysts enjoy playing with the data more than playing with PowerPoint, they would probably spend 9 days on mining the data and 1 day working on the presentation. And probably the 9 days do not depend on the actual complexity of the task. If the business question can be answerend in 5 days with some basic descriptive statistics, the data analysts would probably invest more and more time trying some more advanced modelling technique or some more fancy data visualization. Why? Because they enjoy it. So, the data analysis part of the activity fills all the available space like a gas in a room would do.</p>
+<p>Last day (if not very last hours) is usually left to working on the presentation.</p>
+<h2>The wrong interpretation of the role</h2>
+<p>I was expecting from a data analyst to focus on the data mining, and that looked fine to me. She/he would share the data with other stakeholders (eg marketing staff), and THEY would get the insights because THEY are the domain expert. The data scientist would get the data, would let the data talk, and the business stakeholder would read the insights.</p>
+<p>I thought it was OK to present an exploratory analysis. And I was wrong.</p>
+<h2>Explanatory over exploratory</h2>
+<p>Recently, I read <a href="https://www.storytellingwithdata.com/books">Storytelling with Data</a> by Cole Nussbaumer Knaflic. The author explains why data scientists should show <strong>explanatory</strong> analyses (rather than exploratory).</p>
+<blockquote>
+<p>If you are the one analyzing and communicating the data, you likely know it best—you are a subject matter expert. This puts you in a unique position to interpret the data and help lead people to understanding and action.</p>
+</blockquote>
+<p>Once the explorary data mining phase is over, the data analyst should take the time and the effort to <strong>interpret</strong> the data. She/he should turn the data into information that can answer the need of the audience.</p>
+<p>Why is it hard? We often believe that the audience is the subject matter expert and know what is actually the valuable information behind the data. That's why working on the explanatory phase is an uncomfortable zone for a data scientist, but she/he should feel confident in making recommendations and observations.</p>
+<p>If we entitle a data analyst to interpret the business insights of the data, there are at least 2 things he/she should take into considerations:</p>
+<ol>
+<li>take enough <strong>time to interpret</strong> the data</li>
+<li><strong>review the data visualizations</strong> to explicitly communicate his/her interpretation</li>
+</ol>
+<p>Regarding the 1st point, looking for business insights is surprisingly time consuming. You cannot just dedicate the very last hours of your activity to looking for explanations behind data patterns. We should probably reconsider a classic sequential approach to the activity (eg explore, explain, present) in favor of an approach that organizes our time as to have quick iterations around business hypothesis and repeat multiple iterations before concluding our activity.</p>
+<p>Regarding, the 2nd point, I'll go a bit deeper with an example.</p>
+<h2>Example: review your data viz</h2>
+<p>You can find of course many examples on Knaflic's book. Let's look at one I picked one from <a href="https://www.storytellingwithdata.com/makeovers">her website</a>. Imagine we're working in a hospital and are analyzing lengths of hospitals stays after a surgery. For each stay of year 2019, we're given</p>
+<ul>
+<li>the quarter of the year</li>
+<li>the length of stay</li>
+</ul>
+<p>When a data analysts is done with the first <em>exploratory</em> analysis, what could be the output?</p>
+<p><img alt="Exploratory data analysis chart" src="https://www.marcosantoni.com/images/surgery_data_exploratory_small.png"></p>
+<p>In this chart, data is presented to the audience. However, how easy is it to get valuable information out of it? You may notice some patterns (eg increase in frequency <code>&lt;=24</code> stays over the year), however finding patterns is hard or requires quite some cognitive effort.</p>
+<p>What if the data analyst would take this effort of extracting the information out of the data? How should the presentation be revisited? She/he should be confident in highlighting what's actually valuable in the data and focus the attention on the reader on that.</p>
+<p>In this example, the data analyst can make the key information explicit. She/he can find out that the <code>&lt;=24</code> stays have increased over the year and could know that this is considered a success. Why not emphasizing it on the chart?</p>
+<p>Let's look at how an <em>explanatory</em> chart would look like.</p>
+<p><img alt="Explanatory data analysis chart" src="https://www.marcosantoni.com/images/surgery_data_explanatory_small.png"></p>
+<p>The chart now has a clear message that is stated in the title and is fully described in the text next to the actual plot. The new chart looks clean because any visual component that is not useful to grab the chosen message is either hidden or grayed out. The data analyst in this case has focused on explaining why 2019 was a success rather than showing plain data. That's why the bars of the <code>&lt;=24</code> stays are highlighted in black, while, in contrast, the remaining bars are grayed out. The choice of colors captures the attention of the reader on the patterns and on the signal, rather than on the data itself.</p>
+<h2>Looking forward</h2>
+<p>This article is mainly inspired by Knaflic's book and by my experience on interacting with stakeholders over the last years. I haven't done a research of the literature on the topic, so please consider this article as a set of opinionated recommendations on how a data scientist could maximize his/her impact when working on data mining activities. Agreeing with this approach means that a data scientist should dedicate energies to</p>
+<ul>
+<li>getting a deep knowledge of the business of the company she/he works at and the market where it competes</li>
+<li>fine tuning and improving the data visualizations she/he by iterating over and over on them (not stopping at the default chart styles generated by statistics softwares)</li>
+</ul>
+<p>These thoughts do not apply fully to every single company of course. They make sense in teams or companies where data scientists spend a part of their time making data explorations and data mining activities to answer questions that business stakeholders ask them. I would appreciate any feedback or thought you have on it!</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                            <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+    <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-189451030-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+</body>
+</html>
