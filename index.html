@@ -21,7 +21,55 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://www.marcosantoni.com/expectations_from_data_analyst.html">Expectations from a Data Analyst</a></h1>
+                    <h1 class="entry-title"><a href="https://www.marcosantoni.com/design_web_api.html">Reading "The Design of Web APIs"</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2023-08-27T07:35:00+02:00">
+                Published: Sun 27 August 2023
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+        </address>
+<p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+
+</footer><!-- /.post-info --><p>Why bothering reading a book about design of web APIs when working in data science like I do? I found this book called <em>The Design of Web APIs</em> by <a href="https://apihandyman.io/about/">Arnaud Lauret</a> and decided to give it a try.</p>
+<p><img alt="The Design of Web APIs" src="https://www.marcosantoni.com/images/bookshelf/webapi.jpg"></p>
+<h2>Why reading it</h2>
+<p>Data science is shifting towards turning models and solutions as API products. And this can be true not only when you develop a product you actually sell publicly. Even when developing a data product inside an organization, you may want to expose your data service via APIs.</p>
+<p>So, when you are at this point of developing an APIs, there are plenty of design decisions to take (eg which routes to expose, which result codes, which response payload, etc.). If you start this design process without some guidelines, you may spend plenty of energies on trying to answer these design questions or even risk to introduce technical debt that you will pay later.</p>
+<h2>What is the book about</h2>
+<p>The book states that, when you take the role of an <em>API designer</em>, you are just like a designer of real-world object. An API is made for users and shuold help <strong>them</strong> to achieve <strong>their</strong> goals. API designers should avoid that internal details of the backend affect the design of the APIs. The focus of the designer is to simplify the job of the consumer.</p>
+<blockquote>
+<p>Usability is what distinguishes awesome APIs from mediocre or passable ones.</p>
+</blockquote>
+<p>The book is focused on shifting your point of view <strong>from the provider to the consumer</strong>. It may seem obvious and everyone might agree on it, but it is not that straightforward to make it happen because we may have bias or we may take design shorcuts that simplify the development of our backend. The author introduces methods like <em>API goals canvas</em> to help us listing out the needs of the user and focusing on them.</p>
+<p><img alt="Example of design tradeoffs" src="https://www.marcosantoni.com/images/api_design_tradeoff.png"></p>
+<p>You will find in the books charts or schemas like the one above that explain the design choices you can face on a daily basis. In this example, you may want to stick to fully REST compliace with a <code>POST /orders</code>. Or you may want to relax this constraint via a non-REST design like <code>POST /cart/check-out</code> that might actually be more intuitive for the consumer developers.</p>
+<h2>And more technicalities</h2>
+<p>The book has a focus on these design choices (eg the <em>resource expansion</em> pattern for nested object in API responses), but is a good source of knowledge to learn more about some technical details around APIs that you can use on a daily basis. For example, you will read chapters about</p>
+<ul>
+<li>OpenAPI Specification</li>
+<li>OAuth2</li>
+<li>features of HTTP you might not be using (eg there are around 200 different standard HTTP headers)</li>
+<li>data format standards like <em>ISO 4217</em> for currrencies or <em>ISO 8601</em> for date and time-related data</li>
+<li>etc.</li>
+</ul>
+<h2>All about dev experience</h2>
+<p>It is the first book I read so far entirely dedicated to developer experience. How can we improve the productivity and the overall satisfaction of the developers using our APIs?</p>
+<p>By reading it, you can learn an approach that goed beyond designing web APIs. You learn to focus on what simplifies the life of a developer, and I'm sure this thinking has an effect on how you write your code, your internal tools or even your docs.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://www.marcosantoni.com/expectations_from_data_analyst.html" rel="bookmark"
+                           title="Permalink to Expectations from a Data Analyst">Expectations from a Data Analyst</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2023-08-07T07:35:00+02:00">
                 Published: Mon 07 August 2023
@@ -32,61 +80,10 @@
         </address>
 <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
 
-</footer><!-- /.post-info --><p>When you work as a data analyst or data scientist (I'll use the terms interchangeably) in a company, you may not be training predictive models every single day. A significant (and often interesting) part of your job is answering business questions via data mining regardless if you do it with machine learning, descriptive statistics or whatever. You may start with a business question like:</p>
-<blockquote>
-<p>why are our revenues increasing in the last quarter?</p>
-<p>what are common patterns between our loyal customers?</p>
-</blockquote>
-<p>Such simple questions often require a complex work that goes beyond knowing well statistics. You need to know how how your business work and what are the expectations of your stakeholder.</p>
-<h2>What the analyst enjoys the most (and the least)</h2>
-<p>Once a business question has arrived, where do we start from? Most data analysts would start mining into the <strong>data exploration</strong> phase. This phase is usually the first one of the activity, and the data analysts look into distributions and patterns in the data. The goal here is to get a good comprehension of the data we are sitting on. And usually the data analysts has fun during this data exploration time.🎉🙌 He or she is playing with charts and with some statistics from the dataset.</p>
-<p>What does the data analyst usually <strong>not</strong> enjoy doing? 👎😭 Based on my experience, preparing the <strong>presentation</strong> about the results of the analysis is the part of the activity that most data analysts enjoy the least. And what does it imply?</p>
-<p><img alt="Time dedicated to slides" src="https://www.marcosantoni.com/images/time_dedicated_to_slides_small.png"></p>
-<p>Imagine you have <strong>10 days</strong> to work on this data analysis before the meeting with your stakeholders. As our dear data analysts enjoy playing with the data more than playing with PowerPoint, they would probably spend 9 days on mining the data and 1 day working on the presentation. And probably the 9 days do not depend on the actual complexity of the task. If the business question can be answerend in 5 days with some basic descriptive statistics, the data analysts would probably invest more and more time trying some more advanced modelling technique or some more fancy data visualization. Why? Because they enjoy it. So, the data analysis part of the activity fills all the available space like a gas in a room would do.</p>
-<p>Last day (if not very last hours) is usually left to working on the presentation.</p>
-<h2>The wrong interpretation of the role</h2>
-<p>I was expecting from a data analyst to focus on the data mining, and that looked fine to me. She/he would share the data with other stakeholders (eg marketing staff), and THEY would get the insights because THEY are the domain expert. The data scientist would get the data, would let the data talk, and the business stakeholder would read the insights.</p>
-<p>I thought it was OK to present an exploratory analysis. And I was wrong.</p>
-<h2>Explanatory over exploratory</h2>
-<p>Recently, I read <a href="https://www.storytellingwithdata.com/books">Storytelling with Data</a> by Cole Nussbaumer Knaflic. The author explains why data scientists should show <strong>explanatory</strong> analyses (rather than exploratory).</p>
-<blockquote>
-<p>If you are the one analyzing and communicating the data, you likely know it best—you are a subject matter expert. This puts you in a unique position to interpret the data and help lead people to understanding and action.</p>
-</blockquote>
-<p>Once the explorary data mining phase is over, the data analyst should take the time and the effort to <strong>interpret</strong> the data. She/he should turn the data into information that can answer the need of the audience.</p>
-<p>Why is it hard? We often believe that the audience is the subject matter expert and know what is actually the valuable information behind the data. That's why working on the explanatory phase is an uncomfortable zone for a data scientist, but she/he should feel confident in making recommendations and observations.</p>
-<p>If we entitle a data analyst to interpret the business insights of the data, there are at least 2 things he/she should take into considerations:</p>
-<ol>
-<li>take enough <strong>time to interpret</strong> the data</li>
-<li><strong>review the data visualizations</strong> to explicitly communicate his/her interpretation</li>
-</ol>
-<p>Regarding the 1st point, looking for business insights is surprisingly time consuming. You cannot just dedicate the very last hours of your activity to looking for explanations behind data patterns. We should probably reconsider a classic sequential approach to the activity (eg explore, explain, present) in favor of an approach that organizes our time as to have quick iterations around business hypothesis and repeat multiple iterations before concluding our activity.</p>
-<p>Regarding, the 2nd point, I'll go a bit deeper with an example.</p>
-<h2>Example: review your data viz</h2>
-<p>You can find of course many examples on Knaflic's book. Let's look at one I picked one from <a href="https://www.storytellingwithdata.com/makeovers">her website</a>. Imagine we're working in a hospital and are analyzing lengths of hospitals stays after a surgery. For each stay of year 2019, we're given</p>
-<ul>
-<li>the quarter of the year</li>
-<li>the length of stay</li>
-</ul>
-<p>When a data analysts is done with the first <em>exploratory</em> analysis, what could be the output?</p>
-<p><img alt="Exploratory data analysis chart" src="https://www.marcosantoni.com/images/surgery_data_exploratory_small.png"></p>
-<p>In this chart, data is presented to the audience. However, how easy is it to get valuable information out of it? You may notice some patterns (eg increase in frequency <code>&lt;=24</code> stays over the year), however finding patterns is hard or requires quite some cognitive effort.</p>
-<p>What if the data analyst would take this effort of extracting the information out of the data? How should the presentation be revisited? She/he should be confident in highlighting what's actually valuable in the data and focus the attention on the reader on that.</p>
-<p>In this example, the data analyst can make the key information explicit. She/he can find out that the <code>&lt;=24</code> stays have increased over the year and could know that this is considered a success. Why not emphasizing it on the chart?</p>
-<p>Let's look at how an <em>explanatory</em> chart would look like.</p>
-<p><img alt="Explanatory data analysis chart" src="https://www.marcosantoni.com/images/surgery_data_explanatory_small.png"></p>
-<p>The chart now has a clear message that is stated in the title and is fully described in the text next to the actual plot. The new chart looks clean because any visual component that is not useful to grab the chosen message is either hidden or grayed out. The data analyst in this case has focused on explaining why 2019 was a success rather than showing plain data. That's why the bars of the <code>&lt;=24</code> stays are highlighted in black, while, in contrast, the remaining bars are grayed out. The choice of colors captures the attention of the reader on the patterns and on the signal, rather than on the data itself.</p>
-<h2>Looking forward</h2>
-<p>This article is mainly inspired by Knaflic's book and by my experience on interacting with stakeholders over the last years. I haven't done a research of the literature on the topic, so please consider this article as a set of opinionated recommendations on how a data scientist could maximize his/her impact when working on data mining activities. Agreeing with this approach means that a data scientist should dedicate energies to</p>
-<ul>
-<li>getting a deep knowledge of the business of the company she/he works at and the market where it competes</li>
-<li>fine tuning and improving the data visualizations she/he by iterating over and over on them (not stopping at the default chart styles generated by statistics softwares)</li>
-</ul>
-<p>These thoughts do not apply fully to every single company of course. They make sense in teams or companies where data scientists spend a part of their time making data explorations and data mining activities to answer questions that business stakeholders ask them. I would appreciate any feedback or thought you have on it!</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</footer><!-- /.post-info -->                <p>When you work as a data analyst or data scientist (I'll use the terms interchangeably) in a company, you may not be training predictive models every single day. A significant (and often interesting) part of your job is answering business questions via data mining regardless if you do it with …</p>
+                <a class="readmore" href="https://www.marcosantoni.com/expectations_from_data_analyst.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
@@ -271,36 +268,11 @@
                 <a class="readmore" href="https://www.marcosantoni.com/review_designing_data_intensive.html">read more</a>
                 </div><!-- /.entry-content -->
             </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://www.marcosantoni.com/chess_vs_checkers_teams.html" rel="bookmark"
-                           title="Permalink to Models of Data Science teams: Chess vs Checkers">Models of Data Science teams: Chess vs Checkers</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2021-03-27T09:35:00+01:00">
-                Published: Sat 27 March 2021
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
-        </address>
-<p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
-
-</footer><!-- /.post-info -->                <blockquote>
-<p>How many data engineers should we hire? Are they too many compared to our data scientists?</p>
-</blockquote>
-<p>One of the key decisions to take when building a data science team is the <strong>mix of roles</strong>. This means choosing the right mix of background and of activities that each member of the …</p>
-                <a class="readmore" href="https://www.marcosantoni.com/chess_vs_checkers_teams.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
                 </ol><!-- /#posts-list -->
 <p class="paginator">
-    Page 1 / 3
+    Page 1 / 4
         <a href="https://www.marcosantoni.com/index2.html">&raquo;</a>
-        <a href="https://www.marcosantoni.com/index3.html">&#8649;</a>
+        <a href="https://www.marcosantoni.com/index4.html">&#8649;</a>
 </p>
                 </section><!-- /#content -->
         <section id="extras" class="body">
