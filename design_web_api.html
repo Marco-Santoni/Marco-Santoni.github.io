@@ -4,26 +4,25 @@
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
         <title>Reading "The Design of Web APIs"</title>
-        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
-        <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+        <link rel="stylesheet" href="/theme/css/main.css" />
         <meta name="description" content="Why bothering reading a book about design of web APIs when working in data science like I do? I found this book called The Design of Web APIs by..." />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                <h1><a href="/">Marco Santoni</a></h1>
                 <nav><ul>
-                    <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
-                    <li><a href="https://www.marcosantoni.com/pages/atacmonitor.html">atacmonitor</a></li>
-                    <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
-                    <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                    <li><a href="/pages/about.html">about</a></li>
+                    <li><a href="/pages/atacmonitor.html">atacmonitor</a></li>
+                    <li><a href="/pages/bookshelf.html">bookshelf</a></li>
+                    <li class="active"><a href="/category/posts.html">posts</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="https://www.marcosantoni.com/design_web_api.html" rel="bookmark"
+        <a href="/design_web_api.html" rel="bookmark"
            title="Permalink to Reading "The Design of Web APIs"">Reading "The Design of Web APIs"</a></h1>
     </header>
 
@@ -34,12 +33,12 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                By                         <a class="url fn" href="/author/marco-santoni.html">Marco Santoni</a>
         </address>
-<p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+<p>In <a href="/category/posts.html">posts</a>.</p>
 
 </footer><!-- /.post-info -->      <p>Why bothering reading a book about design of web APIs when working in data science like I do? I found this book called <em>The Design of Web APIs</em> by <a href="https://apihandyman.io/about/">Arnaud Lauret</a> and decided to give it a try.</p>
-<p><img alt="The Design of Web APIs" src="https://www.marcosantoni.com/images/bookshelf/webapi.jpg"></p>
+<p><img alt="The Design of Web APIs" src="/images/bookshelf/webapi.jpg"></p>
 <h2>Why reading it</h2>
 <p>Data science is shifting towards turning models and solutions as API products. And this can be true not only when you develop a product you actually sell publicly. Even when developing a data product inside an organization, you may want to expose your data service via APIs.</p>
 <p>So, when you are at this point of developing an APIs, there are plenty of design decisions to take (eg which routes to expose, which result codes, which response payload, etc.). If you start this design process without some guidelines, you may spend plenty of energies on trying to answer these design questions or even risk to introduce technical debt that you will pay later.</p>
@@ -49,7 +48,7 @@
 <p>Usability is what distinguishes awesome APIs from mediocre or passable ones.</p>
 </blockquote>
 <p>The book is focused on shifting your point of view <strong>from the provider to the consumer</strong>. It may seem obvious and everyone might agree on it, but it is not that straightforward to make it happen because we may have bias or we may take design shorcuts that simplify the development of our backend. The author introduces methods like <em>API goals canvas</em> to help us listing out the needs of the user and focusing on them.</p>
-<p><img alt="Example of design tradeoffs" src="https://www.marcosantoni.com/images/api_design_tradeoff.png"></p>
+<p><img alt="Example of design tradeoffs" src="/images/api_design_tradeoff.png"></p>
 <p>You will find in the books charts or schemas like the one above that explain the design choices you can face on a daily basis. In this example, you may want to stick to fully REST compliace with a <code>POST /orders</code>. Or you may want to relax this constraint via a non-REST design like <code>POST /cart/check-out</code> that might actually be more intuitive for the consumer developers.</p>
 <h2>And more technicalities</h2>
 <p>The book has a focus on these design choices (eg the <em>resource expansion</em> pattern for nested object in API responses), but is a good source of knowledge to learn more about some technical details around APIs that you can use on a daily basis. For example, you will read chapters about</p>
@@ -71,7 +70,6 @@
                 <div class="social">
                         <h2>social</h2>
                         <ul>
-                            <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
                             <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
                             <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
@@ -87,14 +85,5 @@
                 <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
         </footer><!-- /#contentinfo -->
 
-    <script type="text/javascript">
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-189451030-1', 'auto');
-    ga('send', 'pageview');
-    </script>
 </body>
 </html>
