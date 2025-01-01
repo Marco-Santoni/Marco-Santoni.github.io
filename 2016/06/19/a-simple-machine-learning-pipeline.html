@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <meta name="generator" content="Pelican" />
-        <title>A Simple Machine Learning Pipeline</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
-        <meta name="description" content="This post contains the code that I used in my talk at Python Milano Meetup on June 22nd 2016. The talk was a quick overview of Pipeline, a nice..." />
-</head>
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>A Simple Machine Learning Pipeline</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="This post contains the code that I used in my talk at Python Milano Meetup on June 22nd 2016. The talk was a quick overview of Pipeline, a nice..." />
+        </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Marco Santoni</a></h1>
-                <nav><ul>
-                    <li><a href="/pages/about.html">about</a></li>
-                    <li><a href="/pages/bookshelf.html">bookshelf</a></li>
-                    <li class="active"><a href="/category/posts.html">posts</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/2016/06/19/a-simple-machine-learning-pipeline.html" rel="bookmark"
-           title="Permalink to A Simple Machine Learning Pipeline">A Simple Machine Learning Pipeline</a></h1>
-    </header>
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/2016/06/19/a-simple-machine-learning-pipeline.html" rel="bookmark"
+             title="Permalink to A Simple Machine Learning Pipeline">A Simple Machine Learning Pipeline</a></h1>
+      </header>
 
-    <div class="entry-content">
+      <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2016-06-19T10:37:00+02:00">
                 Published: Sun 19 June 2016
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/marco-santoni.html">Marco Santoni</a>
-        </address>
-<p>In <a href="/category/posts.html">posts</a>.</p>
-
-</footer><!-- /.post-info -->      <p>This post contains the code that I used in my talk at Python Milano
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>This post contains the code that I used in my talk at Python Milano
 Meetup on <a href="http://www.meetup.com/Python-Milano/events/231710577/">June 22nd
 2016</a>. The talk
 was a quick overview of <strong>Pipeline</strong>, a nice API by <em>scikitlearn</em> to
@@ -48,7 +50,6 @@ abstract your machine learning algorithm. It is based on the Boston
 <span class="nb">print</span> <span class="n">housing_data</span><span class="o">.</span><span class="n">DESCR</span>
 </code></pre></div>
 
-
 <p>We might want to make it a Pandas dataframe to make things easier to
 handle.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -58,8 +59,7 @@ handle.</p>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div>
 
-
-<p><img alt="table" src="/images/table.png"></p>
+<p><img alt="table" src="https://www.marcosantoni.com/images/table.png"></p>
 <p>The goal is to predict the <em>PRICE</em> variable given the other features.
 How does this variable distribute?</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -67,15 +67,13 @@ How does this variable distribute?</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;PRICE&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p><img alt="download
-(8)" src="/images/download-8.png">{.alignnone
+(8)" src="https://www.marcosantoni.com/images/download-8.png">{.alignnone
 .size-full .wp-image-74 width="378" height="271"}</p>
 <p>Let's turn the dataframe into a ML-friendly notation.</p>
 <div class="highlight"><pre><span></span><code><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;PRICE&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;PRICE&#39;</span><span class="p">]</span>
 </code></pre></div>
-
 
 <p>We will now define the metric that assess the accuracy of our
 algorithm/pipeline. Let's use the good old cross validation.</p>
@@ -88,7 +86,6 @@ algorithm/pipeline. Let's use the good old cross validation.</p>
 <span class="nb">print</span> <span class="s1">&#39;Accuracy: </span><span class="si">%0.2f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="o">-</span><span class="n">scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>So, now, we can try a bunch of algorithms and see which one works best
 by calling <em>evaluate_model</em>. It is now time to implement a first
 algorithm. So, let's explore a bit the data set. Is there any pattern we
@@ -100,8 +97,7 @@ can exploit?</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-
-<p><img alt="download" src="/images/download.png">{.alignnone
+<p><img alt="download" src="https://www.marcosantoni.com/images/download.png">{.alignnone
 .size-full .wp-image-78 width="610" height="438"}</p>
 <p>As expected, there is a relation between the average number of rooms and
 the median price. So, let's build the first algorithm.</p>
@@ -119,13 +115,11 @@ the median price. So, let's build the first algorithm.</p>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>How well does it perform?</p>
 <div class="highlight"><pre><span></span><code><span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
 <span class="sd">&#39;&#39;&#39;Mean Squared Error [43.19492771 41.72813479 46.89293772] Accuracy:</span>
 <span class="sd">43.94&#39;&#39;&#39;</span>
 </code></pre></div>
-
 
 <p>Can we visualize what the pipeline is actually doing?</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_model_RM</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">):</span>
@@ -163,9 +157,8 @@ the median price. So, let's build the first algorithm.</p>
 <span class="n">plot_model_RM</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p><img alt="download
-(1)" src="/images/download-1.png">{.alignnone
+(1)" src="https://www.marcosantoni.com/images/download-1.png">{.alignnone
 .size-full .wp-image-84 width="1173" height="449"}</p>
 <p>We now do a bit of feature engineering. We square the features.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add_squared_col</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
@@ -178,7 +171,6 @@ the median price. So, let's build the first algorithm.</p>
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>We evaluate this other pipeline.</p>
 <div class="highlight"><pre><span></span><code><span class="n">evaluate_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
 <span class="sd">&#39;&#39;&#39;</span>
@@ -187,14 +179,12 @@ the median price. So, let's build the first algorithm.</p>
 <span class="sd">Accuracy: 39.27&#39;&#39;&#39;</span>
 </code></pre></div>
 
-
 <p>And we see how the algorithm is fitting the data set.</p>
 <div class="highlight"><pre><span></span><code><span class="n">plot_model_RM</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p><img alt="download
-(2)" src="/images/download-2.png">{.alignnone
+(2)" src="https://www.marcosantoni.com/images/download-2.png">{.alignnone
 .size-full .wp-image-86 width="1165" height="449"}
 We now try a different model like a <em>decision tree</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
@@ -213,9 +203,8 @@ We now try a different model like a <em>decision tree</em>.</p>
 <span class="n">plot_model_RM</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p><img alt="download
-(3)" src="/images/download-3.png">{.alignnone
+(3)" src="https://www.marcosantoni.com/images/download-3.png">{.alignnone
 .size-full .wp-image-87 width="1165" height="449"}</p>
 <p>We now explore a second feature: <em>INDUS</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
@@ -225,9 +214,8 @@ We now try a different model like a <em>decision tree</em>.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p><img alt="download
-(4)" src="/images/download-4.png">{.alignnone
+(4)" src="https://www.marcosantoni.com/images/download-4.png">{.alignnone
 .size-full .wp-image-89 width="610" height="438"}</p>
 <p>So, we see another relation between <em>INDUS</em> and <em>PRICE</em>. So, let's add
 this second feature.</p>
@@ -249,7 +237,6 @@ this second feature.</p>
 <span class="sd">Accuracy: 33.24</span>
 <span class="sd">&#39;&#39;&#39;</span>
 </code></pre></div>
-
 
 <p>Now, plotting a model in 3D needs a bit more effort.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_model_RM_INDUS</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">):</span>
@@ -286,8 +273,7 @@ this second feature.</p>
 <span class="n">plot_model_RM_INDUS</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">pipe</span><span class="p">)</span>
 </code></pre></div>
 
-
-<p><img alt="animation" src="/images/animation.gif">{.alignnone
+<p><img alt="animation" src="https://www.marcosantoni.com/images/animation.gif">{.alignnone
 .size-full .wp-image-91 width="720" height="504"}</p>
 <p>How pretty is that?</p>
 <p>The following step is to use all the features available. So, we move to
@@ -302,7 +288,6 @@ a 13-dimensional feature vector.</p>
 <span class="sd">Accuracy: 23.61&#39;&#39;&#39;</span>
 </code></pre></div>
 
-
 <p>The error got quite smaller. We cannot however plot the model in
 13-dimensions. We will now re-use the function that adds a squared
 feature.</p>
@@ -316,7 +301,6 @@ feature.</p>
 <span class="sd">[ 16.7819682 14.599869 18.17785453]</span>
 <span class="sd">Accuracy: 16.52&#39;&#39;&#39;</span>
 </code></pre></div>
-
 
 <p>Even better. Now, we will switch to a ridge-regressor (combined with a
 normalization of the features).</p>
@@ -334,28 +318,29 @@ normalization of the features).</p>
 <span class="sd">[ 16.4292824 14.50522561 18.27167008]</span>
 <span class="sd">Accuracy: 16.40&#39;&#39;&#39;</span>
 </code></pre></div>
-    </div><!-- /.entry-content -->
+      </div><!-- /.entry-content -->
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                            <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
-                            <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
-                </address><!-- /#about -->
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
 
-                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
 
-</body>
+        </body>
 </html>

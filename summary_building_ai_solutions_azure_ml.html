@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <meta name="generator" content="Pelican" />
-        <title>Summary: Building AI Solutions with Azure ML</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
-        <meta name="description" content="While studying for the Azure Data Scientist Associate certification, I took notes from Building AI Solution with Azure ML course. In this single..." />
-</head>
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Summary: Building AI Solutions with Azure ML</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="While studying for the Azure Data Scientist Associate certification, I took notes from Building AI Solution with Azure ML course. In this single..." />
+        </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Marco Santoni</a></h1>
-                <nav><ul>
-                    <li><a href="/pages/about.html">about</a></li>
-                    <li><a href="/pages/bookshelf.html">bookshelf</a></li>
-                    <li class="active"><a href="/category/posts.html">posts</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/summary_building_ai_solutions_azure_ml.html" rel="bookmark"
-           title="Permalink to Summary: Building AI Solutions with Azure ML">Summary: Building AI Solutions with Azure ML</a></h1>
-    </header>
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/summary_building_ai_solutions_azure_ml.html" rel="bookmark"
+             title="Permalink to Summary: Building AI Solutions with Azure ML">Summary: Building AI Solutions with Azure ML</a></h1>
+      </header>
 
-    <div class="entry-content">
+      <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2020-08-19T06:41:00+02:00">
                 Published: Wed 19 August 2020
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/marco-santoni.html">Marco Santoni</a>
-        </address>
-<p>In <a href="/category/posts.html">posts</a>.</p>
-
-</footer><!-- /.post-info -->      <p>While studying for the <em>Azure Data Scientist Associate</em> certification, I took notes from <a href="https://docs.microsoft.com/en-us/learn/paths/build-ai-solutions-with-azure-ml-service/">Building AI Solution with Azure ML</a> course. In this single page, you'll find the entire content of the course (as of 18th August, 2020). This page is a small support for those preparing for earning the certification.</p>
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>While studying for the <em>Azure Data Scientist Associate</em> certification, I took notes from <a href="https://docs.microsoft.com/en-us/learn/paths/build-ai-solutions-with-azure-ml-service/">Building AI Solution with Azure ML</a> course. In this single page, you'll find the entire content of the course (as of 18th August, 2020). This page is a small support for those preparing for earning the certification.</p>
 <h1>Intro</h1>
 <h2>Azure ML Workspace</h2>
 <p>workspaces are azure resources. include:</p>
@@ -78,7 +80,6 @@
 <span class="n">run</span><span class="o">.</span><span class="n">complete</span><span class="p">()</span>
 </code></pre></div>
 
-
 <ul>
 <li>logging metrics. <code>run.log('name', value)</code>. You can review them via <code>RunDetails(run).show()</code></li>
 <li>experiment output file. Example: trained models. <code>run.upload_file(..)</code>.</li>
@@ -101,7 +102,6 @@
 <span class="n">run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">estimator</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>Framework-specific estimators simplify configurations</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">azureml.train.sklearn</span> <span class="kn">import</span> <span class="n">SKLearn</span>
 
@@ -111,7 +111,6 @@
   <span class="n">compute_target</span><span class="o">=</span><span class="s1">&#39;local&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Script parameters</h2>
 <p>Use <code>argparse</code> to read the parameters in a script (eg regularization rate). To pass a parameter to an <code>Estimator</code>:</p>
@@ -123,12 +122,10 @@
 <span class="p">)</span>
 </code></pre></div>
 
-
 <h2>Registering models</h2>
 <p>Once the experiment <code>Run</code> has completed, you can retrieve its outputs (eg trained model).</p>
 <div class="highlight"><pre><span></span><code><span class="n">run</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;outputs/models.pkl&#39;</span><span class="p">,</span> <span class="n">output_file_path</span><span class="o">=</span><span class="s1">&#39;model.pkl&#39;</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>Registering a model allows to track multiple versions of a model.</p>
 <div class="highlight"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
@@ -142,7 +139,6 @@
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>or register from run:</p>
 <div class="highlight"><pre><span></span><code><span class="n">run</span><span class="o">.</span><span class="n">register_model</span><span class="p">(</span>
   <span class="o">...</span>
@@ -150,7 +146,6 @@
   <span class="o">...</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h1>Datastores</h1>
 <p>Abstractions of cloud data sources encapsulating the information required to connect.</p>
@@ -169,7 +164,6 @@
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>In the SDK, you can list data stores.</p>
 <h2>Use datastores</h2>
 <p>Most common: Azure blob and file</p>
@@ -183,7 +177,6 @@
   <span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;/data&#39;</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <p>You pass a data reference to the script to use a datastore. Data access models</p>
 <ul>
@@ -201,14 +194,12 @@
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Retrieve it in script and use it like local folder:</p>
 <div class="highlight"><pre><span></span><code><span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--data_folder&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;data_folder&#39;</span><span class="p">)</span>
 <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 <span class="n">data_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">data_folder</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Datasets</h2>
 <p>Datasets are versioned packaged data objects consumed in experiments and pipelines. Types</p>
@@ -230,13 +221,11 @@
 <span class="n">tab_ds</span> <span class="o">=</span> <span class="n">tab_ds</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">workspace</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;csv_table&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>File:</p>
 <div class="highlight"><pre><span></span><code><span class="n">blob_ds</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">get_default_datastore</span><span class="p">()</span>
 <span class="n">file_ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">File</span><span class="o">.</span><span class="n">from_files</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="p">(</span><span class="n">blob_ds</span><span class="p">,</span> <span class="s1">&#39;data/files/images/*.jpg&#39;</span><span class="p">))</span>
 <span class="n">file_ds</span> <span class="o">=</span> <span class="n">file_ds</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;img_files&#39;</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p><strong>Retrieve</strong> a dataset</p>
 <div class="highlight"><pre><span></span><code><span class="n">ws</span> <span class="o">=</span> <span class="n">Workspace</span><span class="o">.</span><span class="n">from_config</span><span class="p">()</span>
@@ -248,16 +237,13 @@
 <span class="n">ds2</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s1">&#39;img_files&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>Datasets can be <strong>versioned</strong>. Create a new versioning by registering with same name and <code>create_new_version</code> property:</p>
 <div class="highlight"><pre><span></span><code><span class="n">file_ds</span> <span class="o">=</span> <span class="n">file_ds</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;img_files&#39;</span><span class="p">,</span> <span class="n">create_new_version</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>Retrieve specific version:</p>
 <div class="highlight"><pre><span></span><code><span class="n">img_ds</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;img_files&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h1>Compute Contexts</h1>
 <p>The runtime context for each experiment consists of</p>
@@ -273,14 +259,12 @@
 <div class="highlight"><pre><span></span><code><span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="o">.</span><span class="n">from_conda_specification</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;training_env&#39;</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;./conda.yml&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <ul>
 <li>from existing <code>Conda</code> environment:</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="o">.</span><span class="n">from_conda_environment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;training_env&#39;</span><span class="p">,</span>
                             <span class="n">conda_environment_name</span><span class="o">=</span><span class="s1">&#39;py_env&#39;</span><span class="p">)</span>
 </code></pre></div>
-
 
 <ul>
 <li>specifying packages:</li>
@@ -291,11 +275,9 @@
 <span class="n">env</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">conda_dependencies</span> <span class="o">=</span> <span class="n">deps</span>
 </code></pre></div>
 
-
 <p>Once created, you can register the environment in the workspace.</p>
 <div class="highlight"><pre><span></span><code><span class="n">env</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>Retrieve and assign it to a <code>ScriptRunConfig</code> or an <code>Estimator</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">tr_env</span> <span class="o">=</span> <span class="n">Environment</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;training_env&#39;</span><span class="p">)</span>
@@ -306,7 +288,6 @@
   <span class="n">environment_definition</span><span class="o">=</span><span class="n">tr_env</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Compute targets</h2>
 <p>Compute targets are physical or virtual computer on which experiments are run. Types of compute</p>
@@ -329,7 +310,6 @@
 <span class="n">aml_cluster</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>An <strong>unmanaged</strong> compute target is defined and managed outside AML. You can attach it via SDK:</p>
 <div class="highlight"><pre><span></span><code><span class="n">ws</span> <span class="o">=</span> <span class="n">Workspace</span><span class="o">.</span><span class="n">from_config</span><span class="p">()</span>
 <span class="n">compute_name</span> <span class="o">=</span> <span class="s1">&#39;db-cluster&#39;</span>
@@ -345,7 +325,6 @@
 <span class="n">db_cluster</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>You can check if a compute target does not exist already:</p>
 <div class="highlight"><pre><span></span><code><span class="n">compute_name</span> <span class="o">=</span> <span class="s1">&#39;aml_cluster&#39;</span>
 <span class="k">try</span><span class="p">:</span>
@@ -354,7 +333,6 @@
   <span class="c1"># create it</span>
   <span class="o">...</span>
 </code></pre></div>
-
 
 <p>You can use a compute target in an experiment run by specifying it as a parameter</p>
 <div class="highlight"><pre><span></span><code><span class="n">compute_name</span> <span class="o">=</span> <span class="s1">&#39;aml_cluster&#39;</span>
@@ -374,7 +352,6 @@
   <span class="n">compute_target</span><span class="o">=</span><span class="n">training_cluster</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h1>Orchestrating with Pipelines</h1>
 <p>A <em>pipeline</em> is a workflow of ml tasks in which each tasks is implemented as a <em>step</em> (either sequential or parallel). You can combine different compute targets. Common types of step:</p>
@@ -401,7 +378,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Assign steps to pipeline:</p>
 <div class="highlight"><pre><span></span><code><span class="n">train_pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
   <span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span>
@@ -411,7 +387,6 @@
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;training-pipeline&#39;</span><span class="p">)</span>
 <span class="n">pipeline_run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">train_pipeline</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Pass data between steps</h2>
 <p>The <code>PipelineData</code> object is a special kind of <code>DataReference</code> that</p>
@@ -456,7 +431,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Inside the script, you can get reference to <code>PipelineData</code> object from the argument, and use it like  a local folder.</p>
 <div class="highlight"><pre><span></span><code><span class="n">parser</span> <span class="o">=</span> <span class="n">argpare</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
 <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--folder&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;folder&#39;</span><span class="p">)</span>
@@ -471,7 +445,6 @@
 <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
 </code></pre></div>
 
-
 <h2>Reuse steps</h2>
 <p>By default, the step output from a previous pipeline run is reused without rerunning the step (if script, source directory and other params have not changed). You can control this:</p>
 <div class="highlight"><pre><span></span><code><span class="n">step1</span> <span class="o">=</span> <span class="n">PythonScriptStep</span><span class="p">(</span>
@@ -480,11 +453,9 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>You can force the steps to run regardless of individual configuration:</p>
 <div class="highlight"><pre><span></span><code><span class="n">pipeline_run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">train_pipeline</span><span class="p">,</span> <span class="n">regenerate_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Publish pipelines</h2>
 <p>You can publish a pipelien to create a REST endpoint through which the pipeline can be run on demand.</p>
@@ -495,11 +466,9 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>You can view it in ML Studio and get the endpoint:</p>
 <div class="highlight"><pre><span></span><code><span class="n">published_pipeline</span><span class="o">.</span><span class="n">endpoint</span>
 </code></pre></div>
-
 
 <p>You start a published endpoint by making an HTTP request to it. You pass the authorisation header (with token) and a JSON payload specifying the experiment name. The pipeline is run asynchronously, you get the run ID as response.</p>
 <h2>Pipeline parameters</h2>
@@ -515,7 +484,6 @@
 <span class="p">)</span>
 </code></pre></div>
 
-
 <p>After you publish a parametrised pipeline, you can pass parameter values in the JSON payload of the REST interface. Example</p>
 <div class="highlight"><pre><span></span><code><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
   <span class="n">enpoint</span><span class="p">,</span>
@@ -528,7 +496,6 @@
   <span class="p">}</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Schedule pipelines</h2>
 <p>Define a <code>ScheduleRecurrence</code> and use it to create a <code>Schedule</code>.</p>
@@ -546,7 +513,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>To schedule a pipeline to run whenever <strong>data changes</strong>, you must create a <code>Schedule</code> that monitors a specific path on a datastore:</p>
 <div class="highlight"><pre><span></span><code><span class="n">training_datastore</span> <span class="o">=</span> <span class="n">Datastore</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;blob_data&#39;</span><span class="p">)</span>
 <span class="n">pipeline_schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
@@ -555,7 +521,6 @@
   <span class="n">path_on_datastore</span><span class="o">=</span><span class="s1">&#39;data/training&#39;</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h1>Deploy ML Models</h1>
 <p>You can deploy ass <strong>container</strong> to several compute targets</p>
@@ -583,7 +548,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Or you can use the reference to the run:</p>
 <div class="highlight"><pre><span></span><code><span class="n">run</span><span class="o">.</span><span class="n">register_model</span><span class="p">(</span>
   <span class="n">model_name</span><span class="o">=</span><span class="s1">&#39;classification_model&#39;</span><span class="p">,</span>
@@ -591,7 +555,6 @@
   <span class="n">description</span><span class="o">=</span><span class="s1">&#39;A classification model&#39;</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h2><a name="scoringscript"></a>Inference configuration</h2>
 <p>The model will be deployed as a service consisting of</p>
@@ -617,7 +580,6 @@
   <span class="k">return</span> <span class="n">predictions</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>You can configure the environment using Conda. You can use a <code>CondaDependencies</code> class to create a default environment (including <code>azureml-defaults</code> and other commonly-used) and add any other required packages. You then serialize the environment to a string and save it.</p>
 <div class="highlight"><pre><span></span><code><span class="n">myenv</span> <span class="o">=</span> <span class="n">CondaDependencies</span><span class="p">()</span>
 <span class="n">myenv</span><span class="o">.</span><span class="n">add_conda_package</span><span class="p">(</span><span class="s1">&#39;scikit-learn&#39;</span><span class="p">)</span>
@@ -626,7 +588,6 @@
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">env_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
   <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">myenv</span><span class="o">.</span><span class="n">serialize_to_string</span><span class="p">())</span>
 </code></pre></div>
-
 
 <p>After creating the script and the environment, you combine them in an <code>InferenceConfig</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">classifier_inference_config</span> <span class="o">=</span> <span class="n">InferenceConfig</span><span class="p">(</span>
@@ -637,7 +598,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <h2>Deployment configuration</h2>
 <p>Now that you have the entry script and the environment, you configure the compute service. If you deploy to an AKS cluster, you create it</p>
 <div class="highlight"><pre><span></span><code><span class="n">cluster_name</span> <span class="o">=</span> <span class="s1">&#39;aks-cluster&#39;</span>
@@ -646,14 +606,12 @@
 <span class="n">production_cluster</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>You define the deployment configuration</p>
 <div class="highlight"><pre><span></span><code><span class="n">classifier_deploy_config</span> <span class="o">=</span> <span class="n">AksWebservice</span><span class="o">.</span><span class="n">deploy_configuration</span><span class="p">(</span>
   <span class="n">cpu_cores</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
   <span class="n">memory_gb</span><span class="o">=</span><span class="mi">1</span>
 <span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Deploy the model</h2>
 <div class="highlight"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">models</span><span class="p">[</span><span class="s1">&#39;classification_model&#39;</span><span class="p">]</span>
@@ -667,7 +625,6 @@
 <span class="n">service</span><span class="o">.</span><span class="n">wait_for_deployment</span><span class="p">()</span>
 </code></pre></div>
 
-
 <h2>Consuming a real-time inferencing service</h2>
 <p>For <strong>testing</strong>, you can use the AML SDK to call a web service through the <code>run</code> method of a <code>WebService</code> object. Typically,  you send data to <code>run</code> method in a JSON like</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -679,17 +636,14 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <p>The response is a JSON with a prediction for each case</p>
 <div class="highlight"><pre><span></span><code><span class="n">response</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">input_data</span><span class="o">=</span><span class="n">json_data</span><span class="p">)</span>
 <span class="n">predictions</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>In <strong>production</strong>, you use a REST endpoint. You find the endpoint of a deployed service in Azure ML studio, or by retrieving the <code>scoring_url</code> property of a <code>Webservice</code> object:</p>
 <div class="highlight"><pre><span></span><code><span class="n">endpoint</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">scoring_uri</span>
 </code></pre></div>
-
 
 <p>There are 2 kinds of <strong>authentication</strong>:</p>
 <ul>
@@ -750,7 +704,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>Run the pipeline and retrieve output.</p>
 <div class="highlight"><pre><span></span><code><span class="n">pipeline_run</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s1">&#39;batch_prediction_pipeline&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">pipeline</span><span class="p">)</span>
 <span class="n">pipeline_run</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
@@ -759,7 +712,6 @@
 <span class="n">prediction_output</span> <span class="o">=</span> <span class="n">prediction_run</span><span class="o">.</span><span class="n">get_output_data</span><span class="p">(</span><span class="s1">&#39;inferences&#39;</span><span class="p">)</span>
 <span class="n">prediction_output</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">local_path</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Publishing a batch inference pipeline</h2>
 <p>You can publish it as a <strong>REST</strong> service.</p>
@@ -771,7 +723,6 @@
 
 <span class="n">rest_endpoint</span> <span class="o">=</span> <span class="n">published_pipeline</span><span class="o">.</span><span class="n">endpoint</span>
 </code></pre></div>
-
 
 <p>Once published, you can use the endpoint to initiate a batch inferencing job.</p>
 <p>You can also <strong>schedule</strong> the published pipeline to have it run automatically.</p>
@@ -785,7 +736,6 @@
   <span class="n">recurrence</span><span class="o">=</span><span class="n">weekly</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h1>Tuning hyperparameters</h1>
 <p>Accomplished by training multiple models, using same algorithm and training data but different hyperparameter values. Then, evaluate for each the performance metric (eg accuracy), and the best-performing model is selected.</p>
@@ -808,7 +758,6 @@
 <span class="p">}</span>
 </code></pre></div>
 
-
 <h2>Configuring sampling</h2>
 <p>The values used in a tuning run depend on the type of <em>sampling</em> used.</p>
 <p><strong>Grid sampling.</strong> Every possible combination when hyperparameters are discrete.</p>
@@ -820,7 +769,6 @@
 <span class="n">param_sampling</span> <span class="o">=</span> <span class="n">GridParameterSampling</span><span class="p">(</span><span class="n">param_space</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p><strong>Random sampling.</strong> Randomly select a value for each hyperparameter.</p>
 <div class="highlight"><pre><span></span><code><span class="n">param_space</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">&#39;--batch_size&#39;</span><span class="p">:</span> <span class="n">choice</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span>
@@ -830,7 +778,6 @@
 <span class="n">param_sampling</span> <span class="o">=</span> <span class="n">RandomParameterSampling</span><span class="p">(</span><span class="n">param_space</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p><strong>Bayesian sampling.</strong> Based on Bayesian optimisation algorithm that tries to select parameter combinations that will result in improved performance from the previous selection.</p>
 <div class="highlight"><pre><span></span><code><span class="n">param_space</span> <span class="o">=</span> <span class="p">{</span>
   <span class="s1">&#39;--batch_size&#39;</span><span class="p">:</span> <span class="n">choice</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">),</span>
@@ -839,7 +786,6 @@
 
 <span class="n">param_sampling</span> <span class="o">=</span> <span class="n">BayesianParameterSampling</span><span class="p">(</span><span class="n">param_space</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>Can only be used with <em>choice, uniform, quniform</em> distributions and can't be combined with <em>early termination</em>.</p>
 <h2>Configuring an early termination</h2>
@@ -854,7 +800,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>You can also use a slack <em>factor</em> comparing the metric as ration rather than an absolute value.</p>
 <p><strong>Median stopping policy.</strong> Abandoning runs where the target performance metric is worse than the median of the running averages fo all runs.</p>
 <div class="highlight"><pre><span></span><code><span class="n">early_termination_policy</span> <span class="o">=</span> <span class="n">MedianStoppingPolicy</span><span class="p">(</span>
@@ -863,7 +808,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p><strong>Truncation selection policy.</strong> Cancelling the lower performing <em>X%%</em> of runs at each evaluation interval  based on the <em>truncation_percentage</em> valu you specify for <em>X</em>.</p>
 <div class="highlight"><pre><span></span><code><span class="n">early_termination_policy</span> <span class="o">=</span> <span class="n">TruncationSelectionPolicy</span><span class="p">(</span>
   <span class="n">truncation_percentage</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
@@ -871,7 +815,6 @@
   <span class="n">delay_evaluation</span><span class="o">=</span><span class="mi">5</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Running a hyperparameter tuning experiment</h2>
 <p>In Azure ML, you tune hyper by running a <em>hyperdrive</em> experiment. You need to create a training script just the way you would do for any other training experiment, except that you <strong>must</strong>:</p>
@@ -907,7 +850,6 @@
 <span class="n">run</span><span class="o">.</span><span class="n">complete</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>To prepare the hyperdrive experiment, you use a <code>HyperDriveConfig</code> object to configure the experiment run.</p>
 <div class="highlight"><pre><span></span><code><span class="n">hyperdrive</span> <span class="o">=</span> <span class="n">HyperDriveConfig</span><span class="p">(</span>
   <span class="n">estimator</span><span class="o">=</span><span class="n">sklearn_estimator</span><span class="p">,</span>
@@ -922,7 +864,6 @@
 <span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hyperdrive_training&#39;</span><span class="p">)</span>
 <span class="n">hyperdrive_run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">hyperdrive</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>You can monitor hyperdrive experiment in Azure ML studio. The experiment will initiate a child run for each hyperparameter combination to be tried</p>
 <h1>Automate model selection</h1>
@@ -986,7 +927,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>With Azure ML Studio, you can create or select an Azure ML <em>dataset</em> to be used as input for your AutoML experiment. When using the SDK, you can submit data by</p>
 <ul>
 <li>specify a dataset or dataframe of <em>training data</em> that includes features and label to be predicted</li>
@@ -1000,12 +940,10 @@
 <div class="highlight"><pre><span></span><code><span class="n">get_primary_metrics</span><span class="p">(</span><span class="s1">&#39;classification&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>You can <strong>submit</strong> an AutoML experiment like any other SDK-based experiment:</p>
 <div class="highlight"><pre><span></span><code><span class="n">automl_experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s1">&#39;automl_experiment&#39;</span><span class="p">)</span>
 <span class="n">automl_run</span> <span class="o">=</span> <span class="n">automl_experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">automl_config</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>You can easily identify the best run in Auzre ML studio, and download or deploy the model it generated. Via SDK:</p>
 <div class="highlight"><pre><span></span><code><span class="n">best_run</span><span class="p">,</span> <span class="n">fitted_model</span> <span class="o">=</span> <span class="n">automl_run</span><span class="o">.</span><span class="n">get_output</span><span class="p">()</span>
@@ -1015,12 +953,10 @@
   <span class="nb">print</span><span class="p">(</span><span class="n">metric_name</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
 </code></pre></div>
 
-
 <p>AutoML uses <em>scikit-learn</em> pipelines. You can view the steps in the fitted model you obtained from the best run.</p>
 <div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">fitted_model</span><span class="o">.</span><span class="n">named_steps</span><span class="p">:</span>
   <span class="nb">print</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
 </code></pre></div>
-
 
 <h1>Explain ML models</h1>
 <p>Model explainers use statistical techniques to calculate <strong>feature importance</strong>. Explainers work by evaluating a test data set of feature cases and the labels the model predicts for them.</p>
@@ -1071,7 +1007,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>To retrieve <strong>global feature importance</strong>, call the <code>explain_global()</code> method of your explainer, and then use the <code>get_feature_importance_dict()</code> method to get a dictionary of the feature importance values.</p>
 <div class="highlight"><pre><span></span><code><span class="n">global_mim_explanation</span> <span class="o">=</span> <span class="n">mim_explainer</span><span class="o">.</span><span class="n">explain_global</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
 <span class="n">global_mim_feature_importance</span> <span class="o">=</span> <span class="n">global_mim_explanation</span><span class="o">.</span><span class="n">get_feature_importance_dict</span><span class="p">()</span>
@@ -1085,14 +1020,12 @@
 <span class="n">global_pfi_feature_importance</span> <span class="o">=</span> <span class="n">global_pfi_explanation</span><span class="o">.</span><span class="n">get_feature_importance_dict</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>To retriev <strong>local feature importance</strong> from a <code>MimicExplainer</code> or a <code>TabularExplainer</code>, you must call the <code>explain_local()</code> specifying the subset of cases you want to explain. Then you use the <code>get_ranked_local_names()</code> and <code>get_ranked_local_values()</code> to retrieve dictionares.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># same for tab_explainer too</span>
 <span class="n">local_mim_explanation</span> <span class="o">=</span> <span class="n">mim_explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
 <span class="n">local_mim_features</span> <span class="o">=</span> <span class="n">local_mim_explanation</span><span class="o">.</span><span class="n">get_ranked_local_names</span><span class="p">()</span>
 <span class="n">local_mim_importance</span> <span class="o">=</span> <span class="n">local_mim_explanation</span><span class="o">.</span><span class="n">get_ranked_local_values</span><span class="p">()</span>
 </code></pre></div>
-
 
 <p><code>PFIExplainer</code> does not support local feature importance explanations.</p>
 <h2>Creating explanations</h2>
@@ -1113,7 +1046,6 @@
 <span class="n">run</span><span class="o">.</span><span class="n">complete</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>You can view the explanation you created for your model in the <em>Explanations</em> tab for the run in Azure ML Studio.</p>
 <h2>Visualizing explanations</h2>
 <p>Model explanations in Azure ML Studio include multiple visualizations that you can use to explore feature importance. Visualizations:</p>
@@ -1133,7 +1065,6 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>If you want to enable Application Insights for a service that is already deployed, you can modify the deployment configuration for AKS based services in the Azure portal.</p>
 <h2>Capture and view telemetry</h2>
 <p>Application Insights automatically captures any information written to the standard output and error logs, and provides a query capability to view data in these logs.</p>
@@ -1144,7 +1075,6 @@
   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; - Predictions: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">predictions</span><span class="p">))</span>
   <span class="k">return</span> <span class="n">predictions</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </code></pre></div>
-
 
 <p>Azure ML creates a <em>custom dimension</em> in the data model for the output you write.</p>
 <p>Yuo can use the Log Analytics query interface for the Applcation Insights in the Azure portal. It supports a SQL-like query syntax.</p>
@@ -1169,11 +1099,9 @@
   <span class="p">)</span>
 </code></pre></div>
 
-
 <p>You can <em>backfill</em> to immediately compare baseline to existing data in target.</p>
 <div class="highlight"><pre><span></span><code><span class="n">backfill</span> <span class="o">=</span> <span class="n">monitor</span><span class="o">.</span><span class="n">backfill</span><span class="p">(</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
 </code></pre></div>
-
 
 <p>If you have <strong>deployed a model</strong> as a real-time web service, you can capture new inferencing data s it is submitted, and compare it to the original training data. It has the benefit of automatically collecting new target data as the deployed model is used.</p>
 <p>You include the training dataset in the model registration to provide a baseline.</p>
@@ -1184,7 +1112,6 @@
   <span class="n">datasets</span><span class="o">=</span><span class="p">[(</span><span class="n">Dataset</span><span class="o">.</span><span class="n">Scenario</span><span class="o">.</span><span class="n">TRAINING</span><span class="p">,</span> <span class="n">train_ds</span><span class="p">)]</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <p>You enable data collection for services in which the model is used. You use the <code>ModelDataCollector</code> class in each service's scoring script, writing code to capture data and predictions and write them to the data collector (which will store them in Azure blob storage).</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">init</span><span class="p">():</span>
@@ -1214,11 +1141,9 @@
   <span class="k">return</span> <span class="n">predictions</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </code></pre></div>
 
-
 <p>With the data collection code in place in the scoring script, you can enable data collection in the deployment configuration.</p>
 <div class="highlight"><pre><span></span><code><span class="n">dep_config</span> <span class="o">=</span> <span class="n">AksWebservice</span><span class="o">.</span><span class="n">deploy_configuration</span><span class="p">(</span><span class="n">collect_model_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-
 
 <p>You can configure <strong>data drift monitoring</strong> by using a <code>DataDriftDetector</code> class.</p>
 <div class="highlight"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">models</span><span class="p">[</span><span class="s1">&#39;mymodel&#39;</span><span class="p">]</span>
@@ -1230,7 +1155,6 @@
   <span class="n">frequency</span><span class="o">=</span><span class="s1">&#39;Week&#39;</span>
   <span class="p">)</span>
 </code></pre></div>
-
 
 <h2>Scheduling alerts</h2>
 <p>You can specify a threshold for the rate of data drift and an operator email for notifications.</p>
@@ -1249,28 +1173,29 @@
   <span class="n">alert_configuration</span><span class="o">=</span><span class="n">alert_email</span>
   <span class="p">)</span>
 </code></pre></div>
-    </div><!-- /.entry-content -->
+      </div><!-- /.entry-content -->
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                            <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
-                            <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
-                </address><!-- /#about -->
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
 
-                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
 
-</body>
+        </body>
 </html>

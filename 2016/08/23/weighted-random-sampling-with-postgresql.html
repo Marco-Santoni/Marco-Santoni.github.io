@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <meta name="generator" content="Pelican" />
-        <title>Weighted Random Sampling with PostgreSQL</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
-        <meta name="description" content="You have a table like the following: CREATE TABLE weights ( color varchar primary key, weight float ); INSERT INTO weights (color, weight) VALUES..." />
-</head>
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Weighted Random Sampling with PostgreSQL</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="You have a table like the following: CREATE TABLE weights ( color varchar primary key, weight float ); INSERT INTO weights (color, weight) VALUES..." />
+        </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="/">Marco Santoni</a></h1>
-                <nav><ul>
-                    <li><a href="/pages/about.html">about</a></li>
-                    <li><a href="/pages/bookshelf.html">bookshelf</a></li>
-                    <li class="active"><a href="/category/posts.html">posts</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
-    <header>
-      <h1 class="entry-title">
-        <a href="/2016/08/23/weighted-random-sampling-with-postgresql.html" rel="bookmark"
-           title="Permalink to Weighted Random Sampling with PostgreSQL">Weighted Random Sampling with PostgreSQL</a></h1>
-    </header>
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/2016/08/23/weighted-random-sampling-with-postgresql.html" rel="bookmark"
+             title="Permalink to Weighted Random Sampling with PostgreSQL">Weighted Random Sampling with PostgreSQL</a></h1>
+      </header>
 
-    <div class="entry-content">
+      <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2016-08-23T16:22:00+02:00">
                 Published: Tue 23 August 2016
         </abbr>
 
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/marco-santoni.html">Marco Santoni</a>
-        </address>
-<p>In <a href="/category/posts.html">posts</a>.</p>
-
-</footer><!-- /.post-info -->      <p>You have a table like the following:</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">weights</span> <span class="p">(</span>
-<span class="n">color</span> <span class="nb">varchar</span> <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
-<span class="n">weight</span> <span class="nb">float</span>
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>You have a table like the following:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">weights</span><span class="w"> </span><span class="p">(</span>
+<span class="n">color</span><span class="w"> </span><span class="nb">varchar</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="n">weight</span><span class="w"> </span><span class="nb">float</span>
 <span class="p">);</span>
 
-<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">weights</span> <span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">weights</span><span class="w"> </span><span class="p">(</span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="p">)</span>
 <span class="k">VALUES</span>
-<span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-<span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>The table lists the weights associated with certain colors. Imagine a
 weight representing how much you like that color.</p>
@@ -59,126 +60,122 @@ color of the tiles to be <strong>sampled at random</strong> according to the
 <p>We'll write a PostgreSQL script that implements such random sampling.
 I'll write the <strong>entire query first</strong>, and then explain each part
 separately.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sampled_colors</span> <span class="k">AS</span>
-<span class="k">WITH</span> <span class="n">weights_with_sum</span> <span class="k">AS</span> <span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">sampled_colors</span><span class="w"> </span><span class="k">AS</span>
+<span class="k">WITH</span><span class="w"> </span><span class="n">weights_with_sum</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
 <span class="n">weight</span><span class="p">,</span>
 <span class="n">weight_sum</span>
-<span class="k">FROM</span> <span class="n">weights</span>
-<span class="k">CROSS</span> <span class="k">JOIN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">sum</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span> <span class="k">AS</span> <span class="n">weight_sum</span> <span class="k">FROM</span> <span class="n">weights</span><span class="p">)</span> <span class="n">s</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">weights</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">weight_sum</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">weights</span><span class="p">)</span><span class="w"> </span><span class="n">s</span>
 <span class="p">),</span>
-<span class="n">sampling_probability</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="n">sampling_probability</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
-<span class="n">weight</span> <span class="o">/</span> <span class="n">weight_sum</span> <span class="k">AS</span> <span class="n">prob</span>
-<span class="k">FROM</span> <span class="n">weights_with_sum</span>
+<span class="n">weight</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">weight_sum</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">prob</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">weights_with_sum</span>
 <span class="p">),</span>
-<span class="n">sampling_cumulative_prob</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="n">sampling_cumulative_prob</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
-<span class="k">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">color</span><span class="p">)</span> <span class="k">AS</span> <span class="n">cum_prob</span>
-<span class="k">FROM</span> <span class="n">sampling_probability</span>
+<span class="k">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">cum_prob</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sampling_probability</span>
 <span class="p">),</span>
-<span class="n">cumulative_bounds</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="n">cumulative_bounds</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
-<span class="n">COALESCE</span><span class="p">(</span>
-<span class="n">lag</span><span class="p">(</span><span class="n">cum_prob</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">cum_prob</span><span class="p">,</span> <span class="n">color</span><span class="p">),</span>
+<span class="k">COALESCE</span><span class="p">(</span>
+<span class="n">lag</span><span class="p">(</span><span class="n">cum_prob</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">cum_prob</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">),</span>
 <span class="mi">0</span>
-<span class="p">)</span> <span class="k">AS</span> <span class="n">lower_cum_bound</span><span class="p">,</span>
-<span class="n">cum_prob</span> <span class="k">AS</span> <span class="n">upper_cum_bound</span>
-<span class="k">FROM</span> <span class="n">sampling_cumulative_prob</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lower_cum_bound</span><span class="p">,</span>
+<span class="n">cum_prob</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">upper_cum_bound</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sampling_cumulative_prob</span>
 <span class="p">),</span>
-<span class="n">samples</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="n">samples</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
-<span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="k">AS</span> <span class="n">sample_idx</span><span class="p">,</span>
-<span class="n">random</span><span class="p">()</span> <span class="k">AS</span> <span class="n">sample</span>
+<span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sample_idx</span><span class="p">,</span>
+<span class="n">random</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sample</span>
 <span class="p">)</span>
 <span class="k">SELECT</span>
 <span class="n">color</span>
-<span class="k">FROM</span> <span class="n">samples</span>
-<span class="k">JOIN</span> <span class="n">cumulative_bounds</span> <span class="k">ON</span>
-<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&lt;@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
-<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(]&#39;</span><span class="p">);</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">samples</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">cumulative_bounds</span><span class="w"> </span><span class="k">ON</span>
+<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span><span class="w"> </span><span class="o">&lt;@</span><span class="w"> </span><span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
+<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(]&#39;</span><span class="p">);</span>
 </code></pre></div>
 
-
 <p>Let's look at one piece at a time.</p>
-<div class="highlight"><pre><span></span><code><span class="k">WITH</span> <span class="n">weights_with_sum</span> <span class="k">AS</span> <span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">weights_with_sum</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
 <span class="n">weight</span><span class="p">,</span>
 <span class="n">weight_sum</span>
-<span class="k">FROM</span> <span class="n">weights</span>
-<span class="k">CROSS</span> <span class="k">JOIN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">sum</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span> <span class="k">AS</span> <span class="n">weight_sum</span> <span class="k">FROM</span> <span class="n">weights</span><span class="p">)</span> <span class="n">s</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">weights</span>
+<span class="k">CROSS</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">weight_sum</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">weights</span><span class="p">)</span><span class="w"> </span><span class="n">s</span>
 <span class="p">),</span>
-<span class="n">sampling_probability</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="n">sampling_probability</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
-<span class="n">weight</span> <span class="o">/</span> <span class="n">weight_sum</span> <span class="k">AS</span> <span class="n">prob</span>
-<span class="k">FROM</span> <span class="n">weights_with_sum</span>
+<span class="n">weight</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">weight_sum</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">prob</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">weights_with_sum</span>
 <span class="p">)</span>
-<span class="k">SELECT</span> <span class="o">*</span>
-<span class="k">FROM</span> <span class="n">sampling_probability</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sampling_probability</span><span class="p">;</span>
 <span class="c1">-- output:</span>
-<span class="n">color</span> <span class="o">|</span> <span class="n">prob</span>
+<span class="n">color</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">prob</span>
 <span class="c1">--------+--------------------</span>
-<span class="n">red</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">258064516129032</span>
-<span class="n">blue</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span>
-<span class="n">green</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">32258064516129</span>
-<span class="n">yellow</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">32258064516129</span>
+<span class="n">red</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">258064516129032</span>
+<span class="n">blue</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span>
+<span class="n">green</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">32258064516129</span>
+<span class="n">yellow</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">32258064516129</span>
 </code></pre></div>
-
 
 <p>Here, we're just normalizing the weights. Each weight is divided by the
 total sum of the weights. In this way, we are re-writing each weight as
 a <strong>discrete probability</strong> of that color being sampled.</p>
 <div class="highlight"><pre><span></span><code><span class="p">...</span>
-<span class="n">sampling_cumulative_prob</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="n">sampling_cumulative_prob</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
-<span class="k">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">order</span> <span class="k">by</span> <span class="n">color</span><span class="p">)</span> <span class="k">AS</span> <span class="n">cum_prob</span>
-<span class="k">FROM</span> <span class="n">sampling_probability</span>
+<span class="k">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">cum_prob</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sampling_probability</span>
 <span class="p">),</span>
-<span class="n">cumulative_bounds</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="n">cumulative_bounds</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
-<span class="n">COALESCE</span><span class="p">(</span>
-<span class="n">lag</span><span class="p">(</span><span class="n">cum_prob</span><span class="p">)</span> <span class="n">OVER</span> <span class="p">(</span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">cum_prob</span><span class="p">,</span> <span class="n">color</span><span class="p">),</span>
+<span class="k">COALESCE</span><span class="p">(</span>
+<span class="n">lag</span><span class="p">(</span><span class="n">cum_prob</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">cum_prob</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">),</span>
 <span class="mi">0</span>
-<span class="p">)</span> <span class="k">AS</span> <span class="n">lower_cum_bound</span><span class="p">,</span>
-<span class="n">cum_prob</span> <span class="k">AS</span> <span class="n">upper_cum_bound</span>
-<span class="k">FROM</span> <span class="n">sampling_cumulative_prob</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lower_cum_bound</span><span class="p">,</span>
+<span class="n">cum_prob</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">upper_cum_bound</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sampling_cumulative_prob</span>
 <span class="p">)</span>
-<span class="k">SELECT</span> <span class="o">*</span>
-<span class="k">FROM</span> <span class="n">cumulative_bounds</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">cumulative_bounds</span><span class="p">;</span>
 <span class="c1">-- output:</span>
-<span class="n">color</span> <span class="o">|</span> <span class="n">lower_cum_bound</span> <span class="o">|</span> <span class="n">upper_cum_bound</span>
+<span class="n">color</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">lower_cum_bound</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">upper_cum_bound</span>
 <span class="c1">--------+--------------------+--------------------</span>
-<span class="n">blue</span> <span class="o">|</span> <span class="mi">0</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span>
-<span class="n">green</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">419354838709677</span>
-<span class="n">red</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">419354838709677</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">67741935483871</span>
-<span class="n">yellow</span> <span class="o">|</span> <span class="mi">0</span><span class="p">.</span><span class="mi">67741935483871</span> <span class="o">|</span> <span class="mi">1</span>
+<span class="n">blue</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span>
+<span class="n">green</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0967741935483871</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">419354838709677</span>
+<span class="n">red</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">419354838709677</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">67741935483871</span>
+<span class="n">yellow</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">67741935483871</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div>
-
 
 <p>In this piece of code, we're are representing the weights as a
 <strong>cumulative</strong> distribution function.</p>
 <div class="highlight"><pre><span></span><code><span class="p">...</span>
-<span class="n">samples</span> <span class="k">AS</span> <span class="p">(</span>
+<span class="n">samples</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
 <span class="k">SELECT</span>
-<span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="k">AS</span> <span class="n">sample_idx</span><span class="p">,</span>
-<span class="n">random</span><span class="p">()</span> <span class="k">AS</span> <span class="n">sample</span>
+<span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sample_idx</span><span class="p">,</span>
+<span class="n">random</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sample</span>
 <span class="p">)</span>
 <span class="k">SELECT</span>
 <span class="n">color</span>
-<span class="k">FROM</span> <span class="n">samples</span>
-<span class="k">JOIN</span> <span class="n">cumulative_bounds</span> <span class="k">ON</span>
-<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span> <span class="o">&lt;@</span> <span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
-<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span> <span class="s1">&#39;(]&#39;</span><span class="p">);</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">samples</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">cumulative_bounds</span><span class="w"> </span><span class="k">ON</span>
+<span class="n">sample</span><span class="p">::</span><span class="nb">numeric</span><span class="w"> </span><span class="o">&lt;@</span><span class="w"> </span><span class="n">numrange</span><span class="p">(</span><span class="n">lower_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span>
+<span class="n">upper_cum_bound</span><span class="p">::</span><span class="nb">numeric</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(]&#39;</span><span class="p">);</span>
 </code></pre></div>
-
 
 <p>In the last part, we're sampling 1000 times a random number between 0
 and 1. We then assign this sample to the corresponding color based on
@@ -187,9 +184,9 @@ is 0.45, it will match the <em>'red'</em> range (0.41-0.67). Therefore, that
 sample will be <em>'red'</em>.</p>
 <p>The result of the query is a table filled with 1000 colors sampled at
 random based on the weights.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="o">*</span>
-<span class="k">FROM</span> <span class="n">sampled_colors</span>
-<span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sampled_colors</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 <span class="c1">-- output:</span>
 <span class="n">color</span>
 <span class="c1">--------</span>
@@ -205,49 +202,48 @@ random based on the weights.</p>
 <span class="n">red</span>
 </code></pre></div>
 
-
 <p>Can we check that the result is correct? Were the weights really taken
 into account?</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
 <span class="n">color</span><span class="p">,</span>
 <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="k">FROM</span> <span class="n">sampled_colors</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sampled_colors</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="c1">-- output:</span>
-<span class="n">color</span> <span class="o">|</span> <span class="k">count</span>
+<span class="n">color</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">count</span>
 <span class="c1">--------+-------</span>
-<span class="n">yellow</span> <span class="o">|</span> <span class="mi">309</span>
-<span class="n">green</span> <span class="o">|</span> <span class="mi">320</span>
-<span class="n">red</span> <span class="o">|</span> <span class="mi">276</span>
-<span class="n">blue</span> <span class="o">|</span> <span class="mi">95</span>
+<span class="n">yellow</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">309</span>
+<span class="n">green</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">320</span>
+<span class="n">red</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">276</span>
+<span class="n">blue</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">95</span>
 </code></pre></div>
-
 
 <p>The proportion of samples is quite close to the proportion of the
 weights. This similarity is clear if we compare this table with the
 discrete probability table above.</p>
-    </div><!-- /.entry-content -->
+      </div><!-- /.entry-content -->
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
 
-                            <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
-                            <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
-                </address><!-- /#about -->
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
 
-                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
 
-</body>
+        </body>
 </html>
