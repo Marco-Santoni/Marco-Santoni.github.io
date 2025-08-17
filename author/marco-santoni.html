@@ -21,7 +21,64 @@
 
                 <aside id="featured" class="body">
                     <article>
-                        <h1 class="entry-title"><a href="https://www.marcosantoni.com/deep_work_book.html">Why reading Deep Work</a></h1>
+                        <h1 class="entry-title"><a href="https://www.marcosantoni.com/explore_fast_mcp.html">Learn basics of MCP with FastMCP</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2025-08-17T08:35:00+02:00">
+                Published: Sun 17 August 2025
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info --><p>I was looking for a resource to get a deeper understanding of MCP (Model Context Protocol). Rather than looking for resources or books, I opted for RTFM. Actually not the MCP manual as I would not have fun reading protocol specs. I took <a href="https://gofastmcp.com/getting-started/welcome">FastMCP</a> and went through the docs. I was not just reading the docs. While reading the docs, I was:</p>
+<ul>
+<li>sketching a concept map</li>
+<li>coding some basic hello-world examples</li>
+</ul>
+<p>I enjoyed this approach because it was quite rapid (I could not invest days but rather hours) while practical and hands on. The concept map helps keeping some notes for me in future. Notes you write by yourself are the ones that stick best.</p>
+<h2>Concept map</h2>
+<p>I used <a href="https://www.drawio.com/">draw.io</a> to draw the concept map and exported to SVG for best web rendering. You can explore it here 👇</p>
+<p><img src="./images/fastmcp_concepts.svg" width="800" alt="A concept diagram of the main FastMCP Pyhon library components." /></p>
+<h2>Little codebase</h2>
+<p>I made a basic server and client with streamable HTTP transport mode. Everything is in this <a href="https://github.com/Marco-Santoni/explore-fast-mcp">repo</a>. There is a basic example for each key component of an MCP server</p>
+<ul>
+<li>tool</li>
+<li>resource</li>
+<li>prompt</li>
+</ul>
+<h2>Opinions about MCP</h2>
+<p>I'll share a couple of opinions I got while exploring MCP and FastMCP.</p>
+<h3>Evolving rapidly</h3>
+<p>FastMCP is evolving according to the MCP specs of course. These specs are quite recent. The first stable version was in November 2024 while the latest (and third) in June 2025. I read about an important feature like <em>Structured Output</em> and found it was only <a href="https://modelcontextprotocol.io/specification/2025-06-18/changelog">few weeks old</a> at the time of my reading. It is a great sign that things are moving so fast, but, at the same time, you should consider this quick evolution if you're working on a <strong>production-ready</strong> application.</p>
+<p>You may want to stay simple and minimize the overall engineering investment. You may find yourself investing in engineering features that few months later might be supported by the protocol or by the ecosystem</p>
+<h2>Good design</h2>
+<p>I appreaciated the design of the protocol and of FastMCP itself. It is simple enough and based on three elements (tools, resources, prompts), but still catches a large amount of needs of agent applications. There are useful interfaces and features for common needs like</p>
+<ul>
+<li>interactive input by users</li>
+<li>progress monitoring</li>
+<li>logging and messaging</li>
+<li>sampling from client's LLM</li>
+</ul>
+<p>The design is <strong>composable</strong> making it scalable for larger applications. An MCP server can literally <em>import</em> another MCP server or mount it. The name-clashes or duplicates can be handled explictly by developers.</p>
+<h2>Rich ecosystem</h2>
+<p>FastMCP is one example of the ecosystem of tools and frameworks that is growing around MCP. The ecosystem is what matters (more than the protocol design).</p>
+<h2>Engineering is still THE thing</h2>
+<p>Building an MCP server is still an engineering and design job. Should feature X of my server be a resource? Or a tool? Should this input be parametrized? There will be no correct or wrong answers to these questions. Design styles will emerge and the touch of software architects will emerge to make sure things can scale and are easy to maintain.</p>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="https://www.marcosantoni.com/deep_work_book.html" rel="bookmark"
+                               title="Permalink to Why reading Deep Work">Why reading Deep Work</a></h1>
+                    </header>
+
+                    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2025-04-13T19:35:00+02:00">
                 Published: Sun 13 April 2025
@@ -32,70 +89,13 @@
                 </address>
         <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
         
-</footer><!-- /.post-info --><blockquote>
+</footer><!-- /.post-info -->                        <blockquote>
 <p>Shallow Work: Noncognitively demanding, logistical-style tasks, often performed while distracted. These efforts tend not to create much new value in the world and are easy to replicate.</p>
 </blockquote>
-<p>Cal Newport gives this definition of how I spend part of my work-time in his <em>Deep Work</em> book. Checking emails, messaging on Teams, and attending meetings are few examples of such "noncognitively demanding" activities. On some days, these activities may even fill up my work-time. How much space is left for cognitively intensive task? When I have space for few consecutive hours of highly focused work, I have the feeling that what I'm doing is actually valuable.</p>
-<p><strong>I'm not alone</strong>. Talking with my peers, I understood that almost anyone is facing the same issue. Days being full of non focused and low demanding tasks. I'm part of what Newport defines "knowledge workers". The output of our work is not some physical manufact, neither a service that is directly customer-facing. The paradox is the following. Knowledge workers give their best when they have space for focus, however organizations adopt tools for instant communication that are designed to drain such attention.</p>
-<p><img src="./images/bookshelf/deep_work.jpg" width="200" alt="Cover of the book Deep Work by Cal Newport." /></p>
-<h2>Deep Work Hypothesis</h2>
-<p>Is it de facto a problem? Or is it actually an <strong>opportunity</strong> for those who are aware of it? Here it comes the interesting point made by Newport. He defines the "Deep Work Hypothesis" as:</p>
-<blockquote>
-<p>The ability to perform deep work is becoming increasingly rare at exactly the same time it is becoming increasingly valuable in our economy. As a consequence, the few who cultivate this skill, and then make it the core of their working life, will thrive.</p>
-</blockquote>
-<p>The claim is that we operate in a distracting work enviroment. At the same time, the job industry require continuous learning and high specialization. Both of these requirements need deep focus. Deep focus is today harder to achieve. People who can shield themselves from distractions and dedicate time to focused work are the ones who will thrive.</p>
-<p><img src="./images/work_schedule.png" width="300" alt="A visual representation of a typical work schedule highlighting interruptions and shallow work." /></p>
-<h2>Busyness</h2>
-<p>What are symptoms of lack of deep work in your daily job? If you consider yourself a knowledge-worker, spending most of time answering emails or instant-messaging are indicators that deep work is lacking. Why is it so common in most companies then? Newport introduces the <em>Principle of Least Resistance</em>.</p>
-<blockquote>
-<p>In a business setting, without clear feedback on the impact of various behaviors to the bottom line, we will tend toward behaviors that are <strong>easiest in the moment</strong>.</p>
-</blockquote>
-<p>So, why do many workers (especially in large organizations) spend so much time in low-intensity activities (like emailing or chatting)? Becaust it is easy. This is the short answer by the <em>Principle of Least Resistance</em>. Answering emails or messages gives an immediate feedback to the worker, while long and focused activities likely lack such quick feedback. Our brain is tempted by such quick feedbacks. Resisting the quick feedback of going through email requires a greater effort.</p>
-<p>This workday schedule has two drawbacks. First, continuous interruptions and context switch reduce the focus and attention. Low levels of cognitively intense activities reduce the value generated by such activities. Second, the worker is unhappy with the work he/she's doing. Newport cites a study by the psychologist Csikszentmihalyi. His studies demonstrated that, surprisingly, we are most satisfied when we're given difficult tasks to accomplish rather than when relaxing.</p>
-<blockquote>
-<p>The best moments usually occur when a person’s body or mind is stretched to its limits in a voluntary effort to accomplish something difficult and worthwhile.”</p>
-</blockquote>
-<h2>Budget of willpower</h2>
-<p>We cannot just decide to concentrate and expect it to happen. It just does not work. We have a limited amount of willpower. It decreases when we use it. For simplicity, we can consider it as a daily budget of willpower. The key recommendation by Newport is the following. Build a set of routines and rituals that help you develop deep work habits. By doing so, you minimize the amount of willpower you need to use to focus. The less you willpower you use for each focuse session, the more you save for focusing on the rest of the day.</p>
-<p>Newport describes four approaches to building such routines:</p>
-<ul>
-<li>monastic philosophy</li>
-<li>bimodal philosophy</li>
-<li>rithmic philosophy</li>
-<li>journalistic philosophy</li>
-</ul>
-<p>I'll not go through describing each of them. You should read the book to get a full picture of them.</p>
-<p><img src="./images/darwin_sandwalk.jpg" width="400" alt="Charles Darwin's Sandwalk, a path he used for focused thinking and reflection." /></p>
-<p>I'll share an example to help you get a taste of what it means to build your "philosophy" of routines. The books makes the example of the workday schedule of Charles Darwin (you can get more details <a href="https://www.darwinproject.ac.uk/commentary/curious/darwin-and-working-home">here</a>).</p>
-<blockquote>
-<p>Charles Darwin had a similarly strict structure for his working life during the period when he was perfecting On the Origin of Species. As his son Francis later remembered, he would rise promptly at seven to take a short walk. He would then eat breakfast alone and retire to his study from eight to nine thirty. The next hour was dedicated to reading his letters from the day before, after which he would return to his study from ten thirty until noon. After this session, he would mull over challenging ideas while walking on a prescribed route that started at his greenhouse and then circled a path on his property. He would walk until satisfied with his thinking then declare his workday done.</p>
-</blockquote>
-<h2>What I do</h2>
-<p>To cultivate the habit of deep work and improve my focus, I have set the following goals for myself:</p>
-<ol>
-<li>
-<p><strong>Focused Activities Early Morning or Weekends</strong><br>
-    I aim to dedicate the early hours of my workdays or weekends to cognitively demanding tasks. These are the times when my mind is fresh, and distractions are minimal. By prioritizing deep work during these periods, I can make significant progress on challenging projects.</p>
-</li>
-<li>
-<p><strong>Turn Off Popups and Notifications on Desktop</strong><br>
-    To shield myself from distractions, I will disable all unnecessary popups and notifications on my desktop. This includes email alerts, instant messaging notifications, and other interruptions that can break my focus. Creating a distraction-free environment is essential for maintaining deep concentration.</p>
-</li>
-<li>
-<p><strong>Emails in Late Afternoon or Evenings</strong><br>
-    I will reserve time for checking and responding to emails in the late afternoon or evenings. This ensures that my most productive hours are not consumed by shallow work. By batching email tasks, I can handle them more efficiently without constant context switching.</p>
-</li>
-<li>
-<p><strong>Take Notes During Meetings to Help Focus</strong><br>
-    During meetings, I will take detailed notes to stay engaged and focused. This practice not only helps me retain important information but also prevents my mind from wandering. It ensures that I am fully present and can contribute meaningfully to discussions.</p>
-</li>
-</ol>
-<p>By adhering to these goals, I aim to build a sustainable routine that supports deep work and enhances the quality of my output.</p>                    </article>
-                </aside><!-- /#featured -->
-                    <section id="content" class="body">
-                        <h1>Other articles</h1>
-                        <hr />
-                        <ol id="posts-list" class="hfeed">
+<p>Cal Newport gives this definition of how I spend part of my work-time in his <em>Deep Work</em> book. Checking emails, messaging on Teams …</p>
+                        <a class="readmore" href="https://www.marcosantoni.com/deep_work_book.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
 
                 <li><article class="hentry">
                     <header>
@@ -277,28 +277,6 @@
 </footer><!-- /.post-info -->                        <p>I was invited by <a href="https://pythonbiellagroup.it/it/">Python Biella</a> community to hold a webinar introducing PySpark on Databricks (in Italian). You can find the video below and the <a href="https://github.com/Marco-Santoni/databricks-from-scratch/tree/main/live_python_biella">code here</a>.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/m0OiFDBJ0Rw?start=114" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         <a class="readmore" href="https://www.marcosantoni.com/webinar_databricks_biella.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
-
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="https://www.marcosantoni.com/data_viz_hidden_gems.html" rel="bookmark"
-                               title="Permalink to My 6 Gems on Data Visualization">My 6 Gems on Data Visualization</a></h1>
-                    </header>
-
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2022-02-26T19:35:00+01:00">
-                Published: Sat 26 February 2022
-        </abbr>
-
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
-                </address>
-        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
-        
-</footer><!-- /.post-info -->                        <p>I have been working quite some time with charts and business intelligence in the last 5 years. When you spend time building business reports, you may perceive data visualization as a cold technical and business tool. However, there are <strong>6 hidden gems</strong> in data visualization that I found by chance …</p>
-                        <a class="readmore" href="https://www.marcosantoni.com/data_viz_hidden_gems.html">read more</a>
                     </div><!-- /.entry-content -->
                 </article></li>
                     </ol><!-- /#posts-list -->

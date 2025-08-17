@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Learn basics of MCP with FastMCP</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="I was looking for a resource to get a deeper understanding of MCP (Model Context Protocol). Rather than looking for resources or books, I opted..." />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/explore_fast_mcp.html" rel="bookmark"
+             title="Permalink to Learn basics of MCP with FastMCP">Learn basics of MCP with FastMCP</a></h1>
+      </header>
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2025-08-17T08:35:00+02:00">
+                Published: Sun 17 August 2025
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>I was looking for a resource to get a deeper understanding of MCP (Model Context Protocol). Rather than looking for resources or books, I opted for RTFM. Actually not the MCP manual as I would not have fun reading protocol specs. I took <a href="https://gofastmcp.com/getting-started/welcome">FastMCP</a> and went through the docs. I was not just reading the docs. While reading the docs, I was:</p>
+<ul>
+<li>sketching a concept map</li>
+<li>coding some basic hello-world examples</li>
+</ul>
+<p>I enjoyed this approach because it was quite rapid (I could not invest days but rather hours) while practical and hands on. The concept map helps keeping some notes for me in future. Notes you write by yourself are the ones that stick best.</p>
+<h2>Concept map</h2>
+<p>I used <a href="https://www.drawio.com/">draw.io</a> to draw the concept map and exported to SVG for best web rendering. You can explore it here 👇</p>
+<p><img src="./images/fastmcp_concepts.svg" width="800" alt="A concept diagram of the main FastMCP Pyhon library components." /></p>
+<h2>Little codebase</h2>
+<p>I made a basic server and client with streamable HTTP transport mode. Everything is in this <a href="https://github.com/Marco-Santoni/explore-fast-mcp">repo</a>. There is a basic example for each key component of an MCP server</p>
+<ul>
+<li>tool</li>
+<li>resource</li>
+<li>prompt</li>
+</ul>
+<h2>Opinions about MCP</h2>
+<p>I'll share a couple of opinions I got while exploring MCP and FastMCP.</p>
+<h3>Evolving rapidly</h3>
+<p>FastMCP is evolving according to the MCP specs of course. These specs are quite recent. The first stable version was in November 2024 while the latest (and third) in June 2025. I read about an important feature like <em>Structured Output</em> and found it was only <a href="https://modelcontextprotocol.io/specification/2025-06-18/changelog">few weeks old</a> at the time of my reading. It is a great sign that things are moving so fast, but, at the same time, you should consider this quick evolution if you're working on a <strong>production-ready</strong> application.</p>
+<p>You may want to stay simple and minimize the overall engineering investment. You may find yourself investing in engineering features that few months later might be supported by the protocol or by the ecosystem</p>
+<h2>Good design</h2>
+<p>I appreaciated the design of the protocol and of FastMCP itself. It is simple enough and based on three elements (tools, resources, prompts), but still catches a large amount of needs of agent applications. There are useful interfaces and features for common needs like</p>
+<ul>
+<li>interactive input by users</li>
+<li>progress monitoring</li>
+<li>logging and messaging</li>
+<li>sampling from client's LLM</li>
+</ul>
+<p>The design is <strong>composable</strong> making it scalable for larger applications. An MCP server can literally <em>import</em> another MCP server or mount it. The name-clashes or duplicates can be handled explictly by developers.</p>
+<h2>Rich ecosystem</h2>
+<p>FastMCP is one example of the ecosystem of tools and frameworks that is growing around MCP. The ecosystem is what matters (more than the protocol design).</p>
+<h2>Engineering is still THE thing</h2>
+<p>Building an MCP server is still an engineering and design job. Should feature X of my server be a resource? Or a tool? Should this input be parametrized? There will be no correct or wrong answers to these questions. Design styles will emerge and the touch of software architects will emerge to make sure things can scale and are easy to maintain.</p>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>
