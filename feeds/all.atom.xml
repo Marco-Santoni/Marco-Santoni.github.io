@@ -1,5 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="https://www.marcosantoni.com/" rel="alternate"></link><link href="https://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>https://www.marcosantoni.com/</id><updated>2025-08-17T08:35:00+02:00</updated><entry><title>Learn basics of MCP with FastMCP</title><link href="https://www.marcosantoni.com/explore_fast_mcp.html" rel="alternate"></link><published>2025-08-17T08:35:00+02:00</published><updated>2025-08-17T08:35:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2025-08-17:/explore_fast_mcp.html</id><summary type="html">&lt;p&gt;I was looking for a resource to get a deeper understanding of MCP (Model Context Protocol). Rather than looking for resources or books, I opted for RTFM. Actually not the MCP manual as I would not have fun reading protocol specs. I took &lt;a href="https://gofastmcp.com/getting-started/welcome"&gt;FastMCP&lt;/a&gt; and went through the docs. I …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I was looking for a resource to get a deeper understanding of MCP (Model Context Protocol). Rather than looking for resources or books, I opted for RTFM. Actually not the MCP manual as I would not have fun reading protocol specs. I took &lt;a href="https://gofastmcp.com/getting-started/welcome"&gt;FastMCP&lt;/a&gt; and went through the docs. I was not just reading the docs. While reading the docs, I was:&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="https://www.marcosantoni.com/" rel="alternate"></link><link href="https://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>https://www.marcosantoni.com/</id><updated>2025-08-23T09:41:00+02:00</updated><entry><title>Is Lakehouse Monitoring worth it?</title><link href="https://www.marcosantoni.com/is-lakehouse-monitoring-worth-it.html" rel="alternate"></link><published>2025-08-23T09:41:00+02:00</published><updated>2025-08-23T09:41:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2025-08-23:/is-lakehouse-monitoring-worth-it.html</id><summary type="html">&lt;p&gt;I've created a toy Lakehouse Monitoring setup to explore its features and capabilities. Here's an overview of what I cover in this post:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#setup-a-toy-lakehouse-monitoring"&gt;Setup a toy Lakehouse Monitoring&lt;/a&gt;  &lt;ul&gt;
+&lt;li&gt;Dashboard&lt;/li&gt;
+&lt;li&gt;Alerts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#pricing"&gt;Pricing&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href="#my-opinion-on-what-ive-seen"&gt;My opinion on what I've seen&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href="#wheres-databricks-going"&gt;Where's Databricks going?&lt;/a&gt;  &lt;ul&gt;
+&lt;li&gt;My2C&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you want to know more about what Databricks' …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've created a toy Lakehouse Monitoring setup to explore its features and capabilities. Here's an overview of what I cover in this post:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#setup-a-toy-lakehouse-monitoring"&gt;Setup a toy Lakehouse Monitoring&lt;/a&gt;  &lt;ul&gt;
+&lt;li&gt;Dashboard&lt;/li&gt;
+&lt;li&gt;Alerts&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#pricing"&gt;Pricing&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href="#my-opinion-on-what-ive-seen"&gt;My opinion on what I've seen&lt;/a&gt;  &lt;/li&gt;
+&lt;li&gt;&lt;a href="#wheres-databricks-going"&gt;Where's Databricks going?&lt;/a&gt;  &lt;ul&gt;
+&lt;li&gt;My2C&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you want to know more about what Databricks' Lakehouse Monitoring can do, I recommend checking out the official documentation. I have prepared a basic map of concepts that can help you get started.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Lakehouse Monitoring Concepts Map" src="./images/map_of_concepts_lakehouse_monitoring.svg"&gt;&lt;/p&gt;
+&lt;h2 id="setup-a-toy-lakehouse-monitoring"&gt;Setup a toy Lakehouse Monitoring&lt;/h2&gt;
+
+&lt;p&gt;Let's start by creating a table we can work with. It should be a time-series table&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;create&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;table&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workspace&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sales&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;timestamp&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;TIMESTAMP&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;amount&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;DOUBLE&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I then create a basic notebook &lt;code&gt;insert 1h of data.ipynb&lt;/code&gt; to fill table with data. Then, setup a job to run that notebook every hour.&lt;/p&gt;
+&lt;p&gt;I'll not add the code here because it is quite basic. It randomly adds records to the table with random values (within the time windown of the hour).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workspace&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sales&lt;/span&gt;
+&lt;span class="k"&gt;limit&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, let's create the Monitor via Unity Catalog Explorer 👇&lt;/p&gt;
+&lt;p&gt;I set up the monitor as &lt;code&gt;TimeSeries&lt;/code&gt; profile. I pointed out the &lt;code&gt;timestamp&lt;/code&gt; column and a granularity of 1 hour. The schedule of the monitor is actually daily.&lt;/p&gt;
+&lt;p&gt;Below, a screenshot of the Unity Catalog Explorer page to create the Lakehouse Monitoring.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Screenshot of Unity Catalog Explorer page to create the Lakehouse Monitoring" src="./images/create_monitor.png"&gt;&lt;/p&gt;
+&lt;p&gt;What happens after the creation of the Monitoring? By default, two new tables are created&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;table_name&amp;gt;_profile_metrics&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;table_name&amp;gt;_drift_metrics&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let's inspect them&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;SHOW&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;TABLES&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;IN&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workspace&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workspace&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sales_profile_metrics&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;strong&gt;profile&lt;/strong&gt; table has a row for each pair
+- &lt;code&gt;window&lt;/code&gt; (the beginning and end of every hour)
+- &lt;code&gt;column_name&lt;/code&gt; every column of the table. In addition, it adds a special row &lt;code&gt;:table&lt;/code&gt; to compute the table-level profile.&lt;/p&gt;
+&lt;p&gt;Optionally, it can slice on column values when specified at the time of the creation of the &lt;em&gt;Monitor&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;For each row, it computes a bunch of statistics like &lt;code&gt;avg&lt;/code&gt;, &lt;code&gt;quantiles&lt;/code&gt;, &lt;code&gt;min&lt;/code&gt;, &lt;code&gt;max&lt;/code&gt;, etc. (when applicable, eg for float columns).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;select&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;from&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;workspace&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sales_drift_metrics&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;strong&gt;drift&lt;/strong&gt; table is similare to the profile table. The &lt;strong&gt;drift&lt;/strong&gt; table has a row for each pair
+- &lt;code&gt;window&lt;/code&gt; (the beginning and end of every hour)
+- &lt;code&gt;column_name&lt;/code&gt; every column of the table. In addition, it adds a special row &lt;code&gt;:table&lt;/code&gt; to compute the table-level profile.&lt;/p&gt;
+&lt;p&gt;In addition, it has the &lt;code&gt;window_cmp&lt;/code&gt;, where &lt;em&gt;cmp&lt;/em&gt; stands for &lt;em&gt;compare&lt;/em&gt;. All the statistics are compared against another window (the previous one). There are various statistics like
+- &lt;code&gt;count_delta&lt;/code&gt;
+- &lt;code&gt;ks_test&lt;/code&gt;, in statistics, the Kolmogorov–Smirnov can be used to test whether two samples came from the same distribution&lt;/p&gt;
+&lt;h4&gt;Dashboard&lt;/h4&gt;
+&lt;p&gt;Lakehouse Monitoring creates also a dashboard automatically that displays the data in these &lt;em&gt;profile and drift&lt;/em&gt; tables.&lt;/p&gt;
+&lt;p&gt;😓 However, I find this dashboard too crowded and not ready to use. You need to work on it to customize it by yourself.&lt;/p&gt;
+&lt;h4&gt;Alerts&lt;/h4&gt;
+&lt;p&gt;Monitor alerts are created and used the same way as other Databricks SQL alerts. You create a Databricks SQL query on the monitor profile metrics table or drift metrics table. You then create a Databricks SQL alert for this query.&lt;/p&gt;
+&lt;h2 id="pricing"&gt;Pricing&lt;/h2&gt;
+
+&lt;p&gt;Lakehouse Monitoring is billed under a serverless jobs SKU. You can monitor its usage via &lt;code&gt;system.billing.usage&lt;/code&gt; table or via the Usage dashboard at Account console.&lt;/p&gt;
+&lt;p&gt;You need to pay attention. I expect that the costs may rise for columns with high number of columns if you don't fine-tune the monitor.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;usage_date&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;usage_quantity&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;as&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;dbus&lt;/span&gt;
+&lt;span class="k"&gt;FROM&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;system&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;billing&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;usage&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="n"&gt;usage_date&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;DATE_SUB&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;current_date&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;AND&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="n"&gt;sku_name&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;like&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;&amp;quot;%JOBS_SERVERLESS%&amp;quot;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;AND&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="n"&gt;custom_tags&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;&amp;quot;LakehouseMonitoring&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;&amp;quot;true&amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;GROUP&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;BY&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;usage_date&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;BY&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;usage_date&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;DESC&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id="my-opinion-on-what-ive-seen"&gt;My opinion on what I've seen&lt;/h2&gt;
+
+&lt;p&gt;Lakehouse monitoring is all about these two profile and drift tables. It is a kind of brute force approach that runs standardized monitoring over the specified table and stores the output in the profiling tables. Is it convenient? It depends on what you're looking for. It is not a free lunch.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pros 🟢&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;It takes little &lt;strong&gt;effort&lt;/strong&gt; to setup. By default common controls are applied to all columns in the monitored table.&lt;/li&gt;
+&lt;li&gt;Most common monitoring scenarios are covered by &lt;code&gt;TimeSeries&lt;/code&gt; profile or by &lt;code&gt;Snapshot&lt;/code&gt; profile (I left apart the inference-ML for the sake of simplicity). The &lt;strong&gt;setup time&lt;/strong&gt; is shorter when compared to anything made by yourself.&lt;/li&gt;
+&lt;li&gt;You have a framework ready to use. You save the time required designing it, and you avoid reinventing the wheel. You can &lt;strong&gt;focus on your business&lt;/strong&gt; needs rather than on data engineering stuff.&lt;/li&gt;
+&lt;li&gt;I like the simple but effective &lt;strong&gt;design&lt;/strong&gt; of the &lt;em&gt;drift&lt;/em&gt; metric table and of the windowing. Making something like this by yourself will probably let you hit against some hidden edge-case (like anytime you work with time and dates). &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Cons 🔴&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Once the metrics are computed in the profile and drift tables, only half of the job is done. You still have to decide &lt;strong&gt;what&lt;/strong&gt; to monitor and &lt;strong&gt;how&lt;/strong&gt; to do it. You're probably not interested in monitor any single column in any row of the metric tables (otherwise you may alerted by too many false alarms). A finetuning of the actual alerts is still required, and it is not coming for free.&lt;/li&gt;
+&lt;li&gt;You can't know in advance the overall &lt;strong&gt;cost&lt;/strong&gt; of the monitoring. You need to try with a realistic (production-alike) scenario and monitor soon how much you're paying. I expect it to depend mainly on&lt;ul&gt;
+&lt;li&gt;the data volume&lt;/li&gt;
+&lt;li&gt;the columns in the table&lt;/li&gt;
+&lt;li&gt;the frequency of the controls&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="wheres-databricks-going"&gt;Where's Databricks going?&lt;/h2&gt;
+
+&lt;p&gt;In addition to Lakehouse Monitoring, Databricks has released a feature (in Beta) of &lt;a href="https://docs.databricks.com/aws/en/lakehouse-monitoring/data-quality-monitoring"&gt;data quality monitoring&lt;/a&gt;. This new monitoring&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;is quicker to setup. It is toggle on an entire Schema and monitors all the tables in the schema.&lt;/li&gt;
+&lt;li&gt;monitors only simple freshness and completeness quality controls&lt;/li&gt;
+&lt;li&gt;has no parametrization&lt;/li&gt;
+&lt;li&gt;still needs alerts to be set manually&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I made a short recap here.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Feature&lt;/th&gt;
+&lt;th&gt;Lakehouse Monitoring&lt;/th&gt;
+&lt;th&gt;Data Quality Monitoring (Beta)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Scope&lt;/td&gt;
+&lt;td&gt;Table. It is set at table level. It monitors the table and its columns.&lt;/td&gt;
+&lt;td&gt;Schema. It is set at schema level and monitors all tables in such schema.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Setup&lt;/td&gt;
+&lt;td&gt;Choose the profile, eventual slicing, window and frequency.&lt;/td&gt;
+&lt;td&gt;On-off on the schema.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;What is monitored&lt;/td&gt;
+&lt;td&gt;Various statistics as snapshot, time series, and inference.&lt;/td&gt;
+&lt;td&gt;Freshness (is data recent) and completeness (is the volume as expected?)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Customization&lt;/td&gt;
+&lt;td&gt;Limited&lt;/td&gt;
+&lt;td&gt;No&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Alert&lt;/td&gt;
+&lt;td&gt;To be set manually on the output table.&lt;/td&gt;
+&lt;td&gt;To be set manually on the output table.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4&gt;My2C&lt;/h4&gt;
+&lt;p&gt;🟢 I think Databricks is going in the right direction. Fast adoption of basic quality controls. Avoid the "&lt;em&gt;didn't notice data is old in production&lt;/em&gt;" moments with little effort.&lt;/p&gt;
+&lt;p&gt;🔴 The alerting setup is still quite SQL-based and there is some trial-and-error around it. I would expect that a basic alert should be enabled by default.&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>Learn basics of MCP with FastMCP</title><link href="https://www.marcosantoni.com/explore_fast_mcp.html" rel="alternate"></link><published>2025-08-17T08:35:00+02:00</published><updated>2025-08-17T08:35:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2025-08-17:/explore_fast_mcp.html</id><summary type="html">&lt;p&gt;I was looking for a resource to get a deeper understanding of MCP (Model Context Protocol). Rather than looking for resources or books, I opted for RTFM. Actually not the MCP manual as I would not have fun reading protocol specs. I took &lt;a href="https://gofastmcp.com/getting-started/welcome"&gt;FastMCP&lt;/a&gt; and went through the docs. I …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I was looking for a resource to get a deeper understanding of MCP (Model Context Protocol). Rather than looking for resources or books, I opted for RTFM. Actually not the MCP manual as I would not have fun reading protocol specs. I took &lt;a href="https://gofastmcp.com/getting-started/welcome"&gt;FastMCP&lt;/a&gt; and went through the docs. I was not just reading the docs. While reading the docs, I was:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;sketching a concept map&lt;/li&gt;
 &lt;li&gt;coding some basic hello-world examples&lt;/li&gt;
