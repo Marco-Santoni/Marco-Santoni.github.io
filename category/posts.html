@@ -21,7 +21,52 @@
 
                 <aside id="featured" class="body">
                     <article>
-                        <h1 class="entry-title"><a href="https://www.marcosantoni.com/is-lakehouse-monitoring-worth-it.html">Is Lakehouse Monitoring worth it?</a></h1>
+                        <h1 class="entry-title"><a href="https://www.marcosantoni.com/book-review-thinking-in-bets.html">Book review: thinking in bets</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2025-08-24T13:41:00+02:00">
+                Published: Sun 24 August 2025
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info --><blockquote>
+<p>“<strong>Wanna bet?</strong>” triggers us to engage in that third step that we only sometimes get to. Being asked if we are willing to bet money on it makes it much more likely that we will examine our information in a less biased way, be more honest with ourselves about how sure we are of our beliefs, and be more open to updating and calibrating our beliefs.</p>
+</blockquote>
+<p>A couple of months ago, I read <em>Thinking in Bets</em> by Annie Duke. The book presents a compelling case for decision-making under uncertainty and offers practical strategies for improving our thinking processes.</p>
+<p><img alt="book cover" src="./images/bookshelf/thinking_in_bets.jpg"></p>
+<h2>Key Takeaways</h2>
+<p>One of the key takeaways from the book is the concept of "<strong>resulting</strong>," which is the tendency to judge the quality of a decision based on its outcome rather than the reasoning behind it. Duke argues that this mindset can lead to poor decision-making in the long run, as it encourages us to ignore valuable information and lessons learned from our experiences.</p>
+<h2>My (conditioned) opinion on the book</h2>
+<p>Before reading <em>Thinking in Bets</em> , I had the chance to read books like</p>
+<ul>
+<li><em>Thinking, Fast and Slow</em> by Daniel Kahneman</li>
+<li><em>The Signal and the Noise</em> by Nate Silver</li>
+<li><em>The Black Swan</em> by Nassim Nicholas Taleb</li>
+</ul>
+<p>While <em>Thinking in Bets</em> offers valuable insights, most concepts reminded me of ideas presented in these other works. I think it serves as a useful primer for those new to the subject, but it may not offer enough depth for readers already familiar with these concepts.</p>
+<h2>Other quotes I liked</h2>
+<blockquote>
+<p>We are discouraged from saying “I don’t know” or “I’m not sure.” We regard those expressions as vague, unhelpful, and even evasive. But <strong>getting comfortable with “I’m not sure”</strong> is a vital step to being a better decision-maker. We have to make peace with not knowing.</p>
+<p>In most of our decisions, we are not betting against another person. Rather, we are betting against all the <strong>future versions of ourselves</strong> that we are not choosing. We are constantly deciding among alternative futures: one where we go to the movies, one where we go bowling, one where we stay home.</p>
+<p>People are credulous creatures who find it very easy to believe and very difficult to doubt. [actually citing Daniel Gilbert]</p>
+<p>Surprisingly, being smart can actually make bias worse. Let me give you a different intuitive frame: the smarter you are, the better you are at constructing a narrative that supports your beliefs, rationalizing and framing the data to fit your argument or point of view. After all, people in the “spin room” in a political setting are generally pretty smart for a reason.</p>
+</blockquote>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="https://www.marcosantoni.com/is-lakehouse-monitoring-worth-it.html" rel="bookmark"
+                               title="Permalink to Is Lakehouse Monitoring worth it?">Is Lakehouse Monitoring worth it?</a></h1>
+                    </header>
+
+                    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2025-08-23T09:41:00+02:00">
                 Published: Sat 23 August 2025
@@ -32,7 +77,7 @@
                 </address>
         <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
         
-</footer><!-- /.post-info --><p>I've created a toy Lakehouse Monitoring in Databricks setup to explore its features and capabilities. The goal is to understand how it works and what benefits it can bring. Here's an overview of what I cover in this post:</p>
+</footer><!-- /.post-info -->                        <p>I've created a toy Lakehouse Monitoring in Databricks setup to explore its features and capabilities. The goal is to understand how it works and what benefits it can bring. Here's an overview of what I cover in this post:</p>
 <ul>
 <li><a href="#setup-a-toy-lakehouse-monitoring">How to Setup a toy Lakehouse Monitoring</a>  <ul>
 <li>Dashboard</li>
@@ -40,248 +85,10 @@
 </ul>
 </li>
 <li><a href="#pricing">Pricing</a>  </li>
-<li><a href="#my-opinion-on-what-ive-seen">My opinion on what I've seen</a>  </li>
-<li><a href="#wheres-databricks-going">Where's Databricks going?</a>  <ul>
-<li>My2C</li>
-</ul>
-</li>
-</ul>
-<p>If you want to know more about what Databricks' Lakehouse Monitoring can do, I recommend checking out the official documentation. I have prepared a basic map of concepts that can help you get started.</p>
-<p><img alt="Lakehouse Monitoring Concepts Map" src="./images/map_of_concepts_lakehouse_monitoring.svg"></p>
-<h2 id="setup-a-toy-lakehouse-monitoring">How to Setup a toy Lakehouse Monitoring</h2>
-
-<p>Let's start by creating a table we can work with. It should be a time-series table</p>
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">timestamp</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">,</span>
-<span class="w">    </span><span class="n">amount</span><span class="w"> </span><span class="n">DOUBLE</span>
-<span class="p">)</span>
-</code></pre></div>
-
-<p>I then create a basic notebook <code>insert 1h of data.ipynb</code> to fill table with data. Then, setup a job to run that notebook every hour.</p>
-<p>I'll not add the code here because it is quite basic. It randomly adds records to the table with random values (within the time windown of the hour).</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales</span>
-<span class="k">limit</span><span class="w"> </span><span class="mi">10</span>
-</code></pre></div>
-
-<style scoped>
-  .table-result-container {
-    max-height: 300px;
-    overflow: auto;
-  }
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 5px;
-  }
-  th {
-    text-align: left;
-  }
-</style>
-<div class='table-result-container'><table class='table-result'><thead style='background-color: white'><tr><th>timestamp</th><th>amount</th></tr></thead><tbody><tr><td>2025-08-22T08:58:07.929Z</td><td>22.570402586080093</td></tr><tr><td>2025-08-22T08:51:51.929Z</td><td>20.713874028846366</td></tr><tr><td>2025-08-22T09:03:54.929Z</td><td>21.97633174572098</td></tr><tr><td>2025-08-22T08:28:44.929Z</td><td>27.94416169489641</td></tr><tr><td>2025-08-22T09:05:29.929Z</td><td>21.307407500066127</td></tr><tr><td>2025-08-22T08:17:03.929Z</td><td>22.37476392747984</td></tr><tr><td>2025-08-22T09:05:05.929Z</td><td>26.446829879517953</td></tr><tr><td>2025-08-22T08:42:32.929Z</td><td>27.86840740526422</td></tr><tr><td>2025-08-22T08:33:55.929Z</td><td>27.236961570798947</td></tr><tr><td>2025-08-22T08:42:30.929Z</td><td>25.395336538015343</td></tr></tbody></table></div>
-
-<p>Then, let's create the Monitor via Unity Catalog Explorer 👇</p>
-<p>I set up the monitor as <code>TimeSeries</code> profile. I pointed out the <code>timestamp</code> column and a granularity of 1 hour. The schedule of the monitor is actually daily.</p>
-<p>Below, a screenshot of the Unity Catalog Explorer page to create the Lakehouse Monitoring.</p>
-<p><img alt="Screenshot of Unity Catalog Explorer page to create the Lakehouse Monitoring" src="./images/create_monitor.png"></p>
-<p>What happens after the creation of the Monitoring? By default, two new tables are created</p>
-<ul>
-<li><code>&lt;table_name&gt;_profile_metrics</code></li>
-<li><code>&lt;table_name&gt;_drift_metrics</code></li>
-</ul>
-<p>Let's inspect them</p>
-<div class="highlight"><pre><span></span><code><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="k">default</span><span class="p">;</span>
-</code></pre></div>
-
-<style scoped>
-  .table-result-container {
-    max-height: 300px;
-    overflow: auto;
-  }
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 5px;
-  }
-  th {
-    text-align: left;
-  }
-</style>
-<div class='table-result-container'><table class='table-result'><thead style='background-color: white'><tr><th>database</th><th>tableName</th><th>isTemporary</th></tr></thead><tbody><tr><td>default</td><td>sales</td><td>false</td></tr><tr><td>default</td><td>sales_drift_metrics</td><td>false</td></tr><tr><td>default</td><td>sales_profile_metrics</td><td>false</td></tr><tr><td></td><td>_sqldf</td><td>true</td></tr></tbody></table></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales_profile_metrics</span>
-</code></pre></div>
-
-<style scoped>
-  .table-result-container {
-    max-height: 300px;
-    overflow: auto;
-  }
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 5px;
-  }
-  th {
-    text-align: left;
-  }
-</style>
-<div class='table-result-container'><table class='table-result'><thead style='background-color: white'><tr><th>window</th><th>log_type</th><th>logging_table_commit_version</th><th>monitor_version</th><th>granularity</th><th>slice_key</th><th>slice_value</th><th>column_name</th><th>count</th><th>data_type</th><th>num_nulls</th><th>avg</th><th>min</th><th>max</th><th>stddev</th><th>num_zeros</th><th>num_nan</th><th>min_length</th><th>max_length</th><th>avg_length</th><th>non_null_columns</th><th>frequent_items</th><th>median</th><th>distinct_count</th><th>percent_nan</th><th>percent_null</th><th>percent_zeros</th><th>percent_distinct</th></tr></thead><tbody><tr><td>List(2025-08-22T08:00:00.000Z, 2025-08-22T09:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>:table</td><td>1344</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>List(timestamp, amount)</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T08:00:00.000Z, 2025-08-22T09:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>amount</td><td>1344</td><td>double</td><td>0</td><td>25.059042979855878</td><td>20.0007185120017</td><td>29.99500143216646</td><td>2.8817003714622857</td><td>0</td><td>0</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>25.133808306174608</td><td>1277</td><td>0.0</td><td>0.0</td><td>0.0</td><td>95.01488095238095</td></tr><tr><td>List(2025-08-22T08:00:00.000Z, 2025-08-22T09:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>timestamp</td><td>1344</td><td>timestamp</td><td>0</td><td>null</td><td>1.755850122929519E9</td><td>1.755853196019946E9</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>1.755851952929519E9</td><td>1161</td><td>null</td><td>0.0</td><td>null</td><td>86.38392857142857</td></tr><tr><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>timestamp</td><td>1192</td><td>timestamp</td><td>0</td><td>null</td><td>1.755853200929519E9</td><td>1.755856792565437E9</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>1.755854777019946E9</td><td>997</td><td>null</td><td>0.0</td><td>null</td><td>83.64093959731544</td></tr><tr><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>:table</td><td>1192</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>List(timestamp, amount)</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>amount</td><td>1192</td><td>double</td><td>0</td><td>24.847526487373074</td><td>20.01063581181195</td><td>29.99539398790598</td><td>2.8880160456500867</td><td>0</td><td>0</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>24.694267025212234</td><td>1192</td><td>0.0</td><td>0.0</td><td>0.0</td><td>100.0</td></tr><tr><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>amount</td><td>941</td><td>double</td><td>0</td><td>24.969054277784952</td><td>20.015936515703217</td><td>29.981071930502402</td><td>2.846773237150427</td><td>0</td><td>0</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>24.969920953185955</td><td>925</td><td>0.0</td><td>0.0</td><td>0.0</td><td>98.29968119022317</td></tr><tr><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>timestamp</td><td>941</td><td>timestamp</td><td>0</td><td>null</td><td>1.755856803565437E9</td><td>1.755860399121952E9</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>1.755858763121952E9</td><td>857</td><td>null</td><td>0.0</td><td>null</td><td>91.07332624867162</td></tr><tr><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>:table</td><td>941</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>List(timestamp, amount)</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T11:00:00.000Z, 2025-08-22T12:00:00.000Z)</td><td>INPUT</td><td>26</td><td>0</td><td>1 hour</td><td>null</td><td>null</td><td>:table</td><td>995</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>List(timestamp, amount)</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr></tbody></table></div>
-
-<p>The <strong>profile</strong> table has a row for each pair</p>
-<ul>
-<li><code>window</code> (the beginning and end of every hour)</li>
-<li><code>column_name</code> every column of the table. In addition, it adds a special row <code>:table</code> to compute the table-level profile.</li>
-</ul>
-<p>Optionally, it can slice on column values when specified at the time of the creation of the <em>Monitor</em></p>
-<p>For each row, it computes a bunch of statistics like <code>avg</code>, <code>quantiles</code>, <code>min</code>, <code>max</code>, etc. (when applicable, eg for float columns).</p>
-<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">workspace</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">sales_drift_metrics</span>
-</code></pre></div>
-
-<style scoped>
-  .table-result-container {
-    max-height: 300px;
-    overflow: auto;
-  }
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 5px;
-  }
-  th {
-    text-align: left;
-  }
-</style>
-<div class='table-result-container'><table class='table-result'><thead style='background-color: white'><tr><th>window</th><th>granularity</th><th>monitor_version</th><th>slice_key</th><th>slice_value</th><th>column_name</th><th>data_type</th><th>window_cmp</th><th>drift_type</th><th>count_delta</th><th>avg_delta</th><th>percent_null_delta</th><th>percent_zeros_delta</th><th>percent_distinct_delta</th><th>non_null_columns_delta</th><th>js_distance</th><th>ks_test</th><th>wasserstein_distance</th><th>population_stability_index</th><th>chi_squared_test</th><th>tv_distance</th><th>l_infinity_distance</th></tr></thead><tbody><tr><td>List(2025-08-22T11:00:00.000Z, 2025-08-22T12:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>:table</td><td>null</td><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>CONSECUTIVE</td><td>-418</td><td>null</td><td>null</td><td>null</td><td>null</td><td>List(0, 0)</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>:table</td><td>null</td><td>List(2025-08-22T08:00:00.000Z, 2025-08-22T09:00:00.000Z)</td><td>CONSECUTIVE</td><td>-152</td><td>null</td><td>null</td><td>null</td><td>null</td><td>List(0, 0)</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>:table</td><td>null</td><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>CONSECUTIVE</td><td>-251</td><td>null</td><td>null</td><td>null</td><td>null</td><td>List(0, 0)</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T11:00:00.000Z, 2025-08-22T12:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>timestamp</td><td>timestamp</td><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>CONSECUTIVE</td><td>-418</td><td>null</td><td>0.0</td><td>null</td><td>-5.604875005841791</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>timestamp</td><td>timestamp</td><td>List(2025-08-22T08:00:00.000Z, 2025-08-22T09:00:00.000Z)</td><td>CONSECUTIVE</td><td>-152</td><td>null</td><td>0.0</td><td>null</td><td>-2.742988974113132</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>timestamp</td><td>timestamp</td><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>CONSECUTIVE</td><td>-251</td><td>null</td><td>0.0</td><td>null</td><td>7.4323866513561825</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T11:00:00.000Z, 2025-08-22T12:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>amount</td><td>double</td><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>CONSECUTIVE</td><td>-418</td><td>0.013276990751066364</td><td>0.0</td><td>0.0</td><td>-0.21172707932451829</td><td>null</td><td>null</td><td>List(0.049, 0.3829208808885818)</td><td>0.16058939377867895</td><td>0.028216393260236203</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T10:00:00.000Z, 2025-08-22T11:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>amount</td><td>double</td><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>CONSECUTIVE</td><td>-251</td><td>0.12152779041187856</td><td>0.0</td><td>0.0</td><td>-1.7003188097768316</td><td>null</td><td>null</td><td>List(0.038, 0.4228041687817168)</td><td>0.14481617304902772</td><td>0.021676869284417942</td><td>null</td><td>null</td><td>null</td></tr><tr><td>List(2025-08-22T09:00:00.000Z, 2025-08-22T10:00:00.000Z)</td><td>1 hour</td><td>0</td><td>null</td><td>null</td><td>amount</td><td>double</td><td>List(2025-08-22T08:00:00.000Z, 2025-08-22T09:00:00.000Z)</td><td>CONSECUTIVE</td><td>-152</td><td>-0.21151649248280435</td><td>0.0</td><td>0.0</td><td>4.985119047619051</td><td>null</td><td>null</td><td>List(0.062, 0.014853915612309707)</td><td>0.21231645982023184</td><td>0.022438267042335924</td><td>null</td><td>null</td><td>null</td></tr></tbody></table></div>
-
-<p>The <strong>drift</strong> table is similar to the profile table. The <strong>drift</strong> table has a row for each pair</p>
-<ul>
-<li><code>window</code> (the beginning and end of every hour)</li>
-<li><code>column_name</code> every column of the table. In addition, it adds a special row <code>:table</code> to compute the table-level profile.</li>
-</ul>
-<p>In addition, it has the <code>window_cmp</code>, where <em>cmp</em> stands for <em>compare</em>. All the statistics are compared against another window (the previous one). There are various statistics like</p>
-<ul>
-<li><code>count_delta</code></li>
-<li><code>ks_test</code>, in statistics, the Kolmogorov–Smirnov can be used to test whether two samples came from the same distribution</li>
-</ul>
-<h4>Dashboard</h4>
-<p>Lakehouse Monitoring creates also a dashboard automatically that displays the data in these <em>profile and drift</em> tables.</p>
-<p>😓 However, I find this dashboard too crowded and not ready to use. You need to work on it to customize it by yourself.</p>
-<h4>Alerts</h4>
-<p>Monitor alerts are created and used the same way as other Databricks SQL alerts. You create a Databricks SQL query on the monitor profile metrics table or drift metrics table. You then create a Databricks SQL alert for this query.</p>
-<h2 id="pricing">Pricing</h2>
-
-<p>Lakehouse Monitoring is billed under a serverless jobs SKU. You can monitor its usage via <code>system.billing.usage</code> table or via the Usage dashboard at Account console.</p>
-<p>You need to pay attention. I expect that the costs may rise for columns with high number of columns if you don't finetune the monitor.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">usage_date</span><span class="p">,</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">usage_quantity</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dbus</span>
-<span class="k">FROM</span><span class="w"> </span><span class="k">system</span><span class="p">.</span><span class="n">billing</span><span class="p">.</span><span class="k">usage</span>
-<span class="k">WHERE</span>
-<span class="w">  </span><span class="n">usage_date</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">DATE_SUB</span><span class="p">(</span><span class="k">current_date</span><span class="p">(),</span><span class="w"> </span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="k">AND</span>
-<span class="w">  </span><span class="n">sku_name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="ss">&quot;%JOBS_SERVERLESS%&quot;</span><span class="w"> </span><span class="k">AND</span>
-<span class="w">  </span><span class="n">custom_tags</span><span class="p">[</span><span class="ss">&quot;LakehouseMonitoring&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;true&quot;</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">usage_date</span>
-<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">usage_date</span><span class="w"> </span><span class="k">DESC</span>
-</code></pre></div>
-
-<style scoped>
-  .table-result-container {
-    max-height: 300px;
-    overflow: auto;
-  }
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 5px;
-  }
-  th {
-    text-align: left;
-  }
-</style>
-<div class='table-result-container'><table class='table-result'><thead style='background-color: white'><tr><th>usage_date</th><th>dbus</th></tr></thead><tbody><tr><td>2025-08-22</td><td>1.852757467777777736</td></tr></tbody></table></div>
-
-<h2 id="my-opinion-on-what-ive-seen">My opinion on what I've seen</h2>
-
-<p>Lakehouse monitoring is all about these two profile and drift tables. It is a kind of brute force approach that runs standardized monitoring over the specified table and stores the output in the profiling tables. Is it convenient? It depends on what you're looking for. It is not a free lunch.</p>
-<p><strong>Pros 🟢</strong></p>
-<ul>
-<li>It takes little <strong>effort</strong> to setup. By default common controls are applied to all columns in the monitored table.</li>
-<li>Most common monitoring scenarios are covered by <code>TimeSeries</code> profile or by <code>Snapshot</code> profile (I left apart the inference-ML for the sake of simplicity). The <strong>setup time</strong> is shorter when compared to anything made by yourself.</li>
-<li>You have a framework ready to use. You save the time required designing it, and you avoid reinventing the wheel. You can <strong>focus on your business</strong> needs rather than on data engineering stuff.</li>
-<li>I like the simple but effective <strong>design</strong> of the <em>drift</em> metric table and of the windowing. Making something like this by yourself will probably let you hit against some hidden edge-case (like anytime you work with time and dates). </li>
-</ul>
-<p><strong>Cons 🔴</strong></p>
-<ul>
-<li>Once the metrics are computed in the profile and drift tables, only half of the job is done. You still have to decide <strong>what</strong> to monitor and <strong>how</strong> to do it. You're probably not interested in monitor any single column in any row of the metric tables (otherwise you may alerted by too many false alarms). A finetuning of the actual alerts is still required, and it is not coming for free.</li>
-<li>You can't know in advance the overall <strong>cost</strong> of the monitoring. You need to try with a realistic (production-alike) scenario and monitor soon how much you're paying. I expect it to depend mainly on<ul>
-<li>the data volume</li>
-<li>the columns in the table</li>
-<li>the frequency of the controls</li>
-</ul>
-</li>
-</ul>
-<h2 id="wheres-databricks-going">Where's Databricks going?</h2>
-
-<p>In addition to Lakehouse Monitoring, Databricks has released a feature (in Beta) of <a href="https://docs.databricks.com/aws/en/lakehouse-monitoring/data-quality-monitoring">data quality monitoring</a>. This new monitoring</p>
-<ul>
-<li>is quicker to setup. It is toggle on an entire Schema and monitors all the tables in the schema.</li>
-<li>monitors only simple freshness and completeness quality controls</li>
-<li>has no parametrization</li>
-<li>still needs alerts to be set manually</li>
-</ul>
-<p>I made a short recap here.</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Lakehouse Monitoring</th>
-<th>Data Quality Monitoring (Beta)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Scope</td>
-<td>Table. It is set at table level. It monitors the table and its columns.</td>
-<td>Schema. It is set at schema level and monitors all tables in such schema.</td>
-</tr>
-<tr>
-<td>Setup</td>
-<td>Choose the profile, eventual slicing, window and frequency.</td>
-<td>On-off on the schema.</td>
-</tr>
-<tr>
-<td>What is monitored</td>
-<td>Various statistics as snapshot, time series, and inference.</td>
-<td>Freshness (is data recent?) and completeness (is the volume as expected?)</td>
-</tr>
-<tr>
-<td>Customization</td>
-<td>Limited</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Alert</td>
-<td>To be set manually on the output table.</td>
-<td>To be set manually on the output table.</td>
-</tr>
-</tbody>
-</table>
-<h4>My2C</h4>
-<p>🟢 I think Databricks is going in the right direction. Fast adoption of basic quality controls. Avoid the "<em>didn't notice data is old in production</em>" moments with little effort.</p>
-<p>🔴 The alerting setup is still quite SQL-based and there is some trial-and-error around it. I would expect that a basic alert should be enabled by default.</p>                    </article>
-                </aside><!-- /#featured -->
-                    <section id="content" class="body">
-                        <h1>Other articles</h1>
-                        <hr />
-                        <ol id="posts-list" class="hfeed">
+<li><a href="#my-opinion-on-what-ive-seen">My …</a></li></ul>
+                        <a class="readmore" href="https://www.marcosantoni.com/is-lakehouse-monitoring-worth-it.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
 
                 <li><article class="hentry">
                     <header>
@@ -462,31 +269,6 @@
         
 </footer><!-- /.post-info -->                        <p>The picture below was taken just at the beginning of the exam of the course called <em>Apache Spark for Data Analysis</em> at <a href="https://www.itsrizzoli.it/en/home-en/">ITS Rizzoli</a> in Milan on November 2022. I was the one taking the picture because I was actually the lecturer of this course. In this post, I'll tell …</p>
                         <a class="readmore" href="https://www.marcosantoni.com/learning_by_teaching.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
-
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="https://www.marcosantoni.com/pyconit_2022.html" rel="bookmark"
-                               title="Permalink to Speaker at PyCon IT 2022">Speaker at PyCon IT 2022</a></h1>
-                    </header>
-
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2022-08-05T06:41:00+02:00">
-                Published: Fri 05 August 2022
-        </abbr>
-
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
-                </address>
-        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
-        
-</footer><!-- /.post-info -->                        <p>I went back to PyCon IT 2022 in Florence in June. I gave one talk called <em>Why Is Our Project Late?</em> where I introduces mental and statistical bias that lead us to make wrong estimates when making a plan.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zcDQwIQQwR4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<p>Furthermore, we held a live session of <a href="https://intervistapythonista.com/">Intervista Pythonista</a> podcast interviewing …</p>
-                        <a class="readmore" href="https://www.marcosantoni.com/pyconit_2022.html">read more</a>
                     </div><!-- /.entry-content -->
                 </article></li>
                     </ol><!-- /#posts-list -->

@@ -23,6 +23,44 @@
                         <ol id="posts-list" class="hfeed" start="9">
                 <li><article class="hentry">
                     <header>
+                        <h1><a href="https://www.marcosantoni.com/2016/08/23/weighted-random-sampling-with-postgresql.html" rel="bookmark"
+                               title="Permalink to Weighted Random Sampling with PostgreSQL">Weighted Random Sampling with PostgreSQL</a></h1>
+                    </header>
+
+                    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2016-08-23T16:22:00+02:00">
+                Published: Tue 23 August 2016
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->                        <p>You have a table like the following:</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">weights</span><span class="w"> </span><span class="p">(</span>
+<span class="n">color</span><span class="w"> </span><span class="nb">varchar</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="n">weight</span><span class="w"> </span><span class="nb">float</span>
+<span class="p">);</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">weights</span><span class="w"> </span><span class="p">(</span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+
+<p>The table lists the weights associated with certain colors. Imagine a
+weight representing how much you like that color.</p>
+<p>Now …</p>
+                        <a class="readmore" href="https://www.marcosantoni.com/2016/08/23/weighted-random-sampling-with-postgresql.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
+
+                <li><article class="hentry">
+                    <header>
                         <h1><a href="https://www.marcosantoni.com/2016/06/30/applied-bayesian-inference-with-pymc-video.html" rel="bookmark"
                                title="Permalink to Applied Bayesian Inference with PyMC [video]">Applied Bayesian Inference with PyMC [video]</a></h1>
                     </header>
