@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="https://www.marcosantoni.com/" rel="alternate"></link><link href="https://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>https://www.marcosantoni.com/</id><updated>2025-10-15T00:00:00+02:00</updated><entry><title>Talk at Codemotion 2025</title><link href="https://www.marcosantoni.com/talk-at-codemotion-2025.html" rel="alternate"></link><published>2025-10-15T00:00:00+02:00</published><updated>2025-10-15T00:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2025-10-15:/talk-at-codemotion-2025.html</id><summary type="html">&lt;p&gt;&lt;img src="../images/codemotion/talk1.jpeg" width="400" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="https://www.marcosantoni.com/" rel="alternate"></link><link href="https://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>https://www.marcosantoni.com/</id><updated>2025-10-20T00:00:00+02:00</updated><entry><title>Switch to UV</title><link href="https://www.marcosantoni.com/switch-to-uv.html" rel="alternate"></link><published>2025-10-20T00:00:00+02:00</published><updated>2025-10-20T00:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2025-10-20:/switch-to-uv.html</id><summary type="html">&lt;p&gt;I just moved the git repo of this blog from an old conda+pip based setup to using &lt;code&gt;uv&lt;/code&gt;. On Mac, start by&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;brew&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;uv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, I initialized the uv project and just imported the dependencies specified in the &lt;code&gt;requirements.txt&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;uv&lt;span class="w"&gt; &lt;/span&gt;init&lt;span class="w"&gt; &lt;/span&gt;--python&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.13
+uv&lt;span class="w"&gt; &lt;/span&gt;add …&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;p&gt;I just moved the git repo of this blog from an old conda+pip based setup to using &lt;code&gt;uv&lt;/code&gt;. On Mac, start by&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;brew&lt;span class="w"&gt; &lt;/span&gt;install&lt;span class="w"&gt; &lt;/span&gt;uv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, I initialized the uv project and just imported the dependencies specified in the &lt;code&gt;requirements.txt&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;uv&lt;span class="w"&gt; &lt;/span&gt;init&lt;span class="w"&gt; &lt;/span&gt;--python&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;.13
+uv&lt;span class="w"&gt; &lt;/span&gt;add&lt;span class="w"&gt; &lt;/span&gt;--requirements&lt;span class="w"&gt; &lt;/span&gt;requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And that is basically it. From now on, to run pelican commands, just prefix them with &lt;code&gt;uv run&lt;/code&gt;, e.g.,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;uv&lt;span class="w"&gt; &lt;/span&gt;run&lt;span class="w"&gt; &lt;/span&gt;pelican&lt;span class="w"&gt; &lt;/span&gt;content
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The transition was smooth and fast. Highly recommended!&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>Talk at Codemotion 2025</title><link href="https://www.marcosantoni.com/talk-at-codemotion-2025.html" rel="alternate"></link><published>2025-10-15T00:00:00+02:00</published><updated>2025-10-15T00:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2025-10-15:/talk-at-codemotion-2025.html</id><summary type="html">&lt;p&gt;&lt;img src="../images/codemotion/talk1.jpeg" width="400" /&gt;&lt;/p&gt;
 &lt;p&gt;I've been speaking at Codemotion for the first time in October 2025 thanks to the work done over the last months at TeamSystem. With my colleague Mattia De Leo, we presented our recent work on building AI assistants based on knowledge graphs and large language models. The talk was well …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img src="../images/codemotion/talk1.jpeg" width="400" /&gt;&lt;/p&gt;
 &lt;p&gt;I've been speaking at Codemotion for the first time in October 2025 thanks to the work done over the last months at TeamSystem. With my colleague Mattia De Leo, we presented our recent work on building AI assistants based on knowledge graphs and large language models. The talk was well received, and we had a lot of interesting questions from the audience.&lt;/p&gt;
 &lt;p&gt;&lt;img src="../images/codemotion/talk2.jpeg" width="400" /&gt;&lt;/p&gt;

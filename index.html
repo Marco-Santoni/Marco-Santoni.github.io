@@ -21,7 +21,44 @@
 
                 <aside id="featured" class="body">
                     <article>
-                        <h1 class="entry-title"><a href="https://www.marcosantoni.com/talk-at-codemotion-2025.html">Talk at Codemotion 2025</a></h1>
+                        <h1 class="entry-title"><a href="https://www.marcosantoni.com/switch-to-uv.html">Switch to UV</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2025-10-20T00:00:00+02:00">
+                Published: Mon 20 October 2025
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info --><p>I just moved the git repo of this blog from an old conda+pip based setup to using <code>uv</code>. On Mac, start by</p>
+<div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>uv
+</code></pre></div>
+
+<p>Then, I initialized the uv project and just imported the dependencies specified in the <code>requirements.txt</code> file.</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>init<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.13
+uv<span class="w"> </span>add<span class="w"> </span>--requirements<span class="w"> </span>requirements.txt
+</code></pre></div>
+
+<p>And that is basically it. From now on, to run pelican commands, just prefix them with <code>uv run</code>, e.g.,</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pelican<span class="w"> </span>content
+</code></pre></div>
+
+<p>The transition was smooth and fast. Highly recommended!</p>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="https://www.marcosantoni.com/talk-at-codemotion-2025.html" rel="bookmark"
+                               title="Permalink to Talk at Codemotion 2025">Talk at Codemotion 2025</a></h1>
+                    </header>
+
+                    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2025-10-15T00:00:00+02:00">
                 Published: Wed 15 October 2025
@@ -32,16 +69,11 @@
                 </address>
         <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
         
-</footer><!-- /.post-info --><p><img src="../images/codemotion/talk1.jpeg" width="400" /></p>
-<p>I've been speaking at Codemotion for the first time in October 2025 thanks to the work done over the last months at TeamSystem. With my colleague Mattia De Leo, we presented our recent work on building AI assistants based on knowledge graphs and large language models. The talk was well received, and we had a lot of interesting questions from the audience.</p>
-<p><img src="../images/codemotion/talk2.jpeg" width="400" /></p>
-<p>I focused my talk on Text2SQL, a task that consists of translating natural language queries into SQL queries. This is a challenging task, and I explained why understanding the semantics of the natural language query and the structure of the database schema is not enough. Business context and further metadata are key to generate accurate SQL queries.</p>
-<p><img src="../images/codemotion/talk3.jpeg" width="400" /></p>                    </article>
-                </aside><!-- /#featured -->
-                    <section id="content" class="body">
-                        <h1>Other articles</h1>
-                        <hr />
-                        <ol id="posts-list" class="hfeed">
+</footer><!-- /.post-info -->                        <p><img src="../images/codemotion/talk1.jpeg" width="400" /></p>
+<p>I've been speaking at Codemotion for the first time in October 2025 thanks to the work done over the last months at TeamSystem. With my colleague Mattia De Leo, we presented our recent work on building AI assistants based on knowledge graphs and large language models. The talk was well …</p>
+                        <a class="readmore" href="https://www.marcosantoni.com/talk-at-codemotion-2025.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
 
                 <li><article class="hentry">
                     <header>
@@ -231,37 +263,12 @@
                         <a class="readmore" href="https://www.marcosantoni.com/py4ai2024.html">read more</a>
                     </div><!-- /.entry-content -->
                 </article></li>
-
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="https://www.marcosantoni.com/design_web_api.html" rel="bookmark"
-                               title="Permalink to Reading "The Design of Web APIs"">Reading "The Design of Web APIs"</a></h1>
-                    </header>
-
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2023-08-27T07:35:00+02:00">
-                Published: Sun 27 August 2023
-        </abbr>
-
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
-                </address>
-        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
-        
-</footer><!-- /.post-info -->                        <p>Why bothering reading a book about design of web APIs when working in data science like I do? I found this book called <em>The Design of Web APIs</em> by <a href="https://apihandyman.io/about/">Arnaud Lauret</a> and decided to give it a try.</p>
-<p><img alt="The Design of Web APIs" src="https://www.marcosantoni.com/images/bookshelf/webapi.jpg"></p>
-<h2>Why reading it</h2>
-<p>Data science is shifting towards turning models and solutions …</p>
-                        <a class="readmore" href="https://www.marcosantoni.com/design_web_api.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
                     </ol><!-- /#posts-list -->
   <nav>
     <ul>
-      <li>Page 1 / 4</li>
+      <li>Page 1 / 5</li>
         <li><a href="https://www.marcosantoni.com/index2.html">&rang;</a></li>
-        <li><a href="https://www.marcosantoni.com/index4.html">&Rang;</a></li>
+        <li><a href="https://www.marcosantoni.com/index5.html">&Rang;</a></li>
     </ul>
   </nav>
                     </section><!-- /#content -->

@@ -4,9 +4,10 @@
                         <meta charset="utf-8" />
                         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                         <meta name="generator" content="Pelican" />
-                        <title>Marco Santoni - Categories</title>
+                        <title>Switch to UV</title>
                         <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
                                 <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="I just moved the git repo of this blog from an old conda+pip based setup to using uv. On Mac, start by brew install uv Then, I initialized the uv..." />
         </head>
 
         <body id="index" class="home">
@@ -15,17 +16,46 @@
                         <nav><ul>
                                                 <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
                                                 <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
-                                                <li><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
                         </ul></nav>
                 </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/switch-to-uv.html" rel="bookmark"
+             title="Permalink to Switch to UV">Switch to UV</a></h1>
+      </header>
 
-    <section id="content" class="body">
-        <h1>Categories for Marco Santoni</h1>
-        <ul>
-                <li><a href="https://www.marcosantoni.com/category/posts.html">posts</a> (41)</li>
-        </ul>
-    </section>
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2025-10-20T00:00:00+02:00">
+                Published: Mon 20 October 2025
+        </abbr>
 
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>I just moved the git repo of this blog from an old conda+pip based setup to using <code>uv</code>. On Mac, start by</p>
+<div class="highlight"><pre><span></span><code>brew<span class="w"> </span>install<span class="w"> </span>uv
+</code></pre></div>
+
+<p>Then, I initialized the uv project and just imported the dependencies specified in the <code>requirements.txt</code> file.</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>init<span class="w"> </span>--python<span class="w"> </span><span class="m">3</span>.13
+uv<span class="w"> </span>add<span class="w"> </span>--requirements<span class="w"> </span>requirements.txt
+</code></pre></div>
+
+<p>And that is basically it. From now on, to run pelican commands, just prefix them with <code>uv run</code>, e.g.,</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>pelican<span class="w"> </span>content
+</code></pre></div>
+
+<p>The transition was smooth and fast. Highly recommended!</p>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
                 <section id="extras" class="body">
                                 <div class="social">
                                         <h2>social</h2>
