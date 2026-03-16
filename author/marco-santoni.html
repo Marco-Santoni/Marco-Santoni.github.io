@@ -21,7 +21,139 @@
 
                 <aside id="featured" class="body">
                     <article>
-                        <h1 class="entry-title"><a href="https://www.marcosantoni.com/festina_lente.html">Festina Lente - Make haste slowly while learning technology</a></h1>
+                        <h1 class="entry-title"><a href="https://www.marcosantoni.com/fitness_functions_data_mesh.html">Fitness Functions for Data Mesh: Computational Policies</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2026-03-15T08:35:00+01:00">
+                Published: Sun 15 March 2026
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info --><p>In <em>Building Evolutionary Architectures</em> and <em>Software Architecture: The Hard Parts</em>, Neal Ford and colleagues introduce the concept of <strong>fitness functions</strong> — automated checks that verify whether a system preserves its desired architectural characteristics over time. The idea is simple: if you care about a quality (latency, coupling, resilience), define an objective measure and automate its verification. Don't rely on manual reviews or good intentions.</p>
+<p><img src="./images/software_architecture_hard_parts.jpg" alt="Software Architecture: The Hard Parts book cover" style="max-width: 400px; height: auto;" /></p>
+<p>Fitness functions can run automatically in your <strong>CI/CD pipelines</strong>, but they are not typical testing or static analysis tools. Unit tests verify that your code behaves correctly. SAT tools check for code smells or vulnerabilities. Fitness functions operate at a different level: they measure how well your system <strong>fits the overall architecture design principles</strong> adopted by your team or company. Is your service respecting the agreed coupling boundaries? Is your module's dependency graph consistent with the target architecture? These are the kind of questions fitness functions answer.</p>
+<h3>Example: component size threshold</h3>
+<p>Let's make this concrete with an example from the book. Suppose your team has an architecture principle that <strong>no single component should dominate the codebase</strong>. You can encode this as a fitness function:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fitness function</strong></td>
+<td>No component shall exceed X% of the overall codebase</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>Holistic, automated</td>
+</tr>
+<tr>
+<td><strong>Trigger</strong></td>
+<td>CI/CD pipeline on deployment</td>
+</tr>
+<tr>
+<td><strong>What it checks</strong></td>
+<td>The percentage of overall source code represented by each component</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Alerts the architect if any component exceeds the threshold</td>
+</tr>
+</tbody>
+</table>
+<p>For instance, imagine your application has 6 components and you set the threshold at 30%:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Codebase %</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Account</td>
+<td>18%</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Ticketing</td>
+<td>15%</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Purchases</td>
+<td>22%</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td>8%</td>
+<td>Pass</td>
+</tr>
+<tr>
+<td>Reporting</td>
+<td><strong>35%</strong></td>
+<td><strong>Fail or Warning</strong></td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>2%</td>
+<td>Pass</td>
+</tr>
+</tbody>
+</table>
+<p>The Reporting component has grown beyond the threshold. This doesn't necessarily mean something is broken — but it's a signal that this component may be accumulating too many responsibilities and should be reviewed by the architect.</p>
+<p>The threshold depends on the size of the application. For a small application with 10 components, 30% might be a reasonable limit to catch outliers. For a large application with 50 components, 10% would be more appropriate. The point is not the exact number — it's that <strong>the architectural principle is encoded as an automated, objective check</strong> rather than left to someone's judgment during code review.</p>
+<p>This is what makes fitness functions different from tests. A unit test would check that a function returns the right output. This fitness function checks that your system's structure still reflects the architecture your team agreed on.</p>
+<h2>Data Mesh Computational Policies as Fitness Functions</h2>
+<p>My data engineering team at TeamSystem has been applying this same concept to <strong>data mesh</strong> — but instead of checking software architecture characteristics, we check <strong>data product characteristics</strong>. In data mesh terms, these are called <strong>computational policies</strong>.</p>
+<p><img alt="Example of policy output" src="./images/computational_policy.png"></p>
+<h3>What are computational policies?</h3>
+<p>In <em>Data Mesh</em>, Zhamak Dehghani introduces computational policies as automated governance mechanisms. Each domain team owns its data products autonomously, but certain global guarantees must hold across the mesh — schema conventions, SLO adherence, discoverability metadata, interoperability contracts, access control rules. Rather than enforcing these through a central governance board or manual review, you encode them as automated checks that run continuously.</p>
+<p><img alt="Example of computational policy architecture" src="./images/computational_policies_data_mesh.svg"></p>
+<h2>The parallel with fitness functions</h2>
+<p>The overlap is tight. Replace "architecture characteristic" with "data product governance rule" and the pattern is the same.</p>
+<p>Both fitness functions and computational policies share key properties:</p>
+<ul>
+<li><strong>Automated</strong> — neither relies on humans reviewing things manually at scale</li>
+<li><strong>Objective and measurable</strong> — they produce a pass/fail or a metric, not a subjective opinion</li>
+<li><strong>Guardrails, not gates</strong> — the goal is to enable team autonomy while preventing drift from system-wide properties</li>
+<li><strong>Lifecycle-aware</strong> — some run at build time (schema validation), some at deploy time (contract compatibility), some continuously at runtime (SLO monitoring)</li>
+<li><strong>Protect emergent properties</strong> — individual teams making locally rational decisions can degrade global qualities like interoperability or discoverability, so you need automated checks at a higher level</li>
+</ul>
+<h2>What changes is the scope</h2>
+<p>The main difference is one of scope and domain. Fitness functions in <em>The Hard Parts</em> focus on software architecture characteristics — coupling, cohesion, latency, scalability, resilience. Computational policies focus on data product characteristics — schema quality, freshness, discoverability, interoperability, compliance.</p>
+<p>The underlying mechanism and philosophy are identical.</p>
+<h2>Atomic vs holistic</h2>
+<p>The book categorizes fitness functions as <strong>atomic</strong> (checking a single property) or <strong>holistic</strong> (checking cross-cutting concerns). The same categorization applies to computational policies:</p>
+<ul>
+<li><strong>Atomic</strong>: does this data product expose standard metadata? Does it meet its declared freshness SLO?</li>
+<li><strong>Holistic</strong>: can a consumer actually discover, understand, and consume this product end-to-end?</li>
+</ul>
+<p>Holistic policies are harder to implement but more valuable — they catch the gaps that atomic checks miss.</p>
+<h2>Why this framing matters</h2>
+<p>If you come from a software architecture background and are entering the data mesh space, recognizing that computational policies are fitness functions gives you a familiar mental model. You already know the philosophy. You already understand why automation matters, why objectivity matters, why guardrails beat gates. And if you're already practicing data mesh governance, calling your policies "fitness functions" can help communicate their purpose to stakeholders who come from a software engineering background. It's a useful shared vocabulary.</p>
+<p>But to me, there's a deeper reason why this framing matters. Guidelines can — and sometimes should — be ignored. Domain teams must be free to adopt their own design principles when their context demands it. The power of computational policies is that they <strong>enable adoption</strong> by teams while <strong>enforcing or nudging</strong> company-level principles through automation, not bureaucracy. Governance teams evolve from writing documents that nobody reads into <strong>computational policy engineers</strong> — people who encode organizational knowledge into automated, executable checks. That's a fundamentally different role, and a far more effective one.</p>                    </article>
+                </aside><!-- /#featured -->
+                    <section id="content" class="body">
+                        <h1>Other articles</h1>
+                        <hr />
+                        <ol id="posts-list" class="hfeed">
+
+                <li><article class="hentry">
+                    <header>
+                        <h1><a href="https://www.marcosantoni.com/festina_lente.html" rel="bookmark"
+                               title="Permalink to Festina Lente - Make haste slowly while learning technology">Festina Lente - Make haste slowly while learning technology</a></h1>
+                    </header>
+
+                    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2025-12-31T08:35:00+01:00">
                 Published: Wed 31 December 2025
@@ -32,28 +164,10 @@
                 </address>
         <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
         
-</footer><!-- /.post-info --><p>The phrase <em>festina lente</em>—“make haste slowly”—was used by the Roman emperor Augustus as a personal motto. Suetonius reports that Augustus repeated it to his generals and administrators as a guiding principle: advance steadily, but never recklessly; act with urgency, but never without reflection. In that sense, the slogan is not about slowness at all, but about disciplined speed—progress that is fast precisely because it is anchored in care, preparation, and clear thinking.</p>
-<p><img alt="Statue of Augustus" src="./images/augustus.jpg"></p>
-<blockquote>
-<p>By Vicenç Valcárcel Pérez - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=99990278</p>
-</blockquote>
-<p>For a software engineer constantly exposed to new tools, frameworks, and abstractions, <strong>festina lente is a survival strategy</strong>. The industry encourages you to chase every new shiny thing, but adopting technology too quickly can lead to attempting to keep up with the latest trends at the expense of feeling overwhelmed. Festina lente reminds you to <strong>pause and reflect</strong> before jumping on the next bandwagon. Take the time to evaluate whether a new technology truly fits your needs, aligns with your goals, and is worth the investment of learning and integration.</p>
-<p>Once the decision to learn a new technology is made, festina lente encourages you to <strong>approach the learning process with patience and care</strong>. This means avoiding distractions from trying to learn too many things at once, and instead focusing on mastering one technology at a time. It also means being willing to invest the necessary time and effort to truly understand the technology, rather than rushing through tutorials or documentation.</p>
-<h2>Turtle and sail</h2>
-<p><img alt="Festina lente representation by Medici" src="./images/festina_lente.jpg"></p>
-<blockquote>
-<p>Image by © Marie-Lan Nguyen / Wikimedia Commons, CC BY 2.5, https://commons.wikimedia.org/w/index.php?curid=21764505</p>
-</blockquote>
-<p>The phrase <em>festina lente</em> is often associated with the image of a turtle carrying a sail. The turtle represents the slow and steady progress that comes from careful reflection and preparation, while the sail represents the speed and agility that comes from taking action with urgency. Together, they symbolize the balance between speed and caution that is at the heart of the festina lente philosophy.</p>
-<p><img alt="AI pubblications by year" src="./images/ai_publications_yearly.png"></p>
-<p><strong>Steady progress</strong>. The chart above is taken from <a href="https://hai.stanford.edu/assets/files/hai_ai_index_report_2025.pdf">AI Index 2025 Annual Report</a> by Stanford University. It shows the number of AI-related publications per year. The trend is clear: the number of publications is growing steadily over time. This indicates that the field of AI is advancing at a steady pace, with new research and developments being published regularly.</p>
-<p>The risk is that what we learnt just few years ago is becoming obsolete very quickly. I learnt organizing my learning over longer time horizons (approximately 3 to 6 months) to avoid being overwhelmed by the pace of change. I focus on mastering one technology at a time, and I avoid trying to learn too many things at once. I make sure I <strong>consiously decide not to learn</strong> or even explore some technologies that are trending but not relevant for my goals.</p>
-<p>What I most care about is that the turtle 🐢 keeps moving forward steadily, even if slowly.</p>                    </article>
-                </aside><!-- /#featured -->
-                    <section id="content" class="body">
-                        <h1>Other articles</h1>
-                        <hr />
-                        <ol id="posts-list" class="hfeed">
+</footer><!-- /.post-info -->                        <p>The phrase <em>festina lente</em>—“make haste slowly”—was used by the Roman emperor Augustus as a personal motto. Suetonius reports that Augustus repeated it to his generals and administrators as a guiding principle: advance steadily, but never recklessly; act with urgency, but never without reflection. In that sense, the slogan …</p>
+                        <a class="readmore" href="https://www.marcosantoni.com/festina_lente.html">read more</a>
+                    </div><!-- /.entry-content -->
+                </article></li>
 
                 <li><article class="hentry">
                     <header>
@@ -247,31 +361,6 @@ uv<span class="w"> </span>add …</code></pre></div>
         
 </footer><!-- /.post-info -->                        <p>I was looking for a resource to get a deeper understanding of MCP (Model Context Protocol). Rather than looking for resources or books, I opted for RTFM. Actually not the MCP manual as I would not have fun reading protocol specs. I took <a href="https://gofastmcp.com/getting-started/welcome">FastMCP</a> and went through the docs. I …</p>
                         <a class="readmore" href="https://www.marcosantoni.com/explore_fast_mcp.html">read more</a>
-                    </div><!-- /.entry-content -->
-                </article></li>
-
-                <li><article class="hentry">
-                    <header>
-                        <h1><a href="https://www.marcosantoni.com/deep_work_book.html" rel="bookmark"
-                               title="Permalink to Why reading Deep Work">Why reading Deep Work</a></h1>
-                    </header>
-
-                    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2025-04-13T19:35:00+02:00">
-                Published: Sun 13 April 2025
-        </abbr>
-
-                <address class="vcard author">
-                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
-                </address>
-        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
-        
-</footer><!-- /.post-info -->                        <blockquote>
-<p>Shallow Work: Noncognitively demanding, logistical-style tasks, often performed while distracted. These efforts tend not to create much new value in the world and are easy to replicate.</p>
-</blockquote>
-<p>Cal Newport gives this definition of how I spend part of my work-time in his <em>Deep Work</em> book. Checking emails, messaging on Teams …</p>
-                        <a class="readmore" href="https://www.marcosantoni.com/deep_work_book.html">read more</a>
                     </div><!-- /.entry-content -->
                 </article></li>
                     </ol><!-- /#posts-list -->
