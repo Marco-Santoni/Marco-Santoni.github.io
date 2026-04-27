@@ -1,5 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="https://www.marcosantoni.com/" rel="alternate"></link><link href="https://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>https://www.marcosantoni.com/</id><updated>2026-03-22T00:00:00+01:00</updated><entry><title>Panel at PyData Milan: Managing Teams, Stakeholders and Delivery in the GenAI Era</title><link href="https://www.marcosantoni.com/panel-at-pydata-milan-managing-teams-stakeholders-and-delivery-in-the-genai-era.html" rel="alternate"></link><published>2026-03-22T00:00:00+01:00</published><updated>2026-03-22T00:00:00+01:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2026-03-22:/panel-at-pydata-milan-managing-teams-stakeholders-and-delivery-in-the-genai-era.html</id><summary type="html">&lt;p&gt;&lt;img src="../images/pydata-milan-2026/panel.jpg" width="400" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni</title><link href="https://www.marcosantoni.com/" rel="alternate"></link><link href="https://www.marcosantoni.com/feeds/all.atom.xml" rel="self"></link><id>https://www.marcosantoni.com/</id><updated>2026-04-27T00:00:00+02:00</updated><entry><title>An AI-augmented workflow for a yearly coding exam: authoring + grading</title><link href="https://www.marcosantoni.com/an-ai-augmented-workflow-for-a-yearly-coding-exam-authoring-grading.html" rel="alternate"></link><published>2026-04-27T00:00:00+02:00</published><updated>2026-04-27T00:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2026-04-27:/an-ai-augmented-workflow-for-a-yearly-coding-exam-authoring-grading.html</id><summary type="html">&lt;p&gt;Each year I run an end-of-course coding exam for a Big Data Specialist class. The setup had ossified over time: I'd hand-author the exercises, hand-grade dozens of submissions over a weekend, and hand-write per-student feedback reports. It worked, but it didn't scale — and year-over-year consistency drifted because I was the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Each year I run an end-of-course coding exam for a Big Data Specialist class. The setup had ossified over time: I'd hand-author the exercises, hand-grade dozens of submissions over a weekend, and hand-write per-student feedback reports. It worked, but it didn't scale — and year-over-year consistency drifted because I was the only consistency check.&lt;/p&gt;
+&lt;p&gt;This year I rebuilt the workflow around &lt;strong&gt;two AI-powered loops&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Authoring&lt;/strong&gt; — a coding agent generates a new yearly edition from a written rubric.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Grading&lt;/strong&gt; — each student submission is graded per-exercise by the OpenAI API against a reference solution.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This post is about what I learned: &lt;em&gt;what to delegate to the AI, what to lock down with code, and where I still keep a human in the loop&lt;/em&gt;. I won't show the actual exam content (it rotates yearly and is not meant to leak), but I'll show the surrounding scaffolding in detail.&lt;/p&gt;
+&lt;h2&gt;The constraints&lt;/h2&gt;
+&lt;p&gt;The constraints set the shape of everything else:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Yearly editions.&lt;/strong&gt; Each year I publish a new edition with different specifics, so a leaked solution from last year is useless. The skills tested must stay the same.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mixed delivery.&lt;/strong&gt; Several Python exercises (Pandas + SQL), one Power BI exercise, plus two open-ended discussion questions.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These constraints push toward a &lt;em&gt;templated&lt;/em&gt; approach: the shape of the exam stays fixed, the contents rotate.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;Part 1 — Authoring: rubric-driven generation&lt;/h2&gt;
+&lt;p&gt;The hard authoring problem isn't writing one good exercise. It's writing a new set of exercises that together feel &lt;strong&gt;as hard as last year's, no more no less&lt;/strong&gt;. If the bonus is too easy this year, top students walk; if it's too hard, the class average tanks. Either way the score distribution becomes incomparable to previous cohorts.&lt;/p&gt;
+&lt;h3&gt;Step 1: write the rubric first&lt;/h3&gt;
+&lt;p&gt;I wrote a single document — &lt;code&gt;editions/README.md&lt;/code&gt; — that pins the &lt;em&gt;shape&lt;/em&gt; of each exercise:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Difficulty stars (⭐ to ⭐⭐⭐)&lt;/li&gt;
+&lt;li&gt;Expected time (10–25 min)&lt;/li&gt;
+&lt;li&gt;Concepts tested&lt;/li&gt;
+&lt;li&gt;The SQL surface (&lt;code&gt;WHERE&lt;/code&gt;, &lt;code&gt;JOIN&lt;/code&gt;, &lt;code&gt;GROUP BY&lt;/code&gt;, …)&lt;/li&gt;
+&lt;li&gt;The Pandas surface (&lt;code&gt;groupby&lt;/code&gt;, &lt;code&gt;dt.to_period&lt;/code&gt;, &lt;code&gt;diff&lt;/code&gt;, &lt;code&gt;fillna&lt;/code&gt;, …)&lt;/li&gt;
+&lt;li&gt;"Authoring guidance" describing &lt;strong&gt;which knobs to turn between editions&lt;/strong&gt; and which to leave alone&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The rubric is anchored to a known-good edition. So when I author the next year's edition, I'm not inventing complexity from scratch — I'm parametrising the same complexity over a different choice of table, dimension, time bucket, etc. This makes the next edition a &lt;em&gt;constrained transformation&lt;/em&gt;, not an open-ended creative task — exactly the kind of work an LLM does well.&lt;/p&gt;
+&lt;h3&gt;Step 2: the authoring loop&lt;/h3&gt;
+&lt;div class="mermaid"&gt;
+flowchart LR
+    R[editions/README.md&lt;br/&gt;complexity rubric] --&gt; A[Coding agent&lt;br/&gt;Claude Code]
+    P[Previous edition&lt;br/&gt;e.g. editions/2025/] --&gt; A
+    A --&gt; D[Draft new edition:&lt;br/&gt;Esame, esercizio, soluzione, Domande]
+    D --&gt; V[Run soluzione.py&lt;br/&gt;against shared DB]
+    V -- fail --&gt; A
+    V -- ok --&gt; H[Human review:&lt;br/&gt;wording, ambiguity, fairness]
+    H --&gt; S[Ship to students]
+&lt;/div&gt;
+
+&lt;p&gt;I open a coding agent in the repo and prompt with something like:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;"Generate the 2027 edition. Read &lt;code&gt;editions/README.md&lt;/code&gt; for the rubric and &lt;code&gt;editions/2026/&lt;/code&gt; as the most recent example. Create &lt;code&gt;editions/2027/Esame.md&lt;/code&gt;, &lt;code&gt;esercizio.py&lt;/code&gt;, &lt;code&gt;soluzione.py&lt;/code&gt;, &lt;code&gt;Domande.md&lt;/code&gt;. Verify the solution runs end-to-end against the shared SQLite DB and produces coherent CSVs. Don't reuse the entity from 2026."&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The agent reads the rubric and the most recent edition, drafts the four files following the contracted shape, runs the reference solution against the shared DB, reports row counts and a summary, and stops.&lt;/p&gt;
+&lt;h3&gt;What I deliberately did NOT delegate&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Writing the rubric itself.&lt;/strong&gt; That's the institutional memory of "what does this exam test, at what level". An LLM shouldn't draft its own exam standards from scratch — but it can faithfully apply standards that already exist.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;The choice of difficulty caps.&lt;/strong&gt; The bonus is hard &lt;em&gt;on purpose&lt;/em&gt;. The agent doesn't get to make it easier because that's the local optimum on whatever it tried first.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Final review.&lt;/strong&gt; I read every word of the new edition. The agent is fast, not infallible — and exam wording in Italian needs a native ear.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Pitfalls I hit, and how the rubric absorbed them&lt;/h3&gt;
+&lt;p&gt;Three real bugs surfaced while authoring the second edition. Each one became a new line in the rubric so it doesn't recur.&lt;/p&gt;
+&lt;p&gt;The pattern: &lt;strong&gt;whenever the AI got something subtly wrong in a way I had to think about, I codified the lesson in the rubric.&lt;/strong&gt; The rubric grows; future editions get safer.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;Part 2 — Grading: OpenAI API, one exercise at a time&lt;/h2&gt;
+&lt;p&gt;After the exam, dozens of &lt;code&gt;esercizio.py&lt;/code&gt; files land in &lt;code&gt;evaluation/exam_submissions/&amp;lt;student&amp;gt;/&lt;/code&gt;. The hard part of grading isn't producing one good evaluation — it's producing many that are &lt;em&gt;consistent across students&lt;/em&gt; and &lt;em&gt;fair across exercises&lt;/em&gt;.&lt;/p&gt;
+&lt;h3&gt;The bedrock: a section-marker convention&lt;/h3&gt;
+&lt;p&gt;The single most important infrastructure choice was forcing each submission to be &lt;strong&gt;syntactically partitionable&lt;/strong&gt;. Each exercise is wrapped in explicit markers:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# === EXCERCISE N START === do not edit this line&lt;/span&gt;
+&lt;span class="o"&gt;...&lt;/span&gt; &lt;span class="n"&gt;student&lt;/span&gt; &lt;span class="n"&gt;code&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt;
+&lt;span class="c1"&gt;# === EXCERCISE N END === do not edit this line&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Students see this clearly in the template. They are told, in writing and out loud, not to touch these lines. The evaluator's &lt;code&gt;extract_code_sections&lt;/code&gt; is then a single regex.&lt;/p&gt;
+&lt;h3&gt;The grading pipeline&lt;/h3&gt;
+&lt;div class="mermaid"&gt;
+flowchart TD
+    A[exam_submissions/&lt;br/&gt;student folder] --&gt; B[load esercizio.py]
+    B --&gt; C[extract sections&lt;br/&gt;via marker regex]
+    C --&gt; D{for each&lt;br/&gt;exercise N}
+    D --&gt; E[build prompt:&lt;br/&gt;description + reference + student code]
+    E --&gt; F[OpenAI API call]
+    F --&gt; G[parse JSON:&lt;br/&gt;score + feedback]
+    G --&gt; H[merge into&lt;br/&gt;code_evaluation.json]
+    D --&gt; D
+    H --&gt; I[postprocess.py]
+    I --&gt; J[student_reports/&lt;br/&gt;Name.md]
+&lt;/div&gt;
+
+&lt;script type="module"&gt;
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+&lt;/script&gt;
+
+&lt;p&gt;Each exercise is graded &lt;strong&gt;independently&lt;/strong&gt;. The prompt structure is identical across students.&lt;/p&gt;
+&lt;p&gt;A few details that made the pipeline reliable:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Reference comparison.&lt;/strong&gt; Every prompt includes the reference solution's code &lt;em&gt;for that exact exercise&lt;/em&gt;. The model isn't grading in a vacuum; it's comparing against a known-good version on the same task.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Structured JSON output.&lt;/strong&gt; A fixed schema makes downstream merging trivial. No prose-parsing fragility.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Per-exercise scope.&lt;/strong&gt; The model never sees the whole file. It sees one exercise at a time. This keeps the reasoning &lt;em&gt;local&lt;/em&gt;: a student who failed exercise 1 can still get full marks on exercise 5, and the model isn't tempted to "average vibes" across the file.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resume from cache.&lt;/strong&gt; The merged &lt;code&gt;code_evaluation.json&lt;/code&gt; is the source of truth. Re-running the evaluator only grades students that aren't already in it. A transient API failure no longer restarts a 2-hour batch.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;From JSON to per-student markdown&lt;/h3&gt;
+&lt;p&gt;A short &lt;code&gt;postprocess.py&lt;/code&gt; fans the merged JSON out into one markdown report per student:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="gh"&gt;# Valutazione Mario Rossi&lt;/span&gt;
+
+&lt;span class="gs"&gt;**Punteggio totale**&lt;/span&gt;: 17.0/20
+&lt;span class="gs"&gt;**Percentuale**&lt;/span&gt;: 85.0%
+
+&lt;span class="gu"&gt;## Esercizio 1&lt;/span&gt;
+&lt;span class="gs"&gt;**Punteggio**&lt;/span&gt;: 5/5
+&lt;span class="gs"&gt;**Feedback**&lt;/span&gt;:
+&lt;span class="k"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;Implementazione corretta e completa
+&lt;span class="k"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;Buon uso di ORDER BY e di un confronto stretto
+
+&lt;span class="gu"&gt;## Esercizio 2&lt;/span&gt;
+&lt;span class="gs"&gt;**Punteggio**&lt;/span&gt;: 4/5
+&lt;span class="gs"&gt;**Punti di forza**&lt;/span&gt;:
+&lt;span class="k"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;Join multi-tabella corretto
+&lt;span class="gs"&gt;**Suggerimenti di miglioramento**&lt;/span&gt;:
+&lt;span class="k"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;Considera l&amp;#39;uso di &lt;span class="sb"&gt;`parse_dates`&lt;/span&gt; direttamente in &lt;span class="sb"&gt;`read_sql_query`&lt;/span&gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Students get one file with a per-exercise breakdown. I do a final spot-check pass on a sample — usually the AI gradings line up with my own, with disagreement clustered on partially-correct solutions where partial credit is genuinely subjective. That's exactly where I want my human time to go.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;What stays human&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Authoring sign-off.&lt;/strong&gt; I read every word of every new edition.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Open-ended discussion questions.&lt;/strong&gt; Each edition includes two &lt;code&gt;Domande.md&lt;/code&gt; questions probing &lt;em&gt;why&lt;/em&gt; the student did what they did. These are written or oral, reviewed by me. The signal is exactly the kind of thing that gets flattened by an LLM summary.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Takeaway&lt;/h2&gt;
+&lt;p&gt;The interesting question isn't "can AI grade exams" or "can AI write exams". Both are demonstrably yes, and have been for a while. The interesting question is &lt;strong&gt;what's the smallest structure I need to put around the AI&lt;/strong&gt; so its output is consistent year-over-year and fair across dozens of students.&lt;/p&gt;
+&lt;p&gt;For me that turned out to be three pieces of scaffolding:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A &lt;strong&gt;rubric&lt;/strong&gt; that locks down what must stay the same across editions.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;marker convention&lt;/strong&gt; that gives the grader a clean unit of work.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;resume cache&lt;/strong&gt; that makes the whole pipeline idempotent.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Once those three are in place, the AI does what it's good at — fluent text, code comparison, structured feedback — and I do what I'm good at — judging whether the result is fair, and updating the rubric when it isn't.&lt;/p&gt;
+&lt;p&gt;Net result: a process that used to take a weekend per edition and a weekend per grading round now takes a few hours of focused human review on top of the AI's first pass. And the year-over-year consistency, which used to live entirely in my head, now lives in a markdown file that I can hand to a colleague.&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>Panel at PyData Milan: Managing Teams, Stakeholders and Delivery in the GenAI Era</title><link href="https://www.marcosantoni.com/panel-at-pydata-milan-managing-teams-stakeholders-and-delivery-in-the-genai-era.html" rel="alternate"></link><published>2026-03-22T00:00:00+01:00</published><updated>2026-03-22T00:00:00+01:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2026-03-22:/panel-at-pydata-milan-managing-teams-stakeholders-and-delivery-in-the-genai-era.html</id><summary type="html">&lt;p&gt;&lt;img src="../images/pydata-milan-2026/panel.jpg" width="400" /&gt;&lt;/p&gt;
 &lt;p&gt;I had the pleasure of being a guest panelist at &lt;a href="https://www.meetup.com/pydata-milano/events/313716178/"&gt;PyData Milan&lt;/a&gt; on March 18, 2026. The event was hosted at TeamSystem's office in Milan.&lt;/p&gt;
 &lt;p&gt;The panel was about &lt;strong&gt;Managing Teams, Stakeholders and Delivery in the GenAI Era&lt;/strong&gt;. Together with &lt;a href="https://www.linkedin.com/in/parvaneh-shafiei/"&gt;Parvaneh Shafiei&lt;/a&gt; (AI Manager at TUI Musement) and &lt;a href="https://www.linkedin.com/in/albertodanese/"&gt;Alberto Danese …&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img src="../images/pydata-milan-2026/panel.jpg" width="400" /&gt;&lt;/p&gt;
 &lt;p&gt;I had the pleasure of being a guest panelist at &lt;a href="https://www.meetup.com/pydata-milano/events/313716178/"&gt;PyData Milan&lt;/a&gt; on March 18, 2026. The event was hosted at TeamSystem's office in Milan.&lt;/p&gt;

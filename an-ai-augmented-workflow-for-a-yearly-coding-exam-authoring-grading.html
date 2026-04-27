@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>An AI-augmented workflow for a yearly coding exam: authoring + grading</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="Each year I run an end-of-course coding exam for a Big Data Specialist class. The setup had ossified over time: I'd hand-author the exercises,..." />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/training.html">training</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/an-ai-augmented-workflow-for-a-yearly-coding-exam-authoring-grading.html" rel="bookmark"
+             title="Permalink to An AI-augmented workflow for a yearly coding exam: authoring + grading">An AI-augmented workflow for a yearly coding exam: authoring + grading</a></h1>
+      </header>
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2026-04-27T00:00:00+02:00">
+                Published: Mon 27 April 2026
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>Each year I run an end-of-course coding exam for a Big Data Specialist class. The setup had ossified over time: I'd hand-author the exercises, hand-grade dozens of submissions over a weekend, and hand-write per-student feedback reports. It worked, but it didn't scale — and year-over-year consistency drifted because I was the only consistency check.</p>
+<p>This year I rebuilt the workflow around <strong>two AI-powered loops</strong>:</p>
+<ol>
+<li><strong>Authoring</strong> — a coding agent generates a new yearly edition from a written rubric.</li>
+<li><strong>Grading</strong> — each student submission is graded per-exercise by the OpenAI API against a reference solution.</li>
+</ol>
+<p>This post is about what I learned: <em>what to delegate to the AI, what to lock down with code, and where I still keep a human in the loop</em>. I won't show the actual exam content (it rotates yearly and is not meant to leak), but I'll show the surrounding scaffolding in detail.</p>
+<h2>The constraints</h2>
+<p>The constraints set the shape of everything else:</p>
+<ul>
+<li><strong>Yearly editions.</strong> Each year I publish a new edition with different specifics, so a leaked solution from last year is useless. The skills tested must stay the same.</li>
+<li><strong>Mixed delivery.</strong> Several Python exercises (Pandas + SQL), one Power BI exercise, plus two open-ended discussion questions.</li>
+</ul>
+<p>These constraints push toward a <em>templated</em> approach: the shape of the exam stays fixed, the contents rotate.</p>
+<hr>
+<h2>Part 1 — Authoring: rubric-driven generation</h2>
+<p>The hard authoring problem isn't writing one good exercise. It's writing a new set of exercises that together feel <strong>as hard as last year's, no more no less</strong>. If the bonus is too easy this year, top students walk; if it's too hard, the class average tanks. Either way the score distribution becomes incomparable to previous cohorts.</p>
+<h3>Step 1: write the rubric first</h3>
+<p>I wrote a single document — <code>editions/README.md</code> — that pins the <em>shape</em> of each exercise:</p>
+<ul>
+<li>Difficulty stars (⭐ to ⭐⭐⭐)</li>
+<li>Expected time (10–25 min)</li>
+<li>Concepts tested</li>
+<li>The SQL surface (<code>WHERE</code>, <code>JOIN</code>, <code>GROUP BY</code>, …)</li>
+<li>The Pandas surface (<code>groupby</code>, <code>dt.to_period</code>, <code>diff</code>, <code>fillna</code>, …)</li>
+<li>"Authoring guidance" describing <strong>which knobs to turn between editions</strong> and which to leave alone</li>
+</ul>
+<p>The rubric is anchored to a known-good edition. So when I author the next year's edition, I'm not inventing complexity from scratch — I'm parametrising the same complexity over a different choice of table, dimension, time bucket, etc. This makes the next edition a <em>constrained transformation</em>, not an open-ended creative task — exactly the kind of work an LLM does well.</p>
+<h3>Step 2: the authoring loop</h3>
+<div class="mermaid">
+flowchart LR
+    R[editions/README.md<br/>complexity rubric] --> A[Coding agent<br/>Claude Code]
+    P[Previous edition<br/>e.g. editions/2025/] --> A
+    A --> D[Draft new edition:<br/>Esame, esercizio, soluzione, Domande]
+    D --> V[Run soluzione.py<br/>against shared DB]
+    V -- fail --> A
+    V -- ok --> H[Human review:<br/>wording, ambiguity, fairness]
+    H --> S[Ship to students]
+</div>
+
+<p>I open a coding agent in the repo and prompt with something like:</p>
+<blockquote>
+<p><em>"Generate the 2027 edition. Read <code>editions/README.md</code> for the rubric and <code>editions/2026/</code> as the most recent example. Create <code>editions/2027/Esame.md</code>, <code>esercizio.py</code>, <code>soluzione.py</code>, <code>Domande.md</code>. Verify the solution runs end-to-end against the shared SQLite DB and produces coherent CSVs. Don't reuse the entity from 2026."</em></p>
+</blockquote>
+<p>The agent reads the rubric and the most recent edition, drafts the four files following the contracted shape, runs the reference solution against the shared DB, reports row counts and a summary, and stops.</p>
+<h3>What I deliberately did NOT delegate</h3>
+<ul>
+<li><strong>Writing the rubric itself.</strong> That's the institutional memory of "what does this exam test, at what level". An LLM shouldn't draft its own exam standards from scratch — but it can faithfully apply standards that already exist.</li>
+<li><strong>The choice of difficulty caps.</strong> The bonus is hard <em>on purpose</em>. The agent doesn't get to make it easier because that's the local optimum on whatever it tried first.</li>
+<li><strong>Final review.</strong> I read every word of the new edition. The agent is fast, not infallible — and exam wording in Italian needs a native ear.</li>
+</ul>
+<h3>Pitfalls I hit, and how the rubric absorbed them</h3>
+<p>Three real bugs surfaced while authoring the second edition. Each one became a new line in the rubric so it doesn't recur.</p>
+<p>The pattern: <strong>whenever the AI got something subtly wrong in a way I had to think about, I codified the lesson in the rubric.</strong> The rubric grows; future editions get safer.</p>
+<hr>
+<h2>Part 2 — Grading: OpenAI API, one exercise at a time</h2>
+<p>After the exam, dozens of <code>esercizio.py</code> files land in <code>evaluation/exam_submissions/&lt;student&gt;/</code>. The hard part of grading isn't producing one good evaluation — it's producing many that are <em>consistent across students</em> and <em>fair across exercises</em>.</p>
+<h3>The bedrock: a section-marker convention</h3>
+<p>The single most important infrastructure choice was forcing each submission to be <strong>syntactically partitionable</strong>. Each exercise is wrapped in explicit markers:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># === EXCERCISE N START === do not edit this line</span>
+<span class="o">...</span> <span class="n">student</span> <span class="n">code</span> <span class="o">...</span>
+<span class="c1"># === EXCERCISE N END === do not edit this line</span>
+</code></pre></div>
+
+<p>Students see this clearly in the template. They are told, in writing and out loud, not to touch these lines. The evaluator's <code>extract_code_sections</code> is then a single regex.</p>
+<h3>The grading pipeline</h3>
+<div class="mermaid">
+flowchart TD
+    A[exam_submissions/<br/>student folder] --> B[load esercizio.py]
+    B --> C[extract sections<br/>via marker regex]
+    C --> D{for each<br/>exercise N}
+    D --> E[build prompt:<br/>description + reference + student code]
+    E --> F[OpenAI API call]
+    F --> G[parse JSON:<br/>score + feedback]
+    G --> H[merge into<br/>code_evaluation.json]
+    D --> D
+    H --> I[postprocess.py]
+    I --> J[student_reports/<br/>Name.md]
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
+
+<p>Each exercise is graded <strong>independently</strong>. The prompt structure is identical across students.</p>
+<p>A few details that made the pipeline reliable:</p>
+<ul>
+<li><strong>Reference comparison.</strong> Every prompt includes the reference solution's code <em>for that exact exercise</em>. The model isn't grading in a vacuum; it's comparing against a known-good version on the same task.</li>
+<li><strong>Structured JSON output.</strong> A fixed schema makes downstream merging trivial. No prose-parsing fragility.</li>
+<li><strong>Per-exercise scope.</strong> The model never sees the whole file. It sees one exercise at a time. This keeps the reasoning <em>local</em>: a student who failed exercise 1 can still get full marks on exercise 5, and the model isn't tempted to "average vibes" across the file.</li>
+<li><strong>Resume from cache.</strong> The merged <code>code_evaluation.json</code> is the source of truth. Re-running the evaluator only grades students that aren't already in it. A transient API failure no longer restarts a 2-hour batch.</li>
+</ul>
+<h3>From JSON to per-student markdown</h3>
+<p>A short <code>postprocess.py</code> fans the merged JSON out into one markdown report per student:</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># Valutazione Mario Rossi</span>
+
+<span class="gs">**Punteggio totale**</span>: 17.0/20
+<span class="gs">**Percentuale**</span>: 85.0%
+
+<span class="gu">## Esercizio 1</span>
+<span class="gs">**Punteggio**</span>: 5/5
+<span class="gs">**Feedback**</span>:
+<span class="k">-</span><span class="w"> </span>Implementazione corretta e completa
+<span class="k">-</span><span class="w"> </span>Buon uso di ORDER BY e di un confronto stretto
+
+<span class="gu">## Esercizio 2</span>
+<span class="gs">**Punteggio**</span>: 4/5
+<span class="gs">**Punti di forza**</span>:
+<span class="k">-</span><span class="w"> </span>Join multi-tabella corretto
+<span class="gs">**Suggerimenti di miglioramento**</span>:
+<span class="k">-</span><span class="w"> </span>Considera l&#39;uso di <span class="sb">`parse_dates`</span> direttamente in <span class="sb">`read_sql_query`</span>
+...
+</code></pre></div>
+
+<p>Students get one file with a per-exercise breakdown. I do a final spot-check pass on a sample — usually the AI gradings line up with my own, with disagreement clustered on partially-correct solutions where partial credit is genuinely subjective. That's exactly where I want my human time to go.</p>
+<hr>
+<h2>What stays human</h2>
+<ul>
+<li><strong>Authoring sign-off.</strong> I read every word of every new edition.</li>
+<li><strong>Open-ended discussion questions.</strong> Each edition includes two <code>Domande.md</code> questions probing <em>why</em> the student did what they did. These are written or oral, reviewed by me. The signal is exactly the kind of thing that gets flattened by an LLM summary.</li>
+</ul>
+<h2>Takeaway</h2>
+<p>The interesting question isn't "can AI grade exams" or "can AI write exams". Both are demonstrably yes, and have been for a while. The interesting question is <strong>what's the smallest structure I need to put around the AI</strong> so its output is consistent year-over-year and fair across dozens of students.</p>
+<p>For me that turned out to be three pieces of scaffolding:</p>
+<ol>
+<li>A <strong>rubric</strong> that locks down what must stay the same across editions.</li>
+<li>A <strong>marker convention</strong> that gives the grader a clean unit of work.</li>
+<li>A <strong>resume cache</strong> that makes the whole pipeline idempotent.</li>
+</ol>
+<p>Once those three are in place, the AI does what it's good at — fluent text, code comparison, structured feedback — and I do what I'm good at — judging whether the result is fair, and updating the rubric when it isn't.</p>
+<p>Net result: a process that used to take a weekend per edition and a weekend per grading round now takes a few hours of focused human review on top of the AI's first pass. And the year-over-year consistency, which used to live entirely in my head, now lives in a markdown file that I can hand to a colleague.</p>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>
