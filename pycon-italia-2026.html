@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Talk at PyCon Italia 2026</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="In May 2026 I had the opportunity to speak at PyCon Italia 2026 together with my colleague Igor Saggese. The talk was titled "Chatting with Data,..." />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/training.html">training</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/pycon-italia-2026.html" rel="bookmark"
+             title="Permalink to Talk at PyCon Italia 2026">Talk at PyCon Italia 2026</a></h1>
+      </header>
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2026-05-28T00:00:00+02:00">
+                Published: Thu 28 May 2026
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p><img src="../images/pycon-italia-2026/talk1.jpeg" width="400" /></p>
+<p>In May 2026 I had the opportunity to speak at <a href="https://2026.pycon.it/en/event/chatting-with-data-safely-role-based-authorization-for-text-to-sql-agents">PyCon Italia 2026</a> together with my colleague Igor Saggese. The talk was titled <strong>"Chatting with Data, Safely: Role-Based Authorization for Text-to-SQL Agents"</strong>.</p>
+<p>Text-to-SQL agents let users query databases in plain language — which is powerful, but also opens up real security concerns: what happens when a user asks for data they're not supposed to see? Our talk addressed exactly this problem.</p>
+<p>We presented the architecture we built at TeamSystem to enforce role-based access control on top of a Text-to-SQL pipeline. The core idea is to use <a href="https://www.openpolicyagent.org/">Open Policy Agent (OPA)</a> as a policy manager that sits between the agent and the database. OPA evaluates each generated SQL query against a set of access policies before execution, ensuring that users can only retrieve data they are authorised to see — regardless of how they phrased the question.</p>
+<p><img src="../images/pycon-italia-2026/talk2.jpeg" width="400" /></p>
+<p>A key insight from our work is that policies need to operate at the <em>row and column level</em>, not just at the table level. A manager can access all payroll records for their company; an employee can only access their own. OPA's partial evaluation makes it possible to translate these rules into SQL filters that are injected into the query at runtime, decoupling the policy logic entirely from the application code.</p>
+<p>The talk was well received, and the Q&amp;A showed strong interest in how to handle policy edge cases and multi-tenant scenarios. PyCon Italia was a great venue — an engaged audience and a lot of productive conversations afterwards.</p>
+<p>The <a href="https://2026.pycon.it/en/event/chatting-with-data-safely-role-based-authorization-for-text-to-sql-agents">event page</a> has further details about the talk.</p>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>
