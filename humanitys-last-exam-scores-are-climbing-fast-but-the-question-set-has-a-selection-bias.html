@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Humanity's Last Exam: scores are climbing fast, but the question set has a selection bias</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="I listened to the Linear Digressions episode on Humanity's Last Exam (HLE), part of their recurring "Better Know a Benchmark" series. Two things..." />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/training.html">training</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/humanitys-last-exam-scores-are-climbing-fast-but-the-question-set-has-a-selection-bias.html" rel="bookmark"
+             title="Permalink to Humanity's Last Exam: scores are climbing fast, but the question set has a selection bias">Humanity's Last Exam: scores are climbing fast, but the question set has a selection bias</a></h1>
+      </header>
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2026-08-23T00:00:00+02:00">
+                Published: Sun 23 August 2026
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>I listened to the <a href="https://lineardigressions.com/episodes/2026/8/16/better-know-a-benchmark-humanitys-last-exam">Linear Digressions</a> episode on Humanity's Last Exam (HLE), part of their recurring "Better Know a Benchmark" series. Two things stuck with me: how fast the headline score has moved, and a subtle selection bias baked into how the questions were built.</p>
+<h2>The score, and how fast it moved</h2>
+<p><img alt="HLE Dataset design, source" src="https://www.marcosantoni.com/images/humanity_score_overview.avif"></p>
+<p>HLE was built by the Center for AI Safety and Scale AI on a simple, almost aggressive premise: collect thousands of graduate-level questions, across a huge spread of domains, that human experts could answer but AI models couldn't. At launch, that worked. While benchmarks like MMLU and GPQA were already saturating — models clearing 60-80%+ — the best models on HLE scored somewhere between 3% and 13%.</p>
+<p>A year later, top models are clearing 50% and climbing. A benchmark designed to be "the last exam" is being chewed through far faster than its authors expected. The episode also flags something practical: the same model can show a 10-18 percentage point spread depending on which leaderboard reports it (Scale's own, llmstats.com, artificialanalysis.ai), which is a good reminder that "the score" on any benchmark is really a score-plus-methodology, not a single number.</p>
+<h2>The bias in how questions were selected</h2>
+<p>The more interesting part of the episode, to me, is the curation pipeline. One of the first filtering steps for a candidate HLE question was an "LLM difficulty check": if an LLM could already answer it correctly, the question was thrown out.</p>
+<p>That sounds like a reasonable way to keep a benchmark hard. But it has a nasty side effect — it systematically selects for questions where the credited (human-written) answer might actually be <em>wrong</em> and the LLM's rejected answer was <em>right</em>. Any question where the model happened to be correct got filtered out of the set, regardless of whether the model was correct because it reasoned well or because the "expert" answer was flawed. The pipeline had no way to tell those two cases apart, and it structurally favored the second explanation whenever there was a mismatch, since human answers were trusted by default. The episode cites estimates that roughly 30% of the chemistry and biology answers may be wrong for exactly this reason.</p>
+<p>It's a good illustration of a general trap in benchmark design: optimizing a dataset for "makes the model fail" is not the same as optimizing it for "measures a real capability gap." If your filter for inclusion correlates with your filter for correctness, you've quietly built ground-truth noise into the part of the benchmark that matters most — the hard tail everyone is trying to close.</p>
+<h2>Takeaway</h2>
+<p>Rising HLE scores are genuine progress, but the 50%-and-climbing number should be read next to the label-noise caveat, not instead of it. When a benchmark is explicitly built to be adversarial to the systems it measures, the adversarial selection process itself becomes something you have to audit — not just the model.</p>
+<h3>References</h3>
+<p><a href="https://lineardigressions.substack.com/p/better-know-a-benchmark-humanitys">Linear digressions</a></p>
+<p>Image above: <a href="https://labs.scale.com/leaderboard/humanitys_last_exam">Scale labs</a></p>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>
