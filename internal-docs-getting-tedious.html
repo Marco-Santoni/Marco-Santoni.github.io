@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Internal docs getting tedious</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="Has AI improved the way we write and maintain internal documentation? Not by default. What I'm seeing is documentation getting longer, not more..." />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/training.html">training</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/internal-docs-getting-tedious.html" rel="bookmark"
+             title="Permalink to Internal docs getting tedious">Internal docs getting tedious</a></h1>
+      </header>
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2026-08-30T00:00:00+02:00">
+                Published: Sun 30 August 2026
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>Has AI improved the way we write and maintain internal documentation? Not by default. What I'm seeing is documentation getting <em>longer</em>, not more effective.</p>
+<p>Maybe I'm biased — I'm not a fan of long text. So when I open a doc page written by an LLM in its default verbose style, that bias kicks in before I've judged the content. I dislike the page even when what's written is perfectly valid.</p>
+<h2>What are internal docs for?</h2>
+<p>That's the question to start from.</p>
+<p>Should they cover libraries or tools that are already documented publicly? No — that copy goes stale, and any LLM you're pairing with already knows the public docs. A link beats a stale mirror.</p>
+<p>Internal docs should detail only what's specific to your process or your product. Everything else earns a link, not a page.</p>
+<h2>LLMs like text. Humans don't.</h2>
+<p>Left unchecked, an LLM writing docs alongside you pads every section: one sentence becomes a paragraph, one paragraph becomes three. I get bored fast reading long paragraphs, and I doubt I'm the only one.</p>
+<p><strong>Before</strong> (LLM default style):</p>
+<blockquote>
+<p>In order to configure the retry policy for the ingestion service, it's important to understand that the system provides a flexible mechanism allowing developers to customize how failed requests are retried. This is achieved through a configuration parameter, <code>retry_policy</code>, which can be set in the service's configuration file. By adjusting this parameter appropriately, teams can ensure transient failures are handled gracefully without manual intervention, improving the overall reliability of the pipeline.</p>
+</blockquote>
+<p><strong>After</strong>:</p>
+<blockquote>
+<p>Set <code>retry_policy</code> in the service config to control retries on failed ingestion requests. Default: 3 retries, exponential backoff.</p>
+</blockquote>
+<p>Same information, a fifth of the words.</p>
+<p>A few rules I now give my AI assistants when they touch documentation:</p>
+<table>
+<thead>
+<tr>
+<th>Instead of</th>
+<th>Do this</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Long paragraphs</td>
+<td>Fewer words</td>
+</tr>
+<tr>
+<td>Re-explaining a public library/tool</td>
+<td>Link to it, describe only the delta</td>
+</tr>
+<tr>
+<td>Prose describing a flow</td>
+<td>A mermaid diagram</td>
+</tr>
+<tr>
+<td>Prose listing options or edge cases</td>
+<td>A table</td>
+</tr>
+</tbody>
+</table>
+<p>Nothing fancy — just enough friction to stop a doc page from growing for its own sake. I personally instruct my AI assistants with these guidelines.</p>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>
