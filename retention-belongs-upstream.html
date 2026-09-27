@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                        <meta charset="utf-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <meta name="generator" content="Pelican" />
+                        <title>Retention belongs upstream</title>
+                        <link rel="stylesheet" href="https://www.marcosantoni.com/theme/css/main.css" />
+                                <link href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Marco Santoni Atom Feed" />
+    <meta name="description" content="Should a data lake decide when to delete data? The intuitive answer is yes: it stores the data, so it should clean it up. I think the opposite. A..." />
+        </head>
+
+        <body id="index" class="home">
+                <header id="banner" class="body">
+                        <h1><a href="https://www.marcosantoni.com/">Marco Santoni</a></h1>
+                        <nav><ul>
+                                                <li><a href="https://www.marcosantoni.com/pages/about.html">about</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/bookshelf.html">bookshelf</a></li>
+                                                <li><a href="https://www.marcosantoni.com/pages/training.html">training</a></li>
+                                                <li class="active"><a href="https://www.marcosantoni.com/category/posts.html">posts</a></li>
+                        </ul></nav>
+                </header><!-- /#banner -->
+  <section id="content" class="body">
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.marcosantoni.com/retention-belongs-upstream.html" rel="bookmark"
+             title="Permalink to Retention belongs upstream">Retention belongs upstream</a></h1>
+      </header>
+
+      <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2026-09-27T00:00:00+02:00">
+                Published: Sun 27 September 2026
+        </abbr>
+
+                <address class="vcard author">
+                        By                                 <a class="url fn" href="https://www.marcosantoni.com/author/marco-santoni.html">Marco Santoni</a>
+                </address>
+        <p>In <a href="https://www.marcosantoni.com/category/posts.html">posts</a>.</p>
+        
+</footer><!-- /.post-info -->        <p>Should a data lake decide when to delete data? The intuitive answer is yes: it stores the data, so it should clean it up.</p>
+<p>I think the opposite. A data lake should not have retention rules of its own. It should execute the rules of whoever owns the data, reliably and verifiably.</p>
+<p>I recently took part in a review of how retention works on a data lake. The interesting part wasn't the technology. It was deciding <em>who</em> gets to decide.</p>
+<h2>The trap: a second set of rules</h2>
+<p>The source system that produces the data already has retention rules. A customer record lives for N years after the contract ends. A transaction is kept for a period set by business rules.</p>
+<p>If the data lake defines its own retention on top of that, you now have two sources of truth. They drift. The source changes a rule, the lake doesn't notice. Nobody owns the gap between the two, and that gap is where the risk lives.</p>
+<h2>Retention follows the chain of contracts</h2>
+<p>The model I argue for: retention flows along the same contracts that data flows along. Each link applies what it receives from upstream.</p>
+<div class="mermaid">
+flowchart LR
+    S[Source system<br/>owns the rules] -- contract --> SA[Source-aligned<br/>data product]
+    SA -- contract --> CA[Consumer-aligned<br/>data product]
+    S -. deletion events .-> SA
+    SA -. deletion events .-> CA
+    P[Platform<br/>standards + automation] -. enforces .-> SA
+    P -. enforces .-> CA
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
+
+<p>A <strong>source-aligned data product</strong> has no retention logic. It applies the rules of its source system, as stated in the contract between them. When the source deletes a record, it emits a deletion event, and the data product removes the record. The source decides; the data product follows.</p>
+<p>Why? Because the owner of the business logic is the owner of the retention logic. The team that knows what a record <em>means</em> is the team that knows how long it may live. A data engineer on the lake side can't answer that question, and shouldn't try.</p>
+<h2>Consumer-aligned products are where it gets hard</h2>
+<p>One level down, the same pattern should apply: the source-aligned product is upstream, the consumer-aligned product follows.</p>
+<p>But a consumer-aligned product rarely maps one to one to a single input. It joins data from two domains. It aggregates. It anonymises. When a record is deleted upstream, what happens to a monthly aggregate that counted it? To a feature table that combined it with data from another domain?</p>
+<p>Pure inheritance doesn't answer that. Someone has to decide. I see two options:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Upstream contract decides</th>
+<th>Downstream owner decides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where the rule lives</td>
+<td>In the upstream contract: "aggregates may be kept, raw records must go"</td>
+<td>In the consumer-aligned product's own retention policy</td>
+</tr>
+<tr>
+<td>Strength</td>
+<td>Explicit, one owner per rule</td>
+<td>Flexible, fits cross-domain products</td>
+</tr>
+<tr>
+<td>Weakness</td>
+<td>Contracts get complex fast, especially across domains</td>
+<td>Less standardisation, more policies to verify</td>
+</tr>
+</tbody>
+</table>
+<p>Neither is free. The upstream contract keeps ownership clean but pushes a lot of complexity into contracts. Downstream ownership is pragmatic, but only works if that owner is real, named, and accountable. What matters is that the choice is explicit. A consumer-aligned product with <em>no</em> declared answer is the one that will keep deleted data forever.</p>
+<h2>The platform enforces the standard, not the policy</h2>
+<p>So what's left for the platform? A lot, actually. The platform doesn't decide <em>what</em> the retention is. It decides <em>how</em> retention is expressed, propagated and checked, in the same way for every domain.</p>
+<p>A few mechanisms that make this concrete:</p>
+<ul>
+<li><strong>Retention as a mandatory contract field.</strong> A data product can't be deployed without declaring its retention: either inherited from a named upstream contract, or owned, with a named owner. Validated in CI, not in a spreadsheet.</li>
+<li><strong>Standard deletion events.</strong> One event format for "this record is gone", propagated automatically along the lineage. Every data product that consumes it logs that it was applied.</li>
+<li><strong>Automated drift checks.</strong> Periodic jobs compare what the contract declares with what the storage actually holds: records older than their retention, deletion events never acknowledged, products whose upstream contract has changed.</li>
+</ul>
+<p>The platform is strict on the form and neutral on the content. That's what gives you a standard across domains without centralising decisions the platform isn't qualified to make.</p>
+<h2>The hard part is ownership</h2>
+<p>The tools to delete data, propagate events and run checks mostly exist already. What doesn't exist by default is a clear answer to "who decided this retention, and who checks it's still applied?"</p>
+<p>Without that answer, the risk stays, whatever the tooling. With it, the data lake stops being the place where retention is decided and becomes what it should be: the place where it's executed.</p>
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+                <section id="extras" class="body">
+                                <div class="social">
+                                        <h2>social</h2>
+                                        <ul>
+                                                        <li><a href="https://www.marcosantoni.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                                                        <li><a href="https://linkedin.com/in/msantoni">linkedin</a></li>
+                                                        <li><a href="https://twitter.com/mrsantoni">twitter</a></li>
+                                        </ul>
+                                </div><!-- /.social -->
+                </section><!-- /#extras -->
+
+                <footer id="contentinfo" class="body">
+                        <address id="about" class="vcard body">
+                                Proudly powered by <a rel="nofollow" href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a rel="nofollow" href="https://www.python.org/">Python</a>.
+                        </address><!-- /#about -->
+
+                        <p>The theme is by <a rel="nofollow" href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+                </footer><!-- /#contentinfo -->
+
+        </body>
+</html>

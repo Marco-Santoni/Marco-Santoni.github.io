@@ -1,5 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni - posts</title><link href="https://www.marcosantoni.com/" rel="alternate"></link><link href="https://www.marcosantoni.com/feeds/posts.atom.xml" rel="self"></link><id>https://www.marcosantoni.com/</id><updated>2026-08-30T00:00:00+02:00</updated><entry><title>Internal docs getting tedious</title><link href="https://www.marcosantoni.com/internal-docs-getting-tedious.html" rel="alternate"></link><published>2026-08-30T00:00:00+02:00</published><updated>2026-08-30T00:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2026-08-30:/internal-docs-getting-tedious.html</id><summary type="html">&lt;p&gt;Has AI improved the way we write and maintain internal documentation? Not by default. What I'm seeing is documentation getting &lt;em&gt;longer&lt;/em&gt;, not more effective.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Marco Santoni - posts</title><link href="https://www.marcosantoni.com/" rel="alternate"></link><link href="https://www.marcosantoni.com/feeds/posts.atom.xml" rel="self"></link><id>https://www.marcosantoni.com/</id><updated>2026-09-27T00:00:00+02:00</updated><entry><title>Retention belongs upstream</title><link href="https://www.marcosantoni.com/retention-belongs-upstream.html" rel="alternate"></link><published>2026-09-27T00:00:00+02:00</published><updated>2026-09-27T00:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2026-09-27:/retention-belongs-upstream.html</id><summary type="html">&lt;p&gt;Should a data lake decide when to delete data? The intuitive answer is yes: it stores the data, so it should clean it up.&lt;/p&gt;
+&lt;p&gt;I think the opposite. A data lake should not have retention rules of its own. It should execute the rules of whoever owns the data, reliably …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Should a data lake decide when to delete data? The intuitive answer is yes: it stores the data, so it should clean it up.&lt;/p&gt;
+&lt;p&gt;I think the opposite. A data lake should not have retention rules of its own. It should execute the rules of whoever owns the data, reliably and verifiably.&lt;/p&gt;
+&lt;p&gt;I recently took part in a review of how retention works on a data lake. The interesting part wasn't the technology. It was deciding &lt;em&gt;who&lt;/em&gt; gets to decide.&lt;/p&gt;
+&lt;h2&gt;The trap: a second set of rules&lt;/h2&gt;
+&lt;p&gt;The source system that produces the data already has retention rules. A customer record lives for N years after the contract ends. A transaction is kept for a period set by business rules.&lt;/p&gt;
+&lt;p&gt;If the data lake defines its own retention on top of that, you now have two sources of truth. They drift. The source changes a rule, the lake doesn't notice. Nobody owns the gap between the two, and that gap is where the risk lives.&lt;/p&gt;
+&lt;h2&gt;Retention follows the chain of contracts&lt;/h2&gt;
+&lt;p&gt;The model I argue for: retention flows along the same contracts that data flows along. Each link applies what it receives from upstream.&lt;/p&gt;
+&lt;div class="mermaid"&gt;
+flowchart LR
+    S[Source system&lt;br/&gt;owns the rules] -- contract --&gt; SA[Source-aligned&lt;br/&gt;data product]
+    SA -- contract --&gt; CA[Consumer-aligned&lt;br/&gt;data product]
+    S -. deletion events .-&gt; SA
+    SA -. deletion events .-&gt; CA
+    P[Platform&lt;br/&gt;standards + automation] -. enforces .-&gt; SA
+    P -. enforces .-&gt; CA
+&lt;/div&gt;
+
+&lt;script type="module"&gt;
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+&lt;/script&gt;
+
+&lt;p&gt;A &lt;strong&gt;source-aligned data product&lt;/strong&gt; has no retention logic. It applies the rules of its source system, as stated in the contract between them. When the source deletes a record, it emits a deletion event, and the data product removes the record. The source decides; the data product follows.&lt;/p&gt;
+&lt;p&gt;Why? Because the owner of the business logic is the owner of the retention logic. The team that knows what a record &lt;em&gt;means&lt;/em&gt; is the team that knows how long it may live. A data engineer on the lake side can't answer that question, and shouldn't try.&lt;/p&gt;
+&lt;h2&gt;Consumer-aligned products are where it gets hard&lt;/h2&gt;
+&lt;p&gt;One level down, the same pattern should apply: the source-aligned product is upstream, the consumer-aligned product follows.&lt;/p&gt;
+&lt;p&gt;But a consumer-aligned product rarely maps one to one to a single input. It joins data from two domains. It aggregates. It anonymises. When a record is deleted upstream, what happens to a monthly aggregate that counted it? To a feature table that combined it with data from another domain?&lt;/p&gt;
+&lt;p&gt;Pure inheritance doesn't answer that. Someone has to decide. I see two options:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Upstream contract decides&lt;/th&gt;
+&lt;th&gt;Downstream owner decides&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Where the rule lives&lt;/td&gt;
+&lt;td&gt;In the upstream contract: "aggregates may be kept, raw records must go"&lt;/td&gt;
+&lt;td&gt;In the consumer-aligned product's own retention policy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Strength&lt;/td&gt;
+&lt;td&gt;Explicit, one owner per rule&lt;/td&gt;
+&lt;td&gt;Flexible, fits cross-domain products&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Weakness&lt;/td&gt;
+&lt;td&gt;Contracts get complex fast, especially across domains&lt;/td&gt;
+&lt;td&gt;Less standardisation, more policies to verify&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Neither is free. The upstream contract keeps ownership clean but pushes a lot of complexity into contracts. Downstream ownership is pragmatic, but only works if that owner is real, named, and accountable. What matters is that the choice is explicit. A consumer-aligned product with &lt;em&gt;no&lt;/em&gt; declared answer is the one that will keep deleted data forever.&lt;/p&gt;
+&lt;h2&gt;The platform enforces the standard, not the policy&lt;/h2&gt;
+&lt;p&gt;So what's left for the platform? A lot, actually. The platform doesn't decide &lt;em&gt;what&lt;/em&gt; the retention is. It decides &lt;em&gt;how&lt;/em&gt; retention is expressed, propagated and checked, in the same way for every domain.&lt;/p&gt;
+&lt;p&gt;A few mechanisms that make this concrete:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Retention as a mandatory contract field.&lt;/strong&gt; A data product can't be deployed without declaring its retention: either inherited from a named upstream contract, or owned, with a named owner. Validated in CI, not in a spreadsheet.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Standard deletion events.&lt;/strong&gt; One event format for "this record is gone", propagated automatically along the lineage. Every data product that consumes it logs that it was applied.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Automated drift checks.&lt;/strong&gt; Periodic jobs compare what the contract declares with what the storage actually holds: records older than their retention, deletion events never acknowledged, products whose upstream contract has changed.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The platform is strict on the form and neutral on the content. That's what gives you a standard across domains without centralising decisions the platform isn't qualified to make.&lt;/p&gt;
+&lt;h2&gt;The hard part is ownership&lt;/h2&gt;
+&lt;p&gt;The tools to delete data, propagate events and run checks mostly exist already. What doesn't exist by default is a clear answer to "who decided this retention, and who checks it's still applied?"&lt;/p&gt;
+&lt;p&gt;Without that answer, the risk stays, whatever the tooling. With it, the data lake stops being the place where retention is decided and becomes what it should be: the place where it's executed.&lt;/p&gt;</content><category term="posts"></category></entry><entry><title>Internal docs getting tedious</title><link href="https://www.marcosantoni.com/internal-docs-getting-tedious.html" rel="alternate"></link><published>2026-08-30T00:00:00+02:00</published><updated>2026-08-30T00:00:00+02:00</updated><author><name>Marco Santoni</name></author><id>tag:www.marcosantoni.com,2026-08-30:/internal-docs-getting-tedious.html</id><summary type="html">&lt;p&gt;Has AI improved the way we write and maintain internal documentation? Not by default. What I'm seeing is documentation getting &lt;em&gt;longer&lt;/em&gt;, not more effective.&lt;/p&gt;
 &lt;p&gt;Maybe I'm biased — I'm not a fan of long text. So when I open a doc page written by an LLM in its default verbose style …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Has AI improved the way we write and maintain internal documentation? Not by default. What I'm seeing is documentation getting &lt;em&gt;longer&lt;/em&gt;, not more effective.&lt;/p&gt;
 &lt;p&gt;Maybe I'm biased — I'm not a fan of long text. So when I open a doc page written by an LLM in its default verbose style, that bias kicks in before I've judged the content. I dislike the page even when what's written is perfectly valid.&lt;/p&gt;
 &lt;h2&gt;What are internal docs for?&lt;/h2&gt;
